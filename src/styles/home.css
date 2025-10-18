@@ -1,0 +1,179 @@
+:root {
+    --color-primary: #7B3FF2;
+    --color-secondary: #FFD84D;
+    --color-accent: #00BCD4;
+    --color-text: #222;
+    --color-subtext: #666;
+    --color-background: #f9fafc;
+    --color-background-page: #F8F9FA;
+}
+
+.home-container {
+    font-family: "Poppins", sans-serif;
+    color: var(--color-text);
+    background-color: #fff;
+    width: 100%;
+}
+
+/* HERO SECTION */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6rem 0 4rem 0;
+    background-color: #fff;
+    overflow: hidden;
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.splash {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 1;
+    z-index: 0;
+}
+
+.splash-blue-top {
+    background-color: var(--color-accent);
+    width: 250px;
+    height: 250px;
+    top: -50px;
+    left: 100px;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: rotate(20deg);
+}
+
+.splash-blue-bottom {
+    background-color: var(--color-accent);
+    width: 180px;
+    height: 180px;
+    bottom: -80px;
+    left: 200px;
+    border-radius: 60% 40% 30% 70% / 70% 30% 60% 40%;
+    transform: rotate(-10deg);
+}
+
+.hero-text {
+    z-index: 2;
+    padding-left: 2rem;
+    width: 45%;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.hero-text p {
+    font-size: 1.1rem;
+    color: var(--color-subtext);
+    margin-bottom: 2rem;
+}
+
+.btn-adotar {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.btn-adotar:hover {
+    background-color: #00a4b7;
+}
+
+.hero-img {
+    width: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* ENCONTRE SEU COMPANHEIRO */
+.companheiro {
+    text-align: center;
+    padding: 6rem 0;
+    background-color: var(--color-background-page);
+    width: 70%;
+    margin: 0 auto;
+}
+
+.companheiro h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.companheiro-cards {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.card {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.card-cat-splash::before {
+    background-color: var(--color-secondary);
+    border-radius: 40% 60% 80% 30% / 40% 50% 60% 50%;
+}
+
+.card-dog-splash::before {
+    background-color: var(--color-primary);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+}
+
+.card img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    z-index: 1;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    z-index: 1;
+}
