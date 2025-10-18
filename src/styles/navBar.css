@@ -1,0 +1,148 @@
+/* VARIÁVEIS DE CORES */
+:root {
+  --color-primary: #7B3FF2;
+  --color-secondary: #FFD84D;
+  --color-fucsia-hover: #E020AB;
+  --color-text-dark: #222;
+  --color-text-sub: #666;
+  --color-background-page: #F8F9FA;
+}
+
+* {
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0.8rem 4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 50px;
+  width: 70%;
+  margin: 0 auto;
+  background-color: var(--color-background-page);
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary);
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-primary);
+}
+
+/* LINKS DE NAVEGAÇÃO */
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin-right: auto;
+  margin-left: 2rem;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--color-text-dark);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.3s, border-bottom 0.3s;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-secondary);
+}
+
+/* ÍCONES E BOTÃO DE LOGIN */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* CONTAINER DA BUSCA */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* CAMPO DE BUSCA */
+.search-input {
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  padding: 0.4rem 2.5rem 0.4rem 1rem;
+  width: 150px;
+  font-size: 1rem;
+  color: var(--color-text-sub);
+  background-color: #f0f0f0;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+}
+
+/* ÍCONE DE BUSCA DENTRO DO CAMPO */
+.icon-search {
+  position: absolute;
+  right: 12px;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.icon-search:hover {
+  color: var(--color-primary);
+}
+
+/* ÍCONE DE USUÁRIO */
+.icon-user {
+  color: var(--color-text-dark);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.icon-user:hover {
+  color: var(--color-primary);
+}
+
+/* BOTÃO DE LOGIN (com ícone) */
+.btn-login-icon {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: var(--color-text-dark);
+  border: none;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+/* Hover do Botão de Login */
+.btn-login-icon:hover,
+.btn-login-icon:hover .icon-login,
+.btn-login-icon:hover .login-text {
+  color: var(--color-primary);
+}
+
+.btn-login-icon .icon-login {
+  margin-right: 0.5rem;
+  transition: color 0.3s;
+}

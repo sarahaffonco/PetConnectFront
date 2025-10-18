@@ -1,0 +1,137 @@
+/* ========================================================= */
+/* FOOTER */
+/* ========================================================= */
+
+.footer-container {
+    background-color: #fff;
+    padding: 3rem 0 1rem 0;
+    position: relative;
+    overflow: hidden;
+    color: var(--color-text);
+    text-align: left;
+    margin-top: 4rem;
+    width: 100%;
+}
+
+/* CONTEÚDO PRINCIPAL DO FOOTER */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    width: 70%;
+    margin: 0 auto;
+    z-index: 1;
+    position: relative;
+}
+
+.footer-col {
+    flex: 1;
+    max-width: 25%;
+}
+
+.footer-col h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+/* LOGO E REDES SOCIAIS */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.footer-logo .logo-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 0.5rem;
+}
+
+.logo-tagline {
+    font-size: 0.9rem;
+    color: var(--color-subtext);
+    margin-bottom: 1.5rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    color: #000;
+    font-size: 1.3rem;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: var(--color-primary);
+}
+
+/* LINKS E TEXTO COMUM */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a, .footer-col p {
+    color: var(--color-subtext);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.footer-col a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+
+
+/* SPLASHES DE CANTO DO FOOTER */
+.footer-splash {
+    position: absolute;
+    background-color: var(--color-accent);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Splash Topo Esquerdo */
+.splash-top-left {
+    top: -150px;
+    left: -150px;
+    border-radius: 30% 70% 50% 50% / 50% 50% 70% 30%;
+}
+
+/* Splash Fundo Direito */
+.splash-bottom-right {
+    bottom: -150px;
+    right: -150px;
+    border-radius: 50% 30% 70% 30% / 30% 70% 30% 70%;
+}
+
+/* LINHA INFERIOR (COPYRIGHT) */
+.footer-bottom {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: var(--color-subtext);
+    position: relative;
+    z-index: 1;
+}
