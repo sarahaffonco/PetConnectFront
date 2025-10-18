@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import AppRouter from "./router/router";
+import ModalLogin from "./modal/modalLogin";
+import ModalCadastroUsuario from "./modal/modalCadastroUsuario";
+import "./styles/app.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isCadastroOpen, setIsCadastroOpen] = useState(false);
+
+  const abrirLogin = () => {
+    setIsLoginOpen(true);
+    setIsCadastroOpen(false);
+  };
+
+  const abrirCadastro = () => {
+    setIsCadastroOpen(true);
+    setIsLoginOpen(false);
+  };
+
+  const fecharModais = () => {
+    setIsLoginOpen(false);
+    setIsCadastroOpen(false);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <AppRouter onLoginClick={abrirLogin} />
+      <ModalLogin
+        isOpen={isLoginOpen}
+        onClose={fecharModais}
+        onCadastrarClick={abrirCadastro}
+      />
+      <ModalCadastroUsuario
+        isOpen={isCadastroOpen}
+        onClose={fecharModais}
+      />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
