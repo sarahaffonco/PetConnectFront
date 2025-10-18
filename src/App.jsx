@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AppRouter from "./router/router";
-import ModalLogin from "./modal/modalLogin";
-import ModalCadastroUsuario from "./modal/modalCadastroUsuario";
+import ModalLogin from "./models/modalLogin";
+import ModalCadastroUsuario from "./models/modalCadastroUsuario";
 import "./styles/app.css";
 
 function App() {

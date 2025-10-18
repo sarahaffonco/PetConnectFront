@@ -1,4 +1,4 @@
-import "../styles/modal.css";
+import "../styles/models.css";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
