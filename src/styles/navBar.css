@@ -108,7 +108,7 @@
   outline: none;
   transition: all 0.3s ease;
   border: 1px solid #e9ecef;
-  height: 32px; /* Altura fixa */
+  height: 32px; 
 }
 
 .search-input:focus {
