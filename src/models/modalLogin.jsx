@@ -26,7 +26,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowError(true); // Simula erro de login
+    setShowError(true);
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);

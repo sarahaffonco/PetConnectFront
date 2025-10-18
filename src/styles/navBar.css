@@ -1,33 +1,32 @@
-/* estilos gerais da navbar */
+/* ESTILOS DA NAVBAR */
 :root {
   --color-primary: #7B3FF2;
   --color-secondary: #FFD84D;
-  --color-fucsia-hover: #E020AB;
   --color-text-dark: #222;
   --color-text-sub: #666;
   --color-background-page: #F8F9FA;
-}
-
-* {
-  text-decoration: none;
-}
+  --container-width: 1200px;}
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  padding: 0.8rem 4rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border-radius: 50px;
-  width: 70%;
-  margin: 0 auto;
+  width: var(--container-width);
+  margin: 1rem auto;
   background-color: var(--color-background-page);
+  position: relative;
+  z-index: 1000;
+  height: 50px;
+  min-height: 50px;
 }
 
 /* LOGO */
 .logo {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -40,35 +39,54 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--color-primary);
+  text-decoration: none;
 }
 
 /* LINKS DE NAVEGAÇÃO */
 .nav-links {
   list-style: none;
   display: flex;
-  margin-right: auto;
-  margin-left: 2rem;
-  gap: 2rem;
+  margin: 0 auto;
+  gap: 2.5rem;
+  padding: 0;
+  align-items: center;
 }
 
 .nav-links a {
   color: var(--color-text-dark);
   font-weight: 500;
-  padding: 0.5rem 0;
-  transition: color 0.3s, border-bottom 0.3s;
+  padding: 0.3rem 0;
+  transition: all 0.3s ease;
   text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  font-size: 0.9rem;
 }
 
 .nav-links a:hover {
   color: var(--color-primary);
-  border-bottom: 3px solid var(--color-secondary);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-secondary);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 /* ÍCONES E BOTÃO DE LOGIN */
 .nav-icons {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 /* CONTAINER DA BUSCA */
@@ -82,27 +100,41 @@
 .search-input {
   border: 1px solid #ddd;
   border-radius: 50px;
-  padding: 0.4rem 2.5rem 0.4rem 1rem;
+  padding: 0.4rem 2.2rem 0.4rem 1rem;
   width: 150px;
-  font-size: 1rem;
-  color: var(--color-text-sub);
-  background-color: #f0f0f0;
+  font-size: 0.85rem;
+  color: var(--color-text-dark);
+  background-color: #f8f9fa;
   outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  height: 32px; /* Altura fixa */
 }
 
 .search-input:focus {
   border-color: var(--color-primary);
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(123, 63, 242, 0.1);
 }
 
-/* ÍCONE DE BUSCA DENTRO DO CAMPO */
+.search-input::placeholder {
+  color: var(--color-text-sub);
+  font-size: 0.85rem;
+}
+
+/* ÍCONE DE BUSCA */
 .icon-search {
   position: absolute;
-  right: 12px;
+  right: 10px;
   color: var(--color-text-sub);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: color 0.3s;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-search:hover {
@@ -113,36 +145,89 @@
 .icon-user {
   color: var(--color-text-dark);
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   transition: color 0.3s;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-user:hover {
   color: var(--color-primary);
+  background-color: rgba(123, 63, 242, 0.1);
 }
 
-/* BOTÃO DE LOGIN (com ícone) */
+/* BOTÃO DE LOGIN  */
 .btn-login-icon {
   display: flex;
   align-items: center;
   background-color: transparent;
   color: var(--color-text-dark);
-  border: none;
-  padding: 0.6rem 0.8rem;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
   cursor: pointer;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: 600;
+  transition: all 0.3s ease;
   white-space: nowrap;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  height: 32px;
 }
 
-/* Hover do Botão de Login */
-.btn-login-icon:hover,
-.btn-login-icon:hover .icon-login,
-.btn-login-icon:hover .login-text {
-  color: var(--color-primary);
+.btn-login-icon:hover {
+  background-color: var(--color-primary);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(123, 63, 242, 0.3);
 }
 
 .btn-login-icon .icon-login {
-  margin-right: 0.5rem;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-login-icon:hover .icon-login {
+  color: white;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  .navbar {
+    width: 85%;
+    padding: 0.5rem 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .search-input {
+    width: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 90%;
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    height: auto;
+    min-height: 50px;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin: 0.8rem 0 0 0;
+    gap: 1rem;
+  }
+
+  .search-input {
+    width: 110px;
+  }
 }
