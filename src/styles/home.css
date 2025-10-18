@@ -13,7 +13,8 @@
     font-family: "Poppins", sans-serif;
     color: var(--color-text);
     background-color: #fff;
-    width: 100%;
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 /* HERO SECTION */
@@ -21,14 +22,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6rem 0 4rem 0;
+    padding: 6rem 5% 4rem 5%;
     background-color: #fff;
     overflow: hidden;
     position: relative;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 1200px;
 }
 
+/* SPLASHES (SEM MUDANÇA) */
 .splash {
     position: absolute;
     border-radius: 50%;
@@ -58,7 +62,7 @@
 
 .hero-text {
     z-index: 2;
-    padding-left: 2rem;
+    padding-left: 0;
     width: 45%;
 }
 
@@ -103,10 +107,11 @@
 /* ENCONTRE SEU COMPANHEIRO */
 .companheiro {
     text-align: center;
-    padding: 6rem 0;
+    padding: 6rem 5%;
     background-color: var(--color-background-page);
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .companheiro h2 {
@@ -177,4 +182,40 @@
     font-weight: 600;
     color: var(--color-text);
     z-index: 1;
+}
+
+/* RESPONSIVIDADE ADICIONAL PARA MOBILE */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+    }
+
+    .hero-text {
+        width: 100%;
+        padding: 0 5%;
+        order: 2;
+    }
+
+    .hero-img {
+        width: 80%;
+        margin-bottom: 2rem;
+        order: 1;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .companheiro-cards {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+    }
 }

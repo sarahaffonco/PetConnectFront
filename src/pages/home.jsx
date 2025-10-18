@@ -1,5 +1,4 @@
 import '../styles/home.css'
-
 import dogHero from '../assets/pets.png'
 import catIcon from '../assets/cats.png'
 import dogIcon from '../assets/dogs.png'

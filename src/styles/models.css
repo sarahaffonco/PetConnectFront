@@ -1,11 +1,8 @@
 /* Definição de Cores*/
 :root {
   --color-primary: #7B3FF2;
-  /* Roxo */
   --color-accent: #00BCD4;
-  /* Ciano/Turquesa */
   --color-secondary: #FFD84D;
-  /* Amarelo */
   --color-text-dark: #222;
   --color-text-light: #666;
   --color-background: #F8F9FA;
@@ -26,28 +23,46 @@
   z-index: 1000;
 }
 
+/* CONTAINER PRINCIPAL - TAMANHO FIXO PARA TODAS */
 .modal-container {
   background-color: #fff;
   border-radius: 15px;
   padding: 2rem;
-  width: 420px;
-  max-width: 90%;
+  width: 400px;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
+  box-sizing: border-box;
 }
 
+/* Botão fechar padrão */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #111;
+  cursor: pointer;
+  font-weight: 700;
+  z-index: 10;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*  MODAL LOGIN  */
 .modal-login {
   border: 1px solid #ddd;
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 2rem 2.5rem;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 420px;
-  max-width: 90%;
 }
 
 /* Título centralizado */
@@ -57,44 +72,58 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
 }
 
-/* ===== FORM ===== */
+/*  FORM  */
 .modal-login .modal-form {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: center;
+  gap: 1rem;
+}
+
+/* Section do formulário */
+.modal-login .form-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   gap: 0.8rem;
 }
 
-/* Labels */
+/* Labels alinhados à esquerda */
 .modal-login label {
-  align-self: flex-start;
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--color-text-dark);
   margin-bottom: 0.3rem;
-  margin-left: 0.3rem;
+  margin-left: 0.5rem;
 }
 
 /* Campo + ícone */
 .modal-login .input-with-icon {
   position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 /* Inputs arredondados */
 .modal-login .yellow-input {
   width: 100%;
   background-color: #fff8d1;
-  /* Amarelo suave */
   border: 1px solid #f5e087;
   padding: 0.9rem 3rem 0.9rem 1.2rem;
   border-radius: 50px;
   color: var(--color-text-dark);
   font-size: 0.95rem;
   transition: all 0.2s;
+  box-sizing: border-box;
 }
 
 .modal-login .yellow-input::placeholder {
@@ -116,9 +145,15 @@
   transform: translateY(-50%);
   color: var(--color-text-dark);
   cursor: pointer;
+  width: 16px;
+  height: 16px;
 }
 
-/* Link "Esqueci a senha" */
+.modal-login .password-icon {
+  cursor: pointer;
+}
+
+/* Link "Esqueci a senha" alinhado à direita */
 .modal-login .forgot-password-link {
   align-self: flex-end;
   font-size: 0.85rem;
@@ -133,22 +168,24 @@
   text-decoration: underline;
 }
 
-/* Mensagem de erro */
+/* Mensagem de erro centralizada */
 .modal-login .error-message {
-  color: var(--color-secondary);
+  color: #ff4444;
   font-weight: 600;
   text-align: center;
   font-size: 0.95rem;
   margin-top: 0.8rem;
+  width: 100%;
 }
 
-/* Botão Entrar */
+/* Botão Entrar centralizado */
 .modal-login .login-btn-yellow {
   background-color: var(--color-secondary);
   color: var(--color-text-dark);
   border: none;
   border-radius: 50px;
   padding: 0.8rem 2rem;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,6 +196,7 @@
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .modal-login .login-btn-yellow:hover {
@@ -166,41 +204,33 @@
   transform: scale(1.02);
 }
 
-/* Ícone dentro do botão */
-.modal-login .btn-icon {
-  font-size: 1rem;
-}
-
-/* Link “Não tem conta?” */
+/* Link "Não tem conta?" centralizado */
 .modal-login .modal-link {
   text-align: center;
   font-size: 0.9rem;
   margin-top: 1rem;
   color: var(--color-text-dark);
+  width: 100%;
 }
 
-.modal-login .cadastro-link-yellow {
+.modal-login .cadastro-link {
   color: var(--color-primary);
   font-weight: 600;
   text-decoration: none;
 }
 
-.modal-login .cadastro-link-yellow:hover {
+.modal-login .cadastro-link:hover {
   text-decoration: underline;
 }
 
-/* MODAL CADASTRO USUÁRIO - Estilo específico */
+/*  MODAL CADASTRO USUÁRIO  */
 .modal-cadastro-usuario {
   border-top: 5px solid var(--color-primary);
-  padding: 2rem 2.5rem 2.5rem;
-  width: 480px;
-  /* um pouco mais largo para ficar igual ao Figma */
-  max-width: calc(100% - 40px);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
-/* Title */
+/* Title centralizado */
 .modal-cadastro-usuario .modal-title {
   color: var(--color-primary);
   font-size: 1.7rem;
@@ -213,76 +243,60 @@
 .modal-cadastro-usuario .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 0 0.2rem;
+  gap: 1.2rem;
+  width: 100%;
 }
 
-/* Field wrapper to position label as pill */
+/* Field wrapper para posicionar label */
 .modal-cadastro-usuario .field {
   position: relative;
   width: 100%;
 }
 
-/* Label styled as small purple pill overlapping the input (left-aligned) */
+/* Label como pill roxa */
 .modal-cadastro-usuario .field>label {
   position: absolute;
-  top: 8px;
-  /* tweak to vertically align pill */
+  top: -10px;
   left: 14px;
-  /* distance from left edge */
   background: #E6D7FF;
-  /* roxinho claro */
   color: var(--color-primary);
   font-weight: 700;
-  font-size: 0.82rem;
-  padding: 6px 10px;
+  font-size: 0.75rem;
+  padding: 4px 10px;
   border-radius: 20px;
   z-index: 3;
-  box-shadow: 0 2px 6px rgba(123, 63, 242, 0.06);
   pointer-events: none;
 }
 
-/* Input appearance (big rounded pill) */
+/* Inputs */
 .modal-cadastro-usuario .purple-input {
   width: 100%;
-  height: 46px;
+  height: 50px;
   background: #EDE6FF;
-  /* tom roxinho sutil (ajustável) */
   border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 28px;
   padding: 16px 18px 12px 18px;
-  /* espaço interno suficiente para label visual */
   font-size: 0.95rem;
   color: var(--color-text-dark);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transition: all 0.16s ease;
+  box-sizing: border-box;
 }
 
-/* placeholder lighter */
 .modal-cadastro-usuario .purple-input::placeholder {
   color: rgba(0, 0, 0, 0.35);
 }
 
-/* focus state */
 .modal-cadastro-usuario .purple-input:focus {
   outline: none;
   border-color: rgba(123, 63, 242, 0.35);
   background: #E6D7FF;
-  box-shadow: 0 6px 18px rgba(123, 63, 242, 0.06);
 }
 
-/* ensure label doesn't overlap text when user types:
-   when input not empty, move label slightly up (visual only) */
-.modal-cadastro-usuario .purple-input:not(:placeholder-shown)+label {
-  transform: translateY(-4px);
-  /* minor lift for effect; label is pointer-events:none */
-}
-
-/* Button centered, larger, with icon-like look */
+/* Botão centralizado */
 .modal-cadastro-usuario .btn-purple {
   margin: 1.4rem auto 0;
-  width: 220px;
-  height: 48px;
+  width: 100%;
+  height: 50px;
   background: var(--color-primary);
   color: #fff;
   border: none;
@@ -293,8 +307,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   box-shadow: 0 8px 18px rgba(123, 63, 242, 0.18);
   transition: transform .12s ease, background .12s ease;
+  box-sizing: border-box;
 }
 
 .modal-cadastro-usuario .btn-purple:hover {
@@ -302,42 +318,9 @@
   background: #6a2de0;
 }
 
-/* adjust close button color so it looks like Figma */
-.modal-cadastro-usuario .close-btn {
-  color: #111;
-  font-weight: 700;
-}
-
-/* small-screen adjustments */
-@media (max-width: 520px) {
-  .modal-cadastro-usuario {
-    width: calc(100% - 32px);
-    padding: 1.6rem;
-  }
-
-  .modal-cadastro-usuario .field>label {
-    left: 12px;
-    top: 6px;
-    padding: 5px 8px;
-    font-size: 0.8rem;
-  }
-
-  .modal-cadastro-usuario .purple-input {
-    height: 44px;
-    padding-top: 14px;
-  }
-
-  .modal-cadastro-usuario .btn-purple {
-    width: 100%;
-  }
-}
-
-/* MODAL CADASTRO PET - Estilo específico */
+/*  MODAL CADASTRO PET  */
 .modal-cadastro-pet {
   border-top: 5px solid var(--color-accent);
-  padding: 2rem 2.5rem 2.5rem;
-  width: 480px;
-  max-width: calc(100% - 40px);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
@@ -353,7 +336,8 @@
 .modal-cadastro-pet .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
+  width: 100%;
 }
 
 .modal-cadastro-pet .field {
@@ -364,14 +348,13 @@
 /* Label azul dentro dos campos */
 .modal-cadastro-pet .field>label {
   position: absolute;
-  top: 8px;
+  top: -10px;
   left: 14px;
   background: #C8F4FA;
-  /* azul clarinho */
   color: var(--color-accent);
   font-weight: 700;
-  font-size: 0.82rem;
-  padding: 6px 10px;
+  font-size: 0.75rem;
+  padding: 4px 10px;
   border-radius: 20px;
   z-index: 3;
   pointer-events: none;
@@ -380,6 +363,7 @@
 /* Inputs arredondados azuis */
 .modal-cadastro-pet .blue-input {
   width: 100%;
+  height: 50px;
   background: #B7F0FA;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 28px;
@@ -387,6 +371,7 @@
   font-size: 0.95rem;
   color: var(--color-text-dark);
   transition: all 0.16s ease;
+  box-sizing: border-box;
 }
 
 .modal-cadastro-pet .blue-input::placeholder {
@@ -399,18 +384,29 @@
   box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.25);
 }
 
-/* Textarea visual igual aos inputs */
+/* Textarea */
 .modal-cadastro-pet textarea.blue-input {
   resize: none;
   min-height: 90px;
   border-radius: 20px;
+  padding: 16px 18px;
+  height: auto;
 }
 
-/* Botão */
+/* Select estilizado */
+.modal-cadastro-pet select.blue-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+}
+
+/* Botão centralizado */
 .modal-cadastro-pet .btn-blue {
   margin: 1.4rem auto 0;
-  width: 220px;
-  height: 48px;
+  width: 100%;
+  height: 50px;
   background: var(--color-accent);
   color: #fff;
   border: none;
@@ -424,6 +420,7 @@
   gap: 0.5rem;
   box-shadow: 0 8px 18px rgba(0, 188, 212, 0.18);
   transition: transform .12s ease, background .12s ease;
+  box-sizing: border-box;
 }
 
 .modal-cadastro-pet .btn-blue:hover {
@@ -431,7 +428,10 @@
   background: #00acc1;
 }
 
-.modal-cadastro-pet .close-btn {
-  color: #111;
-  font-weight: 700;
+/* Ajustes para mobile */
+@media (max-width: 480px) {
+  .modal-container {
+    width: 95%;
+    padding: 1.5rem;
+  }
 }

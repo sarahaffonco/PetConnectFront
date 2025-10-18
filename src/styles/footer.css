@@ -8,6 +8,7 @@
     text-align: left;
     margin-top: 4rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* CONTEÚDO PRINCIPAL DO FOOTER */
@@ -15,15 +16,18 @@
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    width: 70%;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
     z-index: 1;
     position: relative;
+    box-sizing: border-box;
+
 }
 
 .footer-col {
     flex: 1;
-    max-width: 25%;
+    min-width: 200px;
 }
 
 .footer-col h3 {
@@ -92,8 +96,6 @@
     text-decoration: underline;
 }
 
-
-
 /* SPLASHES DE CANTO DO FOOTER */
 .footer-splash {
     position: absolute;
@@ -121,14 +123,56 @@
 
 /* LINHA INFERIOR (COPYRIGHT) */
 .footer-bottom {
-    width: 70%;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    padding-top: 2rem;
+    padding: 2rem 2rem 1rem;
     margin-top: 1rem;
-    border-top: 1px solid #eee;
     font-size: 0.85rem;
     color: var(--color-subtext);
     position: relative;
     z-index: 1;
+    box-sizing: border-box;
+}
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 0 1rem;
+        gap: 1.5rem;
+    }
+
+    .footer-col {
+        max-width: 100%;
+        min-width: unset;
+    }
+
+    .footer-logo {
+        justify-content: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .footer-bottom {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .footer-splash {
+        width: 200px;
+        height: 200px;
+    }
+
+    .splash-top-left {
+        top: -100px;
+        left: -100px;
+    }
+
+    .splash-bottom-right {
+        bottom: -100px;
+        right: -100px;
+    }
 }
