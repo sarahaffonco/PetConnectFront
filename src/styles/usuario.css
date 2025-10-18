@@ -1,0 +1,151 @@
+/* PÁGINA DE USUÁRIOS (ADOTANTES) */
+
+.usuario-page {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(160, 90, 255, 0.1);
+  color: var(--color-text);
+}
+
+.usuario-title {
+  color: var(--color-primary);
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* FORMULÁRIO */
+.usuario-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input {
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #d8c9ff;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 5px rgba(160, 90, 255, 0.3);
+}
+
+/* BOTÕES */
+.btn-roxo {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.btn-roxo:hover {
+  background-color: #6b4fe0;
+}
+
+/* TABELA */
+.usuario-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.usuario-tabela th {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.usuario-tabela td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+.usuario-tabela tr:hover {
+  background-color: #faf7ff;
+}
+
+/* BOTÕES DE AÇÃO */
+.btn-editar,
+.btn-excluir {
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-right: 0.4rem;
+}
+
+.btn-editar {
+  background-color: #b799ff;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #a274ff;
+}
+
+.btn-excluir {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.btn-excluir:hover {
+  background-color: #ff5252;
+}
+/* MENSAGENS DE SUCESSO/ERRO */
+.message-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #c3e6cb;
+}
+.message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #f5c6cb;
+}
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+    .form-group {
+        flex: 1 1 100%;
+    }
+    .usuario-page {
+        margin: 20px;
+        padding: 1rem;
+    }
+}
