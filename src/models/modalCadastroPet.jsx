@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "../styles/modal.css";
+import "../styles/models.css";
 
 export default function ModalCadastroPet({ isOpen, onClose }) {
   useEffect(() => {
