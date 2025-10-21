@@ -56,27 +56,31 @@
 
 /*  MODAL LOGIN  */
 .modal-login {
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 28px;
+  padding: 2.4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.6rem;
+  box-sizing: border-box;
+  position: relative;
 }
 
 /* Título centralizado */
 .modal-login .modal-title {
-  color: var(--color-text-dark);
-  font-size: 1.6rem;
+  color: var(--color-secondary);
+  font-size: 1.7rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  width: 100%;
   justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
 }
 
 /*  FORM  */
@@ -84,45 +88,50 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
-  gap: 1rem;
+  gap: 1.6rem;
 }
 
 /* Section do formulário */
-.modal-login .form-section {
+.modal-login .field {
+  position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  margin-bottom: 1.4rem;
 }
 
-/* Labels alinhados à esquerda */
-.modal-login label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--color-text-dark);
-  margin-bottom: 0.3rem;
-  margin-left: 0.5rem;
+/* Label flutuante em formato pill */
+.modal-login .field>label {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: #fff6b5;
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  z-index: 3;
+  pointer-events: none;
 }
 
 /* Campo + ícone */
 .modal-login .input-with-icon {
   position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
-/* Inputs arredondados */
+/* Input em formato pill */
 .modal-login .yellow-input {
   width: 100%;
+  height: 50px;
   background-color: #fff8d1;
   border: 1px solid #f5e087;
-  padding: 0.9rem 3rem 0.9rem 1.2rem;
-  border-radius: 50px;
-  color: var(--color-text-dark);
+  border-radius: 28px;
+  padding: 16px 44px 12px 18px;
   font-size: 0.95rem;
-  transition: all 0.2s;
+  color: var(--color-text-dark);
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
@@ -131,40 +140,44 @@
 }
 
 .modal-login .yellow-input:focus {
+  outline: none;
   background-color: #fffbe6;
   border-color: var(--color-secondary);
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 216, 77, 0.4);
+  box-shadow: 0 0 0 2px rgba(255, 216, 77, 0.35);
 }
 
-/* Ícones dentro dos inputs */
+/* Ícones alinhados à direita */
 .modal-login .input-icon {
   position: absolute;
-  right: 15px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-text-dark);
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 1rem;
   cursor: pointer;
-  width: 16px;
-  height: 16px;
+  transition: color 0.2s ease;
+}
+
+.modal-login .input-icon:hover {
+  color: var(--color-secondary);
 }
 
 .modal-login .password-icon {
   cursor: pointer;
 }
 
-/* Link "Esqueci a senha" alinhado à direita */
+/* Link "Esqueci a senha"  */
 .modal-login .forgot-password-link {
-  align-self: flex-end;
   font-size: 0.85rem;
   color: var(--color-text-dark);
   text-decoration: none;
-  margin-top: 0.3rem;
-  transition: color 0.2s;
+  text-align: right;
+  display: block;
+  margin-top: 0.2rem;
+  transition: color 0.2s ease;
 }
-
 .modal-login .forgot-password-link:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   text-decoration: underline;
 }
 
@@ -178,45 +191,45 @@
   width: 100%;
 }
 
-/* Botão Entrar centralizado */
+/* Botão Entrar  */
 .modal-login .login-btn-yellow {
   background-color: var(--color-secondary);
-  color: var(--color-text-dark);
+  color: #000;
   border: none;
-  border-radius: 50px;
-  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
   font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
 }
 
 .modal-login .login-btn-yellow:hover {
-  background-color: #e6c245;
-  transform: scale(1.02);
+  background-color: #f5cf3a;
+  transform: translateY(-2px);
 }
 
-/* Link "Não tem conta?" centralizado */
+
+/* Link "Não tem conta?"  */
 .modal-login .modal-link {
   text-align: center;
   font-size: 0.9rem;
-  margin-top: 1rem;
   color: var(--color-text-dark);
-  width: 100%;
+  margin-top: 1rem;
 }
 
 .modal-login .cadastro-link {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   font-weight: 600;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .modal-login .cadastro-link:hover {

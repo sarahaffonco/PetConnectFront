@@ -42,17 +42,18 @@ export default function Footer() {
 
         {/* COLUNA 3: Endereço */}
         <div className="footer-col">
+          <h2> Atlântico Avanti</h2>
           <h3>Endereço</h3>
-          <p>8592 Fairground St, Tallahassee, FL 32303</p>
-          <p>+775 378-6346</p>
-          <p>rgariton@outlook.com</p>
+          <p>Ceará</p>
+          <p>bootcamp@atlantico.com.br</p>
+          <p>(85) 99115-1117</p>
         </div>
 
       </div>
       {/* LINHA DE COPYRIGHT */}
       <div className="footer-bottom">
         <div className="footer-bottom-inner">
-          © 2025 PetMatch. Todos os direitos reservados.
+          © 2025 Realização Squad #09.
         </div>
       </div>
     </footer>

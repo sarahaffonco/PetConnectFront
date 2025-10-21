@@ -46,37 +46,43 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
           ×
         </button>
 
-        <h2 className="modal-title"> <FontAwesomeIcon icon={faPaw} />
-                  <span>Pet Connect</span></h2>
+        <h2 className="modal-title">
+          {" "}
+          <FontAwesomeIcon icon={faPaw} />
+          <span>Pet Connect</span>
+        </h2>
 
         <form className="modal-form" onSubmit={handleSubmit}>
           <div className="form-section">
-            <label>Email</label>
-            <div className="input-with-icon">
-              <input
-                type="email"
-                placeholder="Digite seu email"
-                className="yellow-input"
-                required
-              />
-              <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+            <div className="field">
+              <label>Email</label>
+              <div className="input-with-icon">
+                <input
+                  type="email"
+                  placeholder="Digite seu email"
+                  className="yellow-input"
+                  required
+                />
+                <FontAwesomeIcon icon={faEnvelope} className="input-icon" />
+              </div>
             </div>
 
-            <label>Senha</label>
-            <div className="input-with-icon">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Digite sua senha"
-                className="yellow-input"
-                required
-              />
-              <FontAwesomeIcon
-                icon={showPassword ? faEyeSlash : faEye}
-                className="input-icon password-icon"
-                onClick={togglePasswordVisibility}
-              />
+            <div className="field">
+              <label>Senha</label>
+              <div className="input-with-icon">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Digite sua senha"
+                  className="yellow-input"
+                  required
+                />
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye}
+                  className="input-icon password-icon"
+                  onClick={togglePasswordVisibility}
+                />
+              </div>
             </div>
-
             <a href="#" className="forgot-password-link">
               Esqueci a senha
             </a>
