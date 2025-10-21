@@ -13,13 +13,13 @@
   align-items: center;
   background-color: #fff;
   padding: 0.5rem 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
   border-radius: 50px;
   width: var(--container-width);
   margin: 1rem auto;
   background-color: var(--color-background-page);
   position: relative;
-  z-index: 1000;
+  z-index: 0;
   height: 50px;
   min-height: 50px;
 }
@@ -40,6 +40,11 @@
   gap: 0.5rem;
   color: var(--color-primary);
   text-decoration: none;
+}
+
+.logo a:hover {
+  text-decoration: none;
+  color: var(--color-secondary);
 }
 
 /* LINKS DE NAVEGAÇÃO */
@@ -64,7 +69,7 @@
 }
 
 .nav-links a:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 .nav-links a::after {
@@ -108,13 +113,12 @@
   outline: none;
   transition: all 0.3s ease;
   border: 1px solid #e9ecef;
-  height: 32px; 
+  height: 32px;
 }
 
 .search-input:focus {
-  border-color: var(--color-primary);
   background-color: #fff;
-  box-shadow: 0 0 0 2px rgba(123, 63, 242, 0.1);
+  box-shadow: 0 0 0 2px var(--color-secondary);
 }
 
 .search-input::placeholder {
@@ -138,7 +142,7 @@
 }
 
 .icon-search:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary);
 }
 
 /* ÍCONE DE USUÁRIO */
@@ -155,7 +159,7 @@
 }
 
 .icon-user:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   background-color: rgba(123, 63, 242, 0.1);
 }
 
@@ -178,10 +182,13 @@
 }
 
 .btn-login-icon:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
   color: white;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(123, 63, 242, 0.3);
+  box-shadow: 0 2px 8px var(--color-secondary);
+  border: 1.5px solid var(--color-secondary);
+
+
 }
 
 .btn-login-icon .icon-login {

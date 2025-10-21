@@ -30,11 +30,18 @@
     min-width: 200px;
 }
 
+.footer-col h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+}
+
 .footer-col h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--color-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 /* LOGO E REDES SOCIAIS */
@@ -71,7 +78,7 @@
 }
 
 .social-icon:hover {
-    color: var(--color-primary);
+    color: #FFD84D;
 }
 
 /* LINKS E TEXTO COMUM */
@@ -92,7 +99,7 @@
 }
 
 .footer-col a:hover {
-    color: var(--color-primary);
+    color: #FFD84D;
     text-decoration: underline;
 }
 

@@ -13,7 +13,7 @@
     font-family: "Poppins", sans-serif;
     color: var(--color-text);
     background-color: #fff;
-    width: 100%; 
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -44,7 +44,7 @@
     background-color: var(--color-accent);
     width: 250px;
     height: 250px;
-    top: -50px;
+    top: 40px;
     left: 100px;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     transform: rotate(20deg);
@@ -79,7 +79,7 @@
     margin-bottom: 2rem;
 }
 
-.btn-adotar {
+.blue-btn {
     background-color: var(--color-accent);
     color: white;
     border: none;
@@ -91,7 +91,7 @@
     font-weight: 600;
 }
 
-.btn-adotar:hover {
+.blue-btnr:hover {
     background-color: #00a4b7;
 }
 
@@ -120,6 +120,7 @@
     color: var(--color-text);
     font-weight: 700;
 }
+
 
 .companheiro-cards {
     display: flex;
@@ -183,6 +184,31 @@
     color: var(--color-text);
     z-index: 1;
 }
+
+.card-dog-splash h3 a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.card-dog-splash h3 a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.card-cat-splash h3 a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.card-cat-splash h3 a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
 
 /* RESPONSIVIDADE ADICIONAL PARA MOBILE */
 @media (max-width: 768px) {

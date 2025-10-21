@@ -1,9 +1,13 @@
-import '../styles/home.css'
-import dogHero from '../assets/pets.png'
-import catIcon from '../assets/cats.png'
-import dogIcon from '../assets/dogs.png'
-
+import "../styles/home.css";
+import dogHero from "../assets/pets.png";
+import catIcon from "../assets/cats.png";
+import dogIcon from "../assets/dogs.png";
+import { useState } from "react";
+import ModalCadastroPet from "../models/modalCadastroPet.jsx";
+import { Link } from "react-router-dom";
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="home-container">
       {/* HERO */}
@@ -14,7 +18,15 @@ export default function Home() {
         <div className="hero-text">
           <h1>Connect Pet</h1>
           <p>Conectamos animais e pessoas em um só clique</p>
-          <button className="btn-adotar">Adote</button>
+          {/* Botão para abrir a modal */}
+          <button onClick={() => setIsModalOpen(true)} className="blue-btn">
+            Cadastrar Pet
+          </button>
+          {/* Modal */}
+          <ModalCadastroPet
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+          />{" "}
         </div>
         <div className="hero-img">
           <img src={dogHero} alt="Cachorro" />
@@ -27,16 +39,14 @@ export default function Home() {
         <div className="companheiro-cards">
           <div className="card card-cat-splash">
             <img src={catIcon} alt="Gato" />
-            <h3>Felinos</h3>
+            <h3><Link to="/adocao/gatos">Felinos</Link></h3>
           </div>
           <div className="card card-dog-splash ">
             <img src={dogIcon} alt="Cachorro" />
-            <h3>Caninos</h3>
+            <h3><Link to="/adocao/cachorros">Caninos</Link></h3>
           </div>
         </div>
       </section>
-
-
     </div>
   );
 }

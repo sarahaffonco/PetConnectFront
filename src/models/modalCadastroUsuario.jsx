@@ -24,7 +24,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <button className="close-btn" onClick={onClose}>×</button>
-        <h2 className="modal-title">Cadastro de Usuário</h2>
+        <h2 className="modal-title">Crie sua Conta</h2>
 
         <form className="modal-form">
           <div className="field">
