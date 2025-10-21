@@ -1,7 +1,12 @@
-import '../styles/footer.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faFacebookF, faTwitter, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import "../styles/footer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaw } from "@fortawesome/free-solid-svg-icons";
+import {
+  faInstagram,
+  faFacebookF,
+  faTwitter,
+  faLinkedinIn,
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function Footer() {
   return (
@@ -10,7 +15,6 @@ export default function Footer() {
       <div className="footer-splash splash-bottom-right"></div>
 
       <div className="footer-content">
-
         {/* COLUNA 1: Logo e Redes Sociais */}
         <div className="footer-col footer-col-logo">
           <div className="footer-logo">
@@ -21,10 +25,18 @@ export default function Footer() {
 
           {/* Ícones de Redes Sociais adicionados para corresponder à imagem */}
           <div className="social-icons">
-             <a href="#" className="social-icon"><FontAwesomeIcon icon={faInstagram} /></a>
-             <a href="#" className="social-icon"><FontAwesomeIcon icon={faFacebookF} /></a>
-             <a href="#" className="social-icon"><FontAwesomeIcon icon={faTwitter} /></a>
-             <a href="#" className="social-icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
+            <a href="#" className="social-icon">
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+            <a href="#" className="social-icon">
+              <FontAwesomeIcon icon={faFacebookF} />
+            </a>
+            <a href="#" className="social-icon">
+              <FontAwesomeIcon icon={faTwitter} />
+            </a>
+            <a href="#" className="social-icon">
+              <FontAwesomeIcon icon={faLinkedinIn} />
+            </a>
           </div>
         </div>
 
@@ -32,11 +44,21 @@ export default function Footer() {
         <div className="footer-col">
           <h3>Nossos voluntários</h3>
           <ul>
-            <li><a href="#">Ananda</a></li>
-            <li><a href="#">Ariane</a></li>
-            <li><a href="#">Luis</a></li>
-            <li><a href="#">Paulo</a></li>
-            <li><a href="#">Sarah</a></li>
+            <li>
+              <a href="https://www.linkedin.com/in/anandardrigues">Ananda Rodrigues</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/arianewelke">Ariane Welke</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/devluiis?trk=contact-info ">Luis Paulo</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/pvrezende?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ">Paulo Rezende</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/sarah-jorge-affonco/">Sarah Affonço</a>
+            </li>
           </ul>
         </div>
 
@@ -48,13 +70,10 @@ export default function Footer() {
           <p>bootcamp@atlantico.com.br</p>
           <p>(85) 99115-1117</p>
         </div>
-
       </div>
       {/* LINHA DE COPYRIGHT */}
       <div className="footer-bottom">
-        <div className="footer-bottom-inner">
-          © 2025 Realização Squad #09.
-        </div>
+        <div className="footer-bottom-inner">© 2025 Realização Squad #09.</div>
       </div>
     </footer>
   );
