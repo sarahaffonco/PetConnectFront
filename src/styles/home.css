@@ -44,7 +44,7 @@
     background-color: var(--color-accent);
     width: 250px;
     height: 250px;
-    top: -50px;
+    top: 40px;
     left: 100px;
     border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
     transform: rotate(20deg);

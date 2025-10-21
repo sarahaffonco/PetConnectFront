@@ -13,13 +13,13 @@
   align-items: center;
   background-color: #fff;
   padding: 0.5rem 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.20);
   border-radius: 50px;
   width: var(--container-width);
   margin: 1rem auto;
   background-color: var(--color-background-page);
   position: relative;
-  z-index: 1000;
+  z-index: 0;
   height: 50px;
   min-height: 50px;
 }
@@ -117,7 +117,6 @@
 }
 
 .search-input:focus {
-  border-color: var(--color-secondary);
   background-color: #fff;
   box-shadow: 0 0 0 2px var(--color-secondary);
 }
