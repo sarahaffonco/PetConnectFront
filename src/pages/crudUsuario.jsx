@@ -1,9 +1,11 @@
 // src/pages/UsuarioPage.jsx
 import { useState, useEffect } from "react";
 import "../styles/usuario.css";
+import axios from "axios";
 
 export default function UsuarioPage() {
   const [usuarios, setUsuarios] = useState([]);
+  const API_URL = "http://localhost:3000/api/adopter";
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -14,13 +16,19 @@ export default function UsuarioPage() {
 
   // Simula fetch inicial — futuramente substituir por chamada à API (Ex: GET /api/adotantes)
   useEffect(() => {
-    const mock = [
-      { id: 1, nome: "Maria Silva", email: "maria@email.com", telefone: "99999-9999", endereco: "Rua das Flores, 12" },
-      { id: 2, nome: "João Souza", email: "joao@email.com", telefone: "98888-8888", endereco: "Av. Central, 45" },
-    ];
-    setUsuarios(mock);
-  }, []);
+    const fetchUsuarios = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setUsuarios(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar usuários:", error);
+        setUsuarios([]);
+      }
+    };
 
+    fetchUsuarios();
+  }, []);
+  
   // Criar ou atualizar usuário
   const handleSubmit = (e) => {
     e.preventDefault();

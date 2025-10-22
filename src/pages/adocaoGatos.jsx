@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import { useState, useEffect, useCallback, setLoading, loading } from 'react';
+import axios from 'axios';
 import "../styles/adocaoGatos.css";
 import gatosNovelo from "../assets/gatosNovelo.png";
 import gatosAmigos from "../assets/gatosAmigos.png";
@@ -7,8 +7,8 @@ import miau from "../assets/miau.jpg"
 
 
 
-const API_URL = 'http://localhost:3000/api/pets'; 
-const LIMIT_PER_PAGE = 8; 
+const API_URL = 'http://localhost:3000/api/pets';
+const LIMIT_PER_PAGE = 8;
 
 export default function AdocaoGatos() {
   const [gatos, setGatos] = useState([]);
@@ -19,20 +19,16 @@ export default function AdocaoGatos() {
     idadeMin: '',
     idadeMax: '',
   });
-  const [loading, setLoading] = useState(true);
-  const [paginaAtual, setPaginaAtual] = useState(1);
-  const [totalPages, setTotalPages] = useState(1); 
+ const [paginaAtual, setPaginaAtual] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
-  useEffect(() => {
-    carregarGatos();
-  }, [filtros, paginaAtual]);
-
-  const carregarGatos = async () => {
+  const carregarGatos = useCallback(async () => {
     setLoading(true);
-    
+
+
     const params = {
-      especie: 'gato', 
+      especie: 'gato',
       page: paginaAtual,
       limit: LIMIT_PER_PAGE,
     };
@@ -50,7 +46,7 @@ export default function AdocaoGatos() {
       const response = await axios.get(API_URL, { params });
       // Atualizar os estados com os dados e paginação da API
       const { pets, pagination } = response.data;
-      
+
       // **Ajuste para a foto:** Você precisará garantir que a URL da foto esteja correta no seu banco de dados.
       // Vou simular um campo 'fotoUrl' vindo do backend.
       setGatos(pets);
@@ -65,7 +61,11 @@ export default function AdocaoGatos() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filtros, paginaAtual]);
+
+  useEffect(() => {
+    carregarGatos();
+  }, [carregarGatos]);
 
   const toggleFiltroPersonalidade = (personalidade) => {
     setPaginaAtual(1); // Resetar para a primeira página ao mudar filtros
@@ -76,7 +76,7 @@ export default function AdocaoGatos() {
         : [...prev.personalidade, personalidade]
     }));
   };
-  
+
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setPaginaAtual(newPage);
@@ -111,7 +111,7 @@ export default function AdocaoGatos() {
             <h2>Encontre seu novo companheiro</h2>
           </div>
         </div>
-        
+
         <div className="content-wrapper">
           {/* Sidebar Filters */}
           <aside className="filters-sidebar">
@@ -171,7 +171,7 @@ export default function AdocaoGatos() {
                   <div key={gato.id} className="gato-card">
                     <div className="card-image">
                       {/* Lembre-se: o campo 'foto' deve vir da sua API. Substitua 'gato.foto' pelo campo correto */}
-                      <img src={gato.fotoUrl || miau} alt={gato.nome} /> 
+                      <img src={gato.fotoUrl || miau} alt={gato.nome} />
                       <button className="btn-favorito">♡</button>
                     </div>
                     <div className="card-content">
@@ -187,7 +187,7 @@ export default function AdocaoGatos() {
             {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination">
-                <button 
+                <button
                   className="btn-page"
                   onClick={() => handlePageChange(paginaAtual - 1)}
                   disabled={paginaAtual === 1}
@@ -195,7 +195,7 @@ export default function AdocaoGatos() {
                   ←
                 </button>
                 <span className="page-number active">{paginaAtual} de {totalPages}</span>
-                <button 
+                <button
                   className="btn-page"
                   onClick={() => handlePageChange(paginaAtual + 1)}
                   disabled={paginaAtual === totalPages}

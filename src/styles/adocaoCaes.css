@@ -1,0 +1,354 @@
+.adocao-caes-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  color: var(--color-text);
+}
+
+/* HERO SECTION */
+.adocao-caes-page .hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 100px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  margin-bottom: -30px;
+  margin-top: -13px;
+}
+
+/* Forma decorativa roxa */
+.adocao-caes-page .hero-section::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  top: -50px;
+  left: 10%;
+  z-index: 0;
+}
+
+.adocao-caes-page .hero-content {
+  max-width: 500px;
+  z-index: 2;
+  position: relative;
+}
+
+.adocao-caes-page .hero-badge {
+  display: block;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: -20px;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.adocao-caes-page .hero-section h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.adocao-caes-page .hero-section p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+/* Imagem decorativa */
+.adocao-caes-page .hero-image {
+  position: relative;
+  z-index: 1;
+  width: 550px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Forma ciano atrás */
+.adocao-caes-page .hero-image::before {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 350px;
+  background-color: var(--color-accent);
+  border-radius: 40% 50% 40% 50%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+/* Forma roxa na frente */
+.adocao-caes-page .hero-image::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 380px;
+  background-color: var(--color-primary);
+  border-radius: 60% 60% 50% 60%;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.adocao-caes-page .hero-image img {
+  position: relative;
+  z-index: 3;
+  max-width: 450px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* MAIN CONTENT */
+.adocao-caes-page .main-content {
+  padding: 60px 100px;
+  flex: 1;
+  background-color: #ffffff;
+}
+
+/* Cabeçalho */
+.adocao-caes-page .main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  gap: 60px;
+}
+
+.adocao-caes-page .dogs-section {
+  position: relative;
+  width: 450px;
+  flex-shrink: 0;
+}
+
+.adocao-caes-page .dogs-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adocao-caes-page .dogs-image-container::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 180px;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.adocao-caes-page .dogs-image-container img {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.adocao-caes-page .header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.adocao-caes-page .main-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Cards */
+.adocao-caes-page .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.adocao-caes-page .pet-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.adocao-caes-page .pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.adocao-caes-page .card-image {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.adocao-caes-page .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.adocao-caes-page .btn-favorito {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adocao-caes-page .btn-favorito:hover {
+  background-color: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.adocao-caes-page .card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.adocao-caes-page .card-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+}
+
+.adocao-caes-page .card-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.adocao-caes-page .btn-adotar {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #fff;
+}
+
+.adocao-caes-page .btn-adotar:hover {
+  background-color: var(--color-accent);
+}
+
+/* Paginação */
+.adocao-caes-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.adocao-caes-page .btn-page {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-primary);
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.adocao-caes-page .btn-page:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.adocao-caes-page .btn-page:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.adocao-caes-page .page-number {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Responsivo */
+@media (max-width: 968px) {
+ .adocao-caes-page .adocao-caes-page .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 30px;
+  }
+
+ .adocao-caes-page .adocao-caes-page .main-content {
+    padding: 30px 30px;
+  }
+
+ .adocao-caes-page .adocao-caes-page .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+ .adocao-caes-page .adocao-caes-page .hero-section {
+    padding: 30px 20px;
+  }
+
+ .adocao-caes-page .adocao-caes-page .hero-section h1 {
+    font-size: 32px;
+  }
+
+ .adocao-caes-page .adocao-caes-page .main-content h2 {
+    font-size: 24px;
+  }
+
+ .adocao-caes-page .adocao-caes-page .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+ .adocao-caes-page .adocao-caes-page .hero-image {
+    height: 300px;
+  }
+}
