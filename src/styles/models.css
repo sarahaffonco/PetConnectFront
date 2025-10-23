@@ -8,6 +8,26 @@
   --color-background: #F8F9FA;
 }
 
+.message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -216,6 +236,11 @@
   transform: translateY(-2px);
 }
 
+.modal-login .login-btn-yellow:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
 
 /* Link "Não tem conta?"  */
 .modal-login .modal-link {
@@ -331,11 +356,18 @@
   background: #6a2de0;
 }
 
+.modal-cadastro-usuario .btn-purple:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /*  MODAL CADASTRO PET  */
 .modal-cadastro-pet {
   border-top: 5px solid var(--color-accent);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
 }
 
 .modal-cadastro-pet .modal-title {
@@ -441,10 +473,217 @@
   background: #00acc1;
 }
 
+.modal-cadastro-pet .btn-blue:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* MODAL CRUD USUÁRIO */
+.modal-crud-usuario {
+  border-top: 5px solid var(--color-primary);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modal-crud-usuario .modal-title {
+  color: var(--color-primary);
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 1.6rem 0;
+}
+
+.modal-crud-usuario .modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.modal-crud-usuario .field {
+  position: relative;
+  width: 100%;
+}
+
+.modal-crud-usuario .field > label {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background: #E6D7FF;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.modal-crud-usuario .purple-input {
+  width: 100%;
+  height: 50px;
+  background: #EDE6FF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 28px;
+  padding: 16px 18px 12px 18px;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  transition: all 0.16s ease;
+  box-sizing: border-box;
+}
+
+.modal-crud-usuario .purple-input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.modal-crud-usuario .purple-input:focus {
+  outline: none;
+  border-color: rgba(123, 63, 242, 0.35);
+  background: #E6D7FF;
+}
+
+/* MODAL DELETE USUÁRIO */
+.modal-danger {
+  border-top: 5px solid #ff6b6b;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.modal-danger .modal-title {
+  color: #ff6b6b;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 1.6rem 0;
+}
+
+.delete-warning {
+  background: #fff5f5;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid #ffe0e0;
+  margin: 1.5rem 0;
+}
+
+.delete-warning p {
+  margin-bottom: 1rem;
+  color: #721c24;
+}
+
+.delete-warning ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.delete-warning li {
+  margin-bottom: 0.5rem;
+  color: #721c24;
+}
+
+/* BOTÕES MODAIS */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-purple {
+  margin: 0 auto;
+  width: 100%;
+  height: 50px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 18px rgba(123, 63, 242, 0.18);
+  transition: transform .12s ease, background .12s ease;
+  box-sizing: border-box;
+}
+
+.btn-purple:hover {
+  transform: translateY(-2px);
+  background: #6a2de0;
+}
+
+.btn-purple:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-confirm-delete {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  border: none;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.btn-confirm-delete:hover {
+  background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.btn-confirm-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-cancelar {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.btn-cancelar:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-cancelar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Ajustes para mobile */
 @media (max-width: 480px) {
   .modal-container {
     width: 95%;
     padding: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .btn-cancelar {
+    width: 100%;
+    margin: 0;
   }
 }

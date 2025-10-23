@@ -1,40 +1,37 @@
-import { useState, useEffect, useCallback, setLoading, loading } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import "../styles/adocaoGatos.css";
 import gatosNovelo from "../assets/gatosNovelo.png";
 import gatosAmigos from "../assets/gatosAmigos.png";
-import miau from "../assets/miau.jpg"
-
-
+import miau from "../assets/miau.jpg";
+import { PET_SPECIES } from '../config/constants';
 
 const API_URL = 'http://localhost:3000/api/pets';
 const LIMIT_PER_PAGE = 8;
 
 export default function AdocaoGatos() {
   const [gatos, setGatos] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [filtros, setFiltros] = useState({
     personalidade: [],
-    // Novos filtros que você pode usar da API
     tamanho: '',
     idadeMin: '',
     idadeMax: '',
   });
- const [paginaAtual, setPaginaAtual] = useState(1);
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
   const carregarGatos = useCallback(async () => {
     setLoading(true);
 
-
     const params = {
-      especie: 'gato',
+      especie: PET_SPECIES.CAT,
       page: paginaAtual,
       limit: LIMIT_PER_PAGE,
     };
 
     if (filtros.personalidade.length > 0) {
-        // Envia as personalidades separadas por vírgula
       params.personalidade = filtros.personalidade.join(',');
     }
     if (filtros.tamanho) params.tamanho = filtros.tamanho;
@@ -42,13 +39,13 @@ export default function AdocaoGatos() {
     if (filtros.idadeMax) params.idadeMax = filtros.idadeMax;
 
     try {
-      // Fazer a requisição GET
+      console.log('Buscando gatos com params:', params);
+
       const response = await axios.get(API_URL, { params });
-      // Atualizar os estados com os dados e paginação da API
       const { pets, pagination } = response.data;
 
-      // **Ajuste para a foto:** Você precisará garantir que a URL da foto esteja correta no seu banco de dados.
-      // Vou simular um campo 'fotoUrl' vindo do backend.
+      console.log('Gatos encontrados:', pets);
+
       setGatos(pets);
       setTotalPages(pagination.pages);
       setTotalResults(pagination.total);
@@ -68,7 +65,7 @@ export default function AdocaoGatos() {
   }, [carregarGatos]);
 
   const toggleFiltroPersonalidade = (personalidade) => {
-    setPaginaAtual(1); // Resetar para a primeira página ao mudar filtros
+    setPaginaAtual(1);
     setFiltros(prev => ({
       ...prev,
       personalidade: prev.personalidade.includes(personalidade)
@@ -106,7 +103,6 @@ export default function AdocaoGatos() {
             </div>
           </div>
 
-          {/* Título à direita */}
           <div className="header-content">
             <h2>Encontre seu novo companheiro</h2>
           </div>
@@ -140,43 +136,32 @@ export default function AdocaoGatos() {
                 />
                 Calmo
               </label>
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={filtros.personalidade.includes('energetico')}
-                  onChange={() => toggleFiltroPersonalidade('energetico')}
-                />
-                Energético
-              </label>
-              <label className="checkbox-label">
-                <input
-                  type="checkbox"
-                  checked={filtros.personalidade.includes('amigavel')}
-                  onChange={() => toggleFiltroPersonalidade('amigavel')}
-                />
-                Amigável
-              </label>
             </div>
           </aside>
 
           {/* Cards Grid */}
           <div className="cards-container">
             {loading ? (
-              <div className="loading">Carregando...</div>
+              <div className="loading">Carregando gatinhos...</div>
             ) : totalResults === 0 ? (
-              <div className="no-results">Nenhum gato encontrado com esses filtros</div>
+              <div className="no-results">
+                {gatos.length === 0 ? 'Nenhum gato disponível no momento' : 'Nenhum gato encontrado com esses filtros'}
+              </div>
             ) : (
               <div className="cards-grid">
                 {gatos.map(gato => (
                   <div key={gato.id} className="gato-card">
                     <div className="card-image">
-                      {/* Lembre-se: o campo 'foto' deve vir da sua API. Substitua 'gato.foto' pelo campo correto */}
                       <img src={gato.fotoUrl || miau} alt={gato.nome} />
                       <button className="btn-favorito">♡</button>
                     </div>
                     <div className="card-content">
                       <h3>{gato.nome}</h3>
-                      <p>{gato.descricao}</p>
+                      <p>{gato.descricao || 'Um lindo gatinho à procura de um lar!'}</p>
+                      <div className="pet-info">
+                        <span>📅 {new Date(gato.dataNascimento).toLocaleDateString()}</span>
+                        <span>⚡ {gato.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
+                      </div>
                       <button className="btn-adotar">Ver mais</button>
                     </div>
                   </div>
