@@ -40,7 +40,7 @@
   justify-content: center;
   backdrop-filter: blur(4px);
   transition: opacity 0.3s ease;
-  z-index: 1000;
+  z-index: 3;
 }
 
 /* CONTAINER PRINCIPAL */
@@ -66,7 +66,7 @@
   color: #111;
   cursor: pointer;
   font-weight: 700;
-  z-index: 10;
+  z-index: 3;
   width: 30px;
   height: 30px;
   display: flex;
@@ -367,7 +367,7 @@
   border-top: 5px solid var(--color-accent);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
-  z-index: 1000;
+  z-index: 3;
 }
 
 .modal-cadastro-pet .modal-title {
