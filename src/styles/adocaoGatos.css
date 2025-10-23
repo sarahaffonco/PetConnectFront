@@ -1,571 +1,724 @@
- .adocao-gatos-page {
-   min-height: 100vh;
-   display: flex;
-   flex-direction: column;
-   background-color: #ffffff;
- }
-
- /* Hero Section */
- .adocao-gatos-page .hero-section {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   padding: 80px 100px;
-   background-color: #ffffff;
-   position: relative;
-   overflow: hidden;
-   min-height: 500px;
-   margin-bottom: -30px;
-   margin-top: -13px;
- }
-
- /* Formas decorativas amarelas */
- .adocao-gatos-page .hero-section::before {
-   content: '';
-   position: absolute;
-   width: 180px;
-   height: 180px;
-   background-color: #FFD93D;
-   border-radius: 50%;
-   top: -50px;
-   left: 10%;
-   z-index: 0;
- }
-
- .adocao-gatos-page .hero-content {
-   max-width: 500px;
-   z-index: 2;
-   position: relative;
- }
-
- .adocao-gatos-page .hero-badge {
-   display: block;
-   background-color: transparent;
-   padding: 0;
-   margin-bottom: -20px;
-   color: #FFD93D;
-   text-transform: uppercase;
-   font-weight: 600;
-   font-size: 14px;
-   letter-spacing: 2px;
-   text-align: left;
- }
-
- .adocao-gatos-page .hero-section h1 {
-   font-size: 48px;
-   font-weight: 700;
-   color: #1a1a1a;
-   margin-bottom: 20px;
-   line-height: 1.2;
- }
-
- .adocao-gatos-page .hero-section p {
-   font-size: 16px;
-   color: #666;
-   line-height: 1.6;
-   max-width: 450px;
- }
-
- /* Container da imagem com fundo azul e amarelo */
- .adocao-gatos-page .hero-image {
-   position: relative;
-   z-index: 1;
-   width: 550px;
-   height: 400px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
-
- /* Forma azul ciano atrás */
- .adocao-gatos-page .hero-image::before {
-   content: '';
-   position: absolute;
-   width: 450px;
-   height: 350px;
-   background-color: #00BCD4;
-   border-radius: 50% 50% 0 50%;
-   top: 0;
-   right: 0;
-   z-index: 1;
- }
-
- /* Forma amarela na frente */
- .adocao-gatos-page .hero-image::after {
-   content: '';
-   position: absolute;
-   width: 500px;
-   height: 380px;
-   background-color: #FFD93D;
-   border-radius: 50% 50% 50% 0;
-   bottom: 0;
-   left: 0;
-   z-index: 2;
- }
-
- .adocao-gatos-page .hero-image img {
-   position: relative;
-   z-index: 3;
-   max-width: 450px;
-   height: auto;
-   object-fit: contain;
- }
-
- /* Main Content */
- .adocao-gatos-page .main-content {
-   padding: 60px 100px;
-   flex: 1;
-   background-color: #ffffff;
- }
-
- /* Seção do título com imagem - lado a lado */
- .adocao-gatos-page .main-header {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   margin-bottom: 50px;
-   gap: 60px;
- }
-
- /* Container da imagem dos gatinhos - à esquerda */
- .adocao-gatos-page .cats-section {
-   position: relative;
-   width: 450px;
-   flex-shrink: 0;
- }
-
- .adocao-gatos-page .cats-image-container {
-   position: relative;
-   width: 100%;
-   height: 200px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
-
- /* Forma amarela atrás dos gatinhos */
- .adocao-gatos-page .cats-image-container::before {
-   content: '';
-   position: absolute;
-   width: 420px;
-   height: 180px;
-   background-color: #FFD93D;
-   border-radius: 50%;
-   z-index: 0;
-   left: 50%;
-   transform: translateX(-50%);
- }
-
- .adocao-gatos-page .cats-image-container img {
-   position: relative;
-   z-index: 1;
-   max-width: 100%;
-   height: auto;
-   object-fit: contain;
- }
-
- /* Container do título - à direita */
- .adocao-gatos-page .header-content {
-   flex: 1;
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
- }
-
- .adocao-gatos-page .header-title-row {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
- }
-
- .adocao-gatos-page .main-content h2 {
-   font-size: 36px;
-   font-weight: 700;
-   color: #1a1a1a;
-   margin: 0;
- }
-
- /* Botões de navegação */
- .adocao-gatos-page .nav-buttons {
-   display: flex;
-   gap: 10px;
-   align-items: flex-start;
-   margin-top: -5px;
- }
-
- .adocao-gatos-page .nav-btn {
-   width: 35px;
-   height: 35px;
-   border-radius: 50%;
-   background-color: #1a1a1a;
-   color: white;
-   border: none;
-   cursor: pointer;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-size: 16px;
-   transition: all 0.3s;
- }
-
- .adocao-gatos-page .nav-btn:hover {
-   background-color: #333;
-   transform: scale(1.1);
- }
-
- .adocao-gatos-page .content-wrapper {
-   display: flex;
-   gap: 50px;
-   align-items: flex-start;
- }
-
- /* Sidebar Filters */
- .adocao-gatos-page .filters-sidebar {
-   width: 280px;
-   flex-shrink: 0;
- }
-
- .adocao-gatos-page .filter-section {
-   margin-bottom: 30px;
-   padding-bottom: 20px;
-   border-bottom: 1px solid #e0e0e0;
- }
-
- .adocao-gatos-page .filter-section:last-child {
-   border-bottom: none;
- }
-
- .adocao-gatos-page .filter-section h3 {
-   font-size: 20px;
-   font-weight: 600;
-   margin-bottom: 15px;
-   color: #1a1a1a;
- }
-
- .adocao-gatos-page .filter-section h4 {
-   font-size: 16px;
-   font-weight: 600;
-   margin-bottom: 12px;
-   color: #333;
- }
-
- .adocao-gatos-page .resultados-count {
-   font-size: 14px;
-   color: #666;
-   margin-bottom: 15px;
- }
-
- .adocao-gatos-page .btn-classificar {
-   width: 100%;
-   padding: 10px;
-   background-color: white;
-   border: 2px solid #e0e0e0;
-   border-radius: 8px;
-   font-weight: 600;
-   cursor: pointer;
-   transition: all 0.3s;
- }
-
- .adocao-gatos-page.btn-classificar:hover {
-   border-color: #00BCD4;
-   color: #00BCD4;
- }
-
- .adocao-gatos-page .checkbox-label {
-   display: flex;
-   align-items: center;
-   margin-bottom: 10px;
-   cursor: pointer;
-   font-size: 14px;
-   color: #333;
- }
-
- .adocao-gatos-page .checkbox-label input[type="checkbox"] {
-   margin-right: 10px;
-   width: 18px;
-   height: 18px;
-   cursor: pointer;
-   accent-color: #00BCD4;
- }
-
- /* Cards Container */
- .adocao-gatos-page .cards-container {
-   flex: 1;
- }
-
- .adocao-gatos-page .cards-grid {
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-   gap: 30px;
-   margin-bottom: 40px;
- }
-
- .adocao-gatos-page .gato-card {
-   background: white;
-   border-radius: 16px;
-   overflow: hidden;
-   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-   transition: transform 0.3s, box-shadow 0.3s;
-   cursor: pointer;
- }
-
- .adocao-gatos-page .gato-card:hover {
-   transform: translateY(-5px);
-   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
- }
-
- .adocao-gatos-page .card-image {
-   position: relative;
-   width: 100%;
-   height: 280px;
-   overflow: hidden;
-   background-color: #f9f9f9;
- }
-
- .adocao-gatos-page .card-image img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
- }
-
- .adocao-gatos-page .btn-favorito {
-   position: absolute;
-   top: 15px;
-   right: 15px;
-   width: 40px;
-   height: 40px;
-   background: white;
-   border: none;
-   border-radius: 50%;
-   font-size: 20px;
-   cursor: pointer;
-   transition: all 0.3s;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
- }
-
- .adocao-gatos-page .btn-favorito:hover {
-   background-color: #FFD93D;
-   transform: scale(1.1);
- }
-
- .adocao-gatos-page .card-content {
-   padding: 20px;
- }
-
- .adocao-gatos-page .card-content h3 {
-   font-size: 20px;
-   font-weight: 700;
-   margin-bottom: 8px;
-   color: #1a1a1a;
- }
-
- .adocao-gatos-page .card-content p {
-   font-size: 14px;
-   color: #666;
-   margin-bottom: 15px;
-   line-height: 1.5;
- }
-
- .adocao-gatos-page .btn-adotar {
-   width: 100%;
-   padding: 12px;
-   background-color: #FFD93D;
-   border: none;
-   border-radius: 8px;
-   font-weight: 600;
-   font-size: 14px;
-   cursor: pointer;
-   transition: all 0.3s;
-   color: #333;
- }
-
- .adocao-gatos-page .btn-adotar:hover {
-   background-color: #00BCD4;
-   color: white;
- }
-
- /* Loading and No Results */
- .adocao-gatos-page .loading,
- .adocao-gatos-page .no-results {
-   text-align: center;
-   padding: 60px 20px;
-   font-size: 18px;
-   color: #666;
- }
-
- /* Pagination */
- .adocao-gatos-page .pagination {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   gap: 15px;
-   margin-top: 40px;
- }
-
- .adocao-gatos-page .btn-page {
-   width: 40px;
-   height: 40px;
-   border: 2px solid #1a1a1a;
-   background: white;
-   border-radius: 50%;
-   cursor: pointer;
-   font-size: 18px;
-   transition: all 0.3s;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-weight: bold;
- }
-
- .adocao-gatos-page .btn-page:hover:not(:disabled) {
-   background-color: #1a1a1a;
-   color: white;
- }
-
- .adocao-gatos-page .btn-page:disabled {
-   opacity: 0.3;
-   cursor: not-allowed;
- }
-
- .adocao-gatos-page .page-number {
-   width: 40px;
-   height: 40px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-weight: 600;
-   color: #1a1a1a;
- }
-
- .adocao-gatos-page .page-number.active {
-   background-color: transparent;
-   color: #1a1a1a;
-   font-weight: bold;
- }
-
- /* Responsive */
- @media (max-width: 1200px) {
-   .adocao-gatos-page .adocao-gatos-page .hero-section {
-     padding: 60px 60px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .main-content {
-     padding: 40px 60px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .cards-grid {
-     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-   }
- }
-
- @media (max-width: 968px) {
-   .adocao-gatos-page .adocao-gatos-page .hero-section {
-     flex-direction: column;
-     text-align: center;
-     padding: 40px 30px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .hero-section::before {
-     left: 5%;
-     width: 120px;
-     height: 120px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .hero-content {
-     max-width: 100%;
-     margin-bottom: 40px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .hero-badge {
-     text-align: center;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .hero-image {
-     width: 100%;
-     max-width: 450px;
-     height: 350px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .hero-image::before,
-   .adocao-gatos-page .hero-image::after {
-     width: 300px;
-     height: 250px;
-   }
-
-   /* Main header responsivo */
-   .adocao-gatos-page .adocao-gatos-page .main-header {
-     flex-direction: column;
-     gap: 30px;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .cats-section {
-     width: 100%;
-     order: 1;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .header-content {
-     order: 2;
-     width: 100%;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .header-title-row {
-     flex-direction: column;
-     gap: 20px;
-     align-items: flex-start;
-   }
-
-   .adocao-gatos-page .adocao-gatos-page .main-content h2 {
-     text-align: center;
-     width: 100%;
-   }
-
-   .adocao-gatos-page .nav-buttons {
-     align-self: center;
-   }
-
-   .adocao-gatos-page .content-wrapper {
-     flex-direction: column;
-   }
-
-   .adocao-gatos-page .filters-sidebar {
-     width: 100%;
-   }
-
-   .adocao-gatos-page .main-content {
-     padding: 30px 30px;
-   }
-
-   .adocao-gatos-page .cards-grid {
-     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-     gap: 20px;
-   }
- }
-
- @media (max-width: 600px) {
-   .adocao-gatos-page .hero-section {
-     padding: 30px 20px;
-   }
-
-   .adocao-gatos-page .hero-section h1 {
-     font-size: 32px;
-   }
-
-   .adocao-gatos-page .main-content h2 {
-     font-size: 24px;
-   }
-
-   .adocao-gatos-page .main-content {
-     padding: 30px 20px;
-   }
-
-   .adocao-gatos-page .cards-grid {
-     grid-template-columns: 1fr;
-   }
-
-   .adocao-gatos-page .hero-image {
-     height: 300px;
-   }
- }
+.adocao-gatos-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  color: #1a1a1a;
+}
+
+/* HERO SECTION */
+.adocao-gatos-page .hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 100px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  margin-bottom: -30px;
+  margin-top: -13px;
+}
+
+/* Formas decorativas amarelas */
+.adocao-gatos-page .hero-section::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background-color: #FFD93D;
+  border-radius: 50%;
+  top: -50px;
+  left: 10%;
+  z-index: 0;
+}
+
+.adocao-gatos-page .hero-content {
+  max-width: 500px;
+  z-index: 2;
+  position: relative;
+}
+
+.adocao-gatos-page .hero-badge {
+  display: block;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: -20px;
+  color: #FFD93D;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.adocao-gatos-page .hero-section h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.adocao-gatos-page .hero-section p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+/* Container da imagem com fundo azul e amarelo */
+.adocao-gatos-page .hero-image {
+  position: relative;
+  z-index: 1;
+  width: 550px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Forma azul ciano atrás */
+.adocao-gatos-page .hero-image::before {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 350px;
+  background-color: #00BCD4;
+  border-radius: 50% 50% 0 50%;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+/* Forma amarela na frente */
+.adocao-gatos-page .hero-image::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 380px;
+  background-color: #FFD93D;
+  border-radius: 50% 50% 50% 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.adocao-gatos-page .hero-image img {
+  position: relative;
+  z-index: 3;
+  max-width: 450px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* MAIN CONTENT */
+.adocao-gatos-page .main-content {
+  padding: 60px 100px;
+  flex: 1;
+  background-color: #ffffff;
+}
+
+/* Cabeçalho */
+.adocao-gatos-page .main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  gap: 60px;
+}
+
+.adocao-gatos-page .cats-section {
+  position: relative;
+  width: 450px;
+  flex-shrink: 0;
+}
+
+.adocao-gatos-page .cats-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Forma amarela atrás dos gatinhos */
+.adocao-gatos-page .cats-image-container::before {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 180px;
+  background-color: #FFD93D;
+  border-radius: 50%;
+  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.adocao-gatos-page .cats-image-container img {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.adocao-gatos-page .header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.adocao-gatos-page .main-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+/* Layout com sidebar */
+.adocao-gatos-page .content-wrapper {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Sidebar de Filtros */
+.adocao-gatos-page .filters-sidebar {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.adocao-gatos-page .filter-section {
+  margin-bottom: 25px;
+}
+
+.adocao-gatos-page .filter-section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 15px;
+}
+
+.adocao-gatos-page .filter-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.adocao-gatos-page .resultados-count {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.adocao-gatos-page .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.adocao-gatos-page .checkbox-label input[type="checkbox"],
+.adocao-gatos-page .checkbox-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #00BCD4;
+}
+
+.adocao-gatos-page .idade-filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.adocao-gatos-page .idade-input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.adocao-gatos-page .idade-input label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.adocao-gatos-page .idade-input input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.adocao-gatos-page .idade-input input:focus {
+  outline: none;
+  border-color: #00BCD4;
+}
+
+/* Botão Limpar Filtros */
+.adocao-gatos-page .btn-limpar-filtros {
+  width: 100%;
+  padding: 10px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin-bottom: 15px;
+}
+
+.adocao-gatos-page .btn-limpar-filtros:hover {
+  background: #5a6268;
+}
+
+/* Cards Container */
+.adocao-gatos-page .cards-container {
+  flex: 1;
+}
+
+/* Cards Grid */
+.adocao-gatos-page .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.adocao-gatos-page .gato-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.adocao-gatos-page .gato-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.adocao-gatos-page .card-image {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.adocao-gatos-page .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.adocao-gatos-page .btn-favorito {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adocao-gatos-page .btn-favorito:hover {
+  background-color: #FFD93D;
+  transform: scale(1.1);
+}
+
+.adocao-gatos-page .badge-adotado {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #28a745;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.adocao-gatos-page .card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.adocao-gatos-page .card-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1a1a1a;
+}
+
+.adocao-gatos-page .card-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.adocao-gatos-page .pet-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+.adocao-gatos-page .pet-info span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.adocao-gatos-page .btn-adotar {
+  width: 100%;
+  padding: 12px;
+  background-color: #FFD93D;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #333;
+}
+
+.adocao-gatos-page .btn-adotar:hover {
+  background-color: #00BCD4;
+  color: white;
+}
+
+.adocao-gatos-page .btn-adotado {
+  background-color: #6c757d !important;
+  cursor: not-allowed !important;
+  color: white !important;
+}
+
+.adocao-gatos-page .btn-adotado:hover {
+  background-color: #6c757d !important;
+}
+
+/* Estados de Carregamento e Vazio */
+.adocao-gatos-page .loading,
+.adocao-gatos-page .no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.adocao-gatos-page .erro-mensagem {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb;
+  font-size: 14px;
+}
+
+/* Paginação */
+.adocao-gatos-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.adocao-gatos-page .btn-page {
+  padding: 10px 20px;
+  border: 2px solid #1a1a1a;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: #1a1a1a;
+}
+
+.adocao-gatos-page .btn-page:hover:not(.disabled) {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.adocao-gatos-page .btn-page.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.adocao-gatos-page .page-info {
+  font-weight: 600;
+  color: #666;
+}
+
+.adocao-gatos-page .current-page {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+/* Estilos do Modal de Adoção */
+.adocao-gatos-page .modal-adocao {
+  max-width: 600px;
+}
+
+.adocao-gatos-page .adocao-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.adocao-gatos-page .pet-info-card,
+.adocao-gatos-page .adotante-info-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #00BCD4;
+}
+
+.adocao-gatos-page .pet-info-card h4,
+.adocao-gatos-page .adotante-info-card h4 {
+  margin: 0 0 10px 0;
+  color: #00BCD4;
+  font-size: 16px;
+}
+
+.adocao-gatos-page .pet-info-card p,
+.adocao-gatos-page .adotante-info-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.adocao-gatos-page .modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.adocao-gatos-page .btn-cancelar {
+  padding: 10px 20px;
+  border: 1px solid #dc3545;
+  background: white;
+  color: #dc3545;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.adocao-gatos-page .btn-confirmar {
+  padding: 10px 20px;
+  border: none;
+  background: #28a745;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.adocao-gatos-page .btn-confirmar:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.adocao-gatos-page .aviso-login {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.adocao-gatos-page .aviso-content h3 {
+  color: #856404;
+  margin-bottom: 10px;
+}
+
+.adocao-gatos-page .aviso-content p {
+  margin-bottom: 20px;
+  color: #856404;
+}
+
+.adocao-gatos-page .btn-login {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.adocao-gatos-page .btn-login:hover {
+  background: #0056b3;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1200px) {
+  .adocao-gatos-page .hero-section {
+    padding: 60px 80px;
+  }
+
+  .adocao-gatos-page .main-content {
+    padding: 40px 80px;
+  }
+}
+
+@media (max-width: 968px) {
+  .adocao-gatos-page .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 30px;
+    min-height: auto;
+  }
+
+  .adocao-gatos-page .hero-content {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .adocao-gatos-page .hero-badge {
+    text-align: center;
+  }
+
+  .adocao-gatos-page .main-content {
+    padding: 30px;
+  }
+
+  .adocao-gatos-page .main-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .adocao-gatos-page .cats-section {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .adocao-gatos-page .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .adocao-gatos-page .filters-sidebar {
+    position: static;
+  }
+
+  .adocao-gatos-page .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .adocao-gatos-page .hero-section {
+    padding: 30px 20px;
+  }
+
+  .adocao-gatos-page .hero-section h1 {
+    font-size: 32px;
+  }
+
+  .adocao-gatos-page .hero-image {
+    width: 100%;
+    height: 300px;
+  }
+
+  .adocao-gatos-page .hero-image::before {
+    width: 300px;
+    height: 250px;
+  }
+
+  .adocao-gatos-page .hero-image::after {
+    width: 350px;
+    height: 280px;
+  }
+
+  .adocao-gatos-page .hero-image img {
+    max-width: 350px;
+  }
+
+  .adocao-gatos-page .main-content h2 {
+    font-size: 28px;
+  }
+
+  .adocao-gatos-page .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .adocao-gatos-page .pagination {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .adocao-gatos-page .hero-section {
+    padding: 20px 15px;
+  }
+
+  .adocao-gatos-page .hero-section h1 {
+    font-size: 28px;
+  }
+
+  .adocao-gatos-page .main-content {
+    padding: 20px 15px;
+  }
+
+  .adocao-gatos-page .main-content h2 {
+    font-size: 24px;
+  }
+
+  .adocao-gatos-page .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adocao-gatos-page .card-image {
+    height: 250px;
+  }
+
+  .adocao-gatos-page .filters-sidebar {
+    padding: 20px;
+  }
+}

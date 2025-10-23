@@ -5,89 +5,195 @@ import dogBanner from "../assets/dogBanner.png";
 import dogFriends from "../assets/dogFriends.png";
 import dogDefault from "../assets/dogDefault.png";
 import { useFavoritos } from "../hooks/useFavoritos";
+import { useAuth } from "../hooks/useAuth";
+import ModalAdocao from "../models/modalAdocao";
 
 const API_URL = "http://localhost:3000/api/pets";
 const LIMITE_POR_PAGINA = 8;
 
-export default function AdocaoCaes() {
+export default function AdocaoCaes({ onLoginClick }) {
   const [caes, setCaes] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
   const [totalResultados, setTotalResultados] = useState(0);
   const [carregando, setCarregando] = useState(true);
-  const [mostrarFavoritos, setMostrarFavoritos] = useState(false);
+  const [erro, setErro] = useState("");
+  const [caoSelecionado, setCaoSelecionado] = useState(null);
+  const [modalAdocaoAberto, setModalAdocaoAberto] = useState(false);
 
-  const { favoritos, alternarFavorito, ehFavorito } = useFavoritos();
+  // Estado dos filtros
+  const [filtros, setFiltros] = useState({
+    personalidade: [],
+    tamanho: '',
+    idadeMin: '',
+    idadeMax: '',
+  });
+
+  // eslint-disable-next-line no-unused-vars
+  const { favoritos, alternarFavorito, ehFavorito, carregando: carregandoFavoritos } = useFavoritos();
+  const { usuario } = useAuth();
 
   const carregarCaes = useCallback(async () => {
     setCarregando(true);
+    setErro("");
+
     try {
-      let petsData = [];
+      const params = {
+        especie: "Cachorro",
+        pagina: paginaAtual,
+        limite: LIMITE_POR_PAGINA,
+      };
 
-      if (mostrarFavoritos) {
-        // Mostrar apenas favoritos
-        petsData = favoritos.filter(pet => pet.especie === "Cachorro");
-        setCaes(petsData);
-        setTotalPaginas(1);
-        setTotalResultados(petsData.length);
-      } else {
-        // Carregar todos os cães
-        const response = await axios.get(API_URL, {
-          params: {
-            especie: "Cachorro",
-            pagina: paginaAtual,
-            limite: LIMITE_POR_PAGINA,
-          },
-        });
-
-        const { pets, paginacao } = response.data;
-        petsData = pets;
-        setCaes(pets);
-        setTotalPaginas(paginacao.paginas);
-        setTotalResultados(paginacao.total);
+      // Aplicar filtros
+      if (filtros.personalidade.length > 0) {
+        params.personalidade = filtros.personalidade.join(',');
       }
+      if (filtros.tamanho) params.tamanho = filtros.tamanho;
+      if (filtros.idadeMin) params.idadeMin = filtros.idadeMin;
+      if (filtros.idadeMax) params.idadeMax = filtros.idadeMax;
+
+      console.log('Buscando cães com params:', params);
+
+      const response = await axios.get(API_URL, { params });
+      console.log('Resposta completa da API:', response.data);
+
+      const { pets, paginacao } = response.data;
+
+      if (pets && Array.isArray(pets)) {
+        setCaes(pets);
+
+        if (paginacao) {
+          setTotalPaginas(paginacao.paginas || 1);
+          setTotalResultados(paginacao.total || pets.length);
+        } else {
+          setTotalPaginas(1);
+          setTotalResultados(pets.length);
+        }
+      } else {
+        console.error('Estrutura de resposta inesperada:', response.data);
+        setCaes([]);
+        setTotalPaginas(1);
+        setTotalResultados(0);
+        setErro('Erro ao carregar dados dos cães');
+      }
+
     } catch (error) {
       console.error("Erro ao carregar cães:", error);
+      setErro('Erro ao carregar lista de cães');
       setCaes([]);
+      setTotalPaginas(1);
+      setTotalResultados(0);
     } finally {
       setCarregando(false);
     }
-  }, [paginaAtual, mostrarFavoritos, favoritos]);
+  }, [paginaAtual, filtros]);
 
   useEffect(() => {
     carregarCaes();
   }, [carregarCaes]);
 
+  const handleAdotarClick = (cao) => {
+    if (!usuario) {
+      alert('Você precisa fazer login para adotar um cão!');
+      if (onLoginClick) {
+        onLoginClick();
+      }
+      return;
+    }
+
+    if (cao.status === 'adotado') {
+      alert('Este cãozinho já foi adotado! ❤️');
+      return;
+    }
+
+    setCaoSelecionado(cao);
+    setModalAdocaoAberto(true);
+  };
+
+  const handleAdocaoSucesso = () => {
+    carregarCaes();
+    setCaoSelecionado(null);
+  };
+
+  //  Função handleFavoritoClick completa com verificação de login
   const handleFavoritoClick = async (petId, e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    await alternarFavorito(petId);
-    // Se estiver na view de favoritos, recarrega a lista
-    if (mostrarFavoritos) {
-      carregarCaes();
+    if (!usuario) {
+      alert("Você precisa estar logado para favoritar pets!");
+      if (onLoginClick) {
+        onLoginClick();
+      }
+      return;
     }
+
+    await alternarFavorito(petId);
   };
 
-  const handleAdotarClick = (petId) => {
-    alert(`Processo de adoção iniciado para o pet ${petId}`);
-    console.log("Iniciar adoção do pet:", petId);
+  // Funções de filtro
+  const toggleFiltroPersonalidade = (personalidade) => {
+    setPaginaAtual(1);
+    setFiltros(prev => ({
+      ...prev,
+      personalidade: prev.personalidade.includes(personalidade)
+        ? prev.personalidade.filter(p => p !== personalidade)
+        : [...prev.personalidade, personalidade]
+    }));
   };
 
-  const handleEditarClick = (petId) => {
-    alert(`Editar pet ${petId}`);
-    console.log("Editar pet:", petId);
+  const handleFiltroTamanho = (tamanho) => {
+    setPaginaAtual(1);
+    setFiltros(prev => ({
+      ...prev,
+      tamanho: prev.tamanho === tamanho ? '' : tamanho
+    }));
+  };
+
+  const handleFiltroIdade = (campo, valor) => {
+    setPaginaAtual(1);
+    setFiltros(prev => ({
+      ...prev,
+      [campo]: valor
+    }));
+  };
+
+  const limparFiltros = () => {
+    setPaginaAtual(1);
+    setFiltros({
+      personalidade: [],
+      tamanho: '',
+      idadeMin: '',
+      idadeMax: '',
+    });
   };
 
   const handleMudancaPagina = (novaPagina) => {
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
       setPaginaAtual(novaPagina);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  const toggleFiltroFavoritos = () => {
-    setMostrarFavoritos(!mostrarFavoritos);
-    setPaginaAtual(1);
+  // Calcular idade aproximada do cão
+  const calcularIdade = (dataNascimento) => {
+    const nascimento = new Date(dataNascimento);
+    const hoje = new Date();
+    const diffAnos = hoje.getFullYear() - nascimento.getFullYear();
+    const diffMeses = hoje.getMonth() - nascimento.getMonth();
+
+    const mesesTotais = (diffAnos * 12) + diffMeses;
+
+    if (mesesTotais < 12) {
+      return `${mesesTotais} ${mesesTotais === 1 ? 'mês' : 'meses'}`;
+    } else {
+      const anos = Math.floor(mesesTotais / 12);
+      const meses = mesesTotais % 12;
+      if (meses === 0) {
+        return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+      }
+      return `${anos} ${anos === 1 ? 'ano' : 'anos'} e ${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+    }
   };
 
   return (
@@ -119,93 +225,191 @@ export default function AdocaoCaes() {
           <div className="header-content">
             <h2>Encontre seu novo companheiro de quatro patas</h2>
 
-            {/* Filtro de Favoritos */}
-            <div className="filtro-favoritos">
+            {erro && (
+              <div className="erro-mensagem">
+                {erro}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="content-wrapper">
+          {/* Sidebar Filters  */}
+          <aside className="filters-sidebar">
+            <div className="filter-section">
+              <h3>Filtros</h3>
+              <p className="resultados-count">
+                Mostrando {caes.length} de {totalResultados} resultados
+              </p>
+              <button
+                className="btn-limpar-filtros"
+                onClick={limparFiltros}
+              >
+                Limpar Filtros
+              </button>
+            </div>
+
+            <div className="filter-section">
+              <h4>Personalidade</h4>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={mostrarFavoritos}
-                  onChange={toggleFiltroFavoritos}
+                  checked={filtros.personalidade.includes('brincalhao')}
+                  onChange={() => toggleFiltroPersonalidade('brincalhao')}
                 />
-                Mostrar apenas favoritos
+                Brincalhão
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={filtros.personalidade.includes('calmo')}
+                  onChange={() => toggleFiltroPersonalidade('calmo')}
+                />
+                Calmo
               </label>
             </div>
-          </div>
-        </div>
 
-        <div className="cards-grid">
-          {carregando ? (
-            <p>Carregando cães...</p>
-          ) : totalResultados === 0 ? (
-            <p>
-              {mostrarFavoritos
-                ? "Nenhum cachorro favoritado no momento."
-                : "Nenhum cachorro encontrado no momento."
-              }
-            </p>
-          ) : (
-            caes.map((cao) => (
-              <div key={cao.id} className="pet-card">
-                <div className="card-image">
-                  <img src={cao.fotoUrl || dogDefault} alt={cao.nome} />
-                  <button
-                    className={`btn-favorito ${ehFavorito(cao.id) ? 'favoritado' : ''}`}
-                    onClick={(e) => handleFavoritoClick(cao.id, e)}
-                    title={ehFavorito(cao.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-                  >
-                    {ehFavorito(cao.id) ? '❤️' : '♡'}
-                  </button>
+            <div className="filter-section">
+              <h4>Tamanho</h4>
+              {['pequeno', 'medio', 'grande'].map(tamanho => (
+                <label key={tamanho} className="checkbox-label">
+                  <input
+                    type="radio"
+                    name="tamanho"
+                    checked={filtros.tamanho === tamanho}
+                    onChange={() => handleFiltroTamanho(tamanho)}
+                  />
+                  {tamanho.charAt(0).toUpperCase() + tamanho.slice(1)}
+                </label>
+              ))}
+            </div>
+
+            <div className="filter-section">
+              <h4>Idade</h4>
+              <div className="idade-filtros">
+                <div className="idade-input">
+                  <label>Idade mínima (anos)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="30"
+                    value={filtros.idadeMin}
+                    onChange={(e) => handleFiltroIdade('idadeMin', e.target.value)}
+                    placeholder="0"
+                  />
                 </div>
-                <div className="card-content">
-                  <h3>{cao.nome}</h3>
-                  <p>{cao.descricao || "Um lindo cachorro à procura de um lar!"}</p>
-                  <div className="pet-info">
-                    <span>📅 {new Date(cao.dataNascimento).toLocaleDateString()}</span>
-                    <span>⚡ {cao.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
-                    <span>📏 {cao.tamanho === 'pequeno' ? 'Pequeno' : cao.tamanho === 'medio' ? 'Médio' : 'Grande'}</span>
-                  </div>
-                  <div className="card-actions">
-                    <button
-                      className="btn-adotar"
-                      onClick={() => handleAdotarClick(cao.id)}
-                    >
-                      🐾 Adotar
-                    </button>
-                    <button
-                      className="btn-editar"
-                      onClick={() => handleEditarClick(cao.id)}
-                    >
-                      ✏️ Editar
-                    </button>
-                  </div>
+                <div className="idade-input">
+                  <label>Idade máxima (anos)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="30"
+                    value={filtros.idadeMax}
+                    onChange={(e) => handleFiltroIdade('idadeMax', e.target.value)}
+                    placeholder="30"
+                  />
                 </div>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          </aside>
 
-        {!mostrarFavoritos && totalPaginas > 1 && (
-          <div className="paginacao">
-            <button
-              className="btn-pagina"
-              onClick={() => handleMudancaPagina(paginaAtual - 1)}
-              disabled={paginaAtual === 1}
-            >
-              ←
-            </button>
-            <span className="numero-pagina">
-              {paginaAtual} de {totalPaginas}
-            </span>
-            <button
-              className="btn-pagina"
-              onClick={() => handleMudancaPagina(paginaAtual + 1)}
-              disabled={paginaAtual === totalPaginas}
-            >
-              →
-            </button>
+          {/* Cards Grid */}
+          <div className="cards-container">
+            {carregando ? (
+              <div className="loading">Carregando cãezinhos... 🐶</div>
+            ) : caes.length === 0 ? (
+              <div className="no-results">
+                {totalResultados === 0
+                  ? 'Nenhum cachorro disponível para adoção no momento'
+                  : 'Nenhum cachorro encontrado com esses filtros'
+                }
+                <button
+                  className="btn-limpar-filtros"
+                  onClick={limparFiltros}
+                >
+                  Limpar filtros
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="cards-grid">
+                  {caes.map((cao) => (
+                    <div key={cao.id} className="pet-card">
+                      <div className="card-image">
+                        <img src={cao.fotoUrl || dogDefault} alt={cao.nome} />
+                        {/* CORREÇÃO: Botão de favorito com estado de carregamento */}
+                        <button
+                          className={`btn-favorito ${ehFavorito(cao.id) ? 'favoritado' : ''} ${carregandoFavoritos ? 'carregando' : ''}`}
+                          onClick={(e) => handleFavoritoClick(cao.id, e)}
+                          title={ehFavorito(cao.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                          disabled={carregandoFavoritos}
+                        >
+                          {carregandoFavoritos ? '⏳' : (ehFavorito(cao.id) ? '❤️' : '♡')}
+                        </button>
+                        {cao.status === 'adotado' && (
+                          <div className="badge-adotado">Adotado ❤️</div>
+                        )}
+                      </div>
+                      <div className="card-content">
+                        <h3>{cao.nome}</h3>
+                        <p>{cao.descricao || "Um lindo cachorro à procura de um lar!"}</p>
+                        <div className="pet-info">
+                          <span>🐶 {calcularIdade(cao.dataNascimento)}</span>
+                          <span>📏 {cao.tamanho === 'pequeno' ? 'Pequeno' : cao.tamanho === 'medio' ? 'Médio' : 'Grande'}</span>
+                          <span>⚡ {cao.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
+                        </div>
+                        <div className="card-actions">
+                          <button
+                            className={`btn-adotar ${cao.status === 'adotado' ? 'btn-adotado' : ''}`}
+                            onClick={() => handleAdotarClick(cao)}
+                            disabled={cao.status === 'adotado'}
+                          >
+                            {cao.status === 'adotado' ? 'Já foi adotado' : 'Adotar 🐾'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPaginas > 1 && (
+                  <div className="paginacao">
+                    <button
+                      className={`btn-pagina ${paginaAtual === 1 ? 'disabled' : ''}`}
+                      onClick={() => handleMudancaPagina(paginaAtual - 1)}
+                      disabled={paginaAtual === 1}
+                    >
+                      ← Anterior
+                    </button>
+
+                    <div className="info-pagina">
+                      Página <span className="pagina-atual">{paginaAtual}</span> de {totalPaginas}
+                    </div>
+
+                    <button
+                      className={`btn-pagina ${paginaAtual === totalPaginas ? 'disabled' : ''}`}
+                      onClick={() => handleMudancaPagina(paginaAtual + 1)}
+                      disabled={paginaAtual === totalPaginas}
+                    >
+                      Próxima →
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
-        )}
+        </div>
       </section>
+
+      {/* Modal de Adoção */}
+      <ModalAdocao
+        isOpen={modalAdocaoAberto}
+        onClose={() => setModalAdocaoAberto(false)}
+        pet={caoSelecionado}
+        onAdocaoSucesso={handleAdocaoSucesso}
+        onLoginClick={onLoginClick}
+      />
     </div>
   );
 }
