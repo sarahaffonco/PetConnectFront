@@ -49,7 +49,7 @@ export const useAuth = () => {
     carregando,
     login,
     logout,
-    atualizarUsuario, 
+    atualizarUsuario,
     estaLogado
   };
 };

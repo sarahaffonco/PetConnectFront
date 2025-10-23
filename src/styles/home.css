@@ -62,6 +62,7 @@
 }
 
 .hero-text {
+    z-index: 2;
     padding-left: 0;
     width: 45%;
     z-index: 2;
@@ -176,14 +177,14 @@
     height: auto;
     object-fit: contain;
     margin-bottom: 0.5rem;
-    z-index: 0;
+    z-index: 1;
 }
 
 .card h3 {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-text);
-    z-index: 0;
+    z-index: 1;
 }
 
 .card-dog-splash h3 a {
