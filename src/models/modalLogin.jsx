@@ -8,10 +8,16 @@ import {
   faUser,
   faPaw,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    senha: ""
+  });
 
   useEffect(() => {
     if (!isOpen) return;
@@ -22,11 +28,41 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    setShowError(false); // Limpar erro quando usuário digitar
+  };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowError(true);
+    setLoading(true);
+    setShowError(false);
+
+    try {
+      const response = await axios.post("http://localhost:3000/api/auth/login", {
+        email: formData.email,
+        senha: formData.senha
+      });
+
+      if (response.data.token) {
+        // Salvar token e dados do usuário
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
+
+        // Fechar modal e recarregar
+        onClose();
+        window.location.reload(); // Para atualizar estado de autenticação
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setShowError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
@@ -35,6 +71,8 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
     e.preventDefault();
     onCadastrarClick();
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -47,7 +85,6 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
         </button>
 
         <h2 className="modal-title">
-          {" "}
           <FontAwesomeIcon icon={faPaw} />
           <span>Pet Connect</span>
         </h2>
@@ -59,6 +96,9 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
               <div className="input-with-icon">
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Digite seu email"
                   className="yellow-input"
                   required
@@ -72,6 +112,9 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
               <div className="input-with-icon">
                 <input
                   type={showPassword ? "text" : "password"}
+                  name="senha"
+                  value={formData.senha}
+                  onChange={handleChange}
                   placeholder="Digite sua senha"
                   className="yellow-input"
                   required
@@ -92,9 +135,13 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
             )}
           </div>
 
-          <button type="submit" className="btn-primary login-btn-yellow">
+          <button
+            type="submit"
+            className="btn-primary login-btn-yellow"
+            disabled={loading}
+          >
             <FontAwesomeIcon icon={faUser} className="btn-icon" />
-            Entrar
+            {loading ? "Entrando..." : "Entrar"}
           </button>
 
           <p className="modal-link">
