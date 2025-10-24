@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "../styles/adocaoGatos.css";
 import gatosNovelo from "../assets/gatosNovelo.png";
 import gatosAmigos from "../assets/gatosAmigos.png";
-import miau from "../assets/miau.jpg"
-
-
+import miau from "../assets/miau.jpg";
 
 const API_URL = 'http://localhost:3000/api/pets'; 
 const LIMIT_PER_PAGE = 8; 
@@ -14,10 +12,9 @@ export default function AdocaoGatos() {
   const [gatos, setGatos] = useState([]);
   const [filtros, setFiltros] = useState({
     personalidade: [],
-    // Novos filtros que você pode usar da API
-    tamanho: '',
-    idadeMin: '',
-    idadeMax: '',
+    tamanho: "",
+    idadeMin: "",
+    idadeMax: "",
   });
   const [loading, setLoading] = useState(true);
   const [paginaAtual, setPaginaAtual] = useState(1);
@@ -38,8 +35,8 @@ export default function AdocaoGatos() {
     };
 
     if (filtros.personalidade.length > 0) {
-        // Envia as personalidades separadas por vírgula
-      params.personalidade = filtros.personalidade.join(',');
+      // Envia as personalidades separadas por vírgula
+      params.personalidade = filtros.personalidade.join(",");
     }
     if (filtros.tamanho) params.tamanho = filtros.tamanho;
     if (filtros.idadeMin) params.idadeMin = filtros.idadeMin;
@@ -56,7 +53,6 @@ export default function AdocaoGatos() {
       setGatos(pets);
       setTotalPages(pagination.pages);
       setTotalResults(pagination.total);
-
     } catch (error) {
       console.error("Erro ao carregar gatos:", error);
       setGatos([]);
@@ -69,11 +65,11 @@ export default function AdocaoGatos() {
 
   const toggleFiltroPersonalidade = (personalidade) => {
     setPaginaAtual(1); // Resetar para a primeira página ao mudar filtros
-    setFiltros(prev => ({
+    setFiltros((prev) => ({
       ...prev,
       personalidade: prev.personalidade.includes(personalidade)
-        ? prev.personalidade.filter(p => p !== personalidade)
-        : [...prev.personalidade, personalidade]
+        ? prev.personalidade.filter((p) => p !== personalidade)
+        : [...prev.personalidade, personalidade],
     }));
   };
   
@@ -90,7 +86,10 @@ export default function AdocaoGatos() {
         <div className="hero-content">
           <span className="hero-badge">Gatinhos</span>
           <h1>O seu amigo de patas e bigodes te espera</h1>
-          <p>Na PetConnect, cada ronronar conta uma história de esperança. Encontre o seu amor felino e leve para casa!</p>
+          <p>
+            Na PetConnect, cada ronronar conta uma história de esperança.
+            Encontre o seu amor felino e leve para casa!
+          </p>
         </div>
         <div className="hero-image">
           <img src={gatosNovelo} alt="Gatos adoráveis" />
@@ -127,32 +126,32 @@ export default function AdocaoGatos() {
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('brincalhao')}
-                  onChange={() => toggleFiltroPersonalidade('brincalhao')}
+                  checked={filtros.personalidade.includes("brincalhao")}
+                  onChange={() => toggleFiltroPersonalidade("brincalhao")}
                 />
                 Brincalhão
               </label>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('calmo')}
-                  onChange={() => toggleFiltroPersonalidade('calmo')}
+                  checked={filtros.personalidade.includes("calmo")}
+                  onChange={() => toggleFiltroPersonalidade("calmo")}
                 />
                 Calmo
               </label>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('energetico')}
-                  onChange={() => toggleFiltroPersonalidade('energetico')}
+                  checked={filtros.personalidade.includes("energetico")}
+                  onChange={() => toggleFiltroPersonalidade("energetico")}
                 />
                 Energético
               </label>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('amigavel')}
-                  onChange={() => toggleFiltroPersonalidade('amigavel')}
+                  checked={filtros.personalidade.includes("amigavel")}
+                  onChange={() => toggleFiltroPersonalidade("amigavel")}
                 />
                 Amigável
               </label>
@@ -164,10 +163,12 @@ export default function AdocaoGatos() {
             {loading ? (
               <div className="loading">Carregando...</div>
             ) : totalResults === 0 ? (
-              <div className="no-results">Nenhum gato encontrado com esses filtros</div>
+              <div className="no-results">
+                Nenhum gato encontrado com esses filtros
+              </div>
             ) : (
               <div className="cards-grid">
-                {gatos.map(gato => (
+                {gatos.map((gato) => (
                   <div key={gato.id} className="gato-card">
                     <div className="card-image">
                       {/* Lembre-se: o campo 'foto' deve vir da sua API. Substitua 'gato.foto' pelo campo correto */}
