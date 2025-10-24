@@ -11,7 +11,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
     telefone: "",
     endereco: "",
     senha: "",
-    confirmarSenha: ""
+    confirmarSenha: "",
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -29,9 +29,9 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -56,13 +56,16 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
     try {
       console.log("📤 Enviando dados para registro:", formData);
 
-      const response = await axios.post("http://localhost:3000/api/auth/registrar", {
-        nome: formData.nome,
-        email: formData.email,
-        telefone: formData.telefone,
-        endereco: formData.endereco,
-        senha: formData.senha
-      });
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/registrar",
+        {
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.telefone,
+          endereco: formData.endereco,
+          senha: formData.senha,
+        }
+      );
 
       console.log("✅ Resposta do servidor:", response.data);
 
@@ -70,8 +73,8 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
         setMessage("✅ Cadastro realizado com sucesso!");
 
         // Salvar token no localStorage
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
 
         // Limpar formulário
         setFormData({
@@ -80,7 +83,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
           telefone: "",
           endereco: "",
           senha: "",
-          confirmarSenha: ""
+          confirmarSenha: "",
         });
 
         // Fechar modal após 2 segundos
@@ -94,9 +97,10 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
       console.error("💥 Erro completo no cadastro:", error);
       console.error("📋 Detalhes do erro:", error.response?.data);
 
-      const errorMessage = error.response?.data?.error ||
-                          error.response?.data?.details ||
-                          "❌ Erro ao cadastrar usuário. Tente novamente.";
+      const errorMessage =
+        error.response?.data?.error ||
+        error.response?.data?.details ||
+        "❌ Erro ao cadastrar usuário. Tente novamente.";
 
       setMessage(errorMessage);
     } finally {
@@ -112,11 +116,17 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
         className="modal-container modal-cadastro-usuario"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="close-btn" onClick={onClose}>
+          ×
+        </button>
         <h2 className="modal-title">Crie sua Conta</h2>
 
         {message && (
-          <div className={`message ${message.includes('✅') ? 'success' : 'error'}`}>
+          <div
+            className={`message ${
+              message.includes("✅") ? "success" : "error"
+            }`}
+          >
             {message}
           </div>
         )}
@@ -200,11 +210,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
             />
           </div>
 
-          <button
-            type="submit"
-            className="btn-purple"
-            disabled={loading}
-          >
+          <button type="submit" className="btn-purple" disabled={loading}>
             <FontAwesomeIcon icon={faUserPlus} />
             {loading ? "Cadastrando..." : "Cadastrar"}
           </button>

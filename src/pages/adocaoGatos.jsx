@@ -59,6 +59,7 @@ export default function AdocaoGatos({ onLoginClick }) {
       const { pets, paginacao } = response.data;
 
       if (pets && Array.isArray(pets)) {
+        console.log(pets);
         setGatos(pets);
 
         if (paginacao) {
@@ -320,7 +321,7 @@ export default function AdocaoGatos({ onLoginClick }) {
               </div>
             ) : (
               <>
-                <div className="cards-grid">
+                <div className="cards-grid">                 
                   {gatos.map((gato) => (
                     <div key={gato.id} className="gato-card">
                       <div className="card-image">
