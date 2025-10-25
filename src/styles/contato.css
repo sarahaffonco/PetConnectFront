@@ -1,284 +1,297 @@
-/* -------------------- VARIÁVEIS GLOBAIS E RESET -------------------- */
+/* -------------------- VARIÁVEIS GLOBAIS -------------------- */
 :root {
-    --primary-color: #00bcd4; /* Azul/Ciano claro */
-    --secondary-color: #ff9800; /* Laranja do "Tchau Pet" */
-    --text-color: #333;
-    --light-bg: #f7f7f7;
-    --white: #ffffff;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --border-radius: 8px;
-    font-family: Arial, sans-serif;
+  --primary-color: #00bcd4;         /* Azul/Ciano */
+  --secondary-color: #ff9800;       /* Laranja do "Tchau Pet" */
+  --color-primary: #7b3ff2;         /* Roxo usado em títulos */
+  --color-secondary: #ffd84d;       /* Amarelo principal (inputs/botões) */
+  --color-text-dark: #222;
+  --color-text-light: #666;
+  --color-background: #f8f9fa;
+  --border-radius: 8px;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
-
+/* -------------------- RESET -------------------- */
 * {
-    box-sizing: border-box; 
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-
+/* -------------------- BOTÕES -------------------- */
 .btn {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
-
-/* -------------------- 1. HEADER SECTION -------------------- */
-.header-section {
-    position: relative;
-    background-color: var(--light-bg);
-    padding: 60px 0;
-    overflow: hidden; 
-}
-
-.header-content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.header-paw-bg {
-    /* Simulação do fundo de patas. Pode ser um SVG ou PNG */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    opacity: 0.1;
-   
-}
-
-.branding {
-    z-index: 1; 
-}
-
-.branding h1 {
-    font-size: 2.5em;
-    color: var(--text-color);
-}
-
-.branding p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-    color: #666;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    z-index: 1;
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 .btn-header:hover {
-    background-color: #0097a7;
+  background-color: #0097a7;
+}
+
+/* -------------------- HEADER -------------------- */
+.header-section {
+  position: relative;
+  background-color: var(--color-background);
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.header-content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header-paw-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.branding {
+  z-index: 1;
+}
+
+.branding h1 {
+  font-size: 2.5em;
+  color: var(--color-text-dark);
+}
+
+.branding p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  color: var(--color-text-light);
 }
 
 .image-banner {
-    position: relative;
-    z-index: 1;
-    max-width: 450px; /* Limite de largura para a imagem do pet */
+  position: relative;
+  z-index: 1;
+  max-width: 450px;
 }
 
 .image-banner img {
-    width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
 }
 
 .tchau-text {
-    position: absolute;
-    top: -20px;
-    right: 0px;
-    font-size: 3em;
-    font-weight: 900;
-    color: var(--secondary-color);
-    text-shadow: 2px 2px var(--white);
-    transform: rotate(5deg);
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: 3em;
+  font-weight: 900;
+  color: var(--secondary-color);
+  text-shadow: 2px 2px #fff;
+  transform: rotate(5deg);
 }
 
-/* -------------------- 2. MAIN CONTACT SECTION -------------------- */
+/* -------------------- SEÇÃO DE CONTATO -------------------- */
 .main-contact-section {
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 0 20px 50px 20px;
+  max-width: 900px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  padding: 3rem;
+  position: relative;
 }
 
-.slider-nav {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-}
-
-.slider-arrow {
-    background: #000;
-    color: var(--white);
-    border: none;
-    padding: 8px 12px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-left: 10px;
-    border-radius: 50%;
-}
-
+/* Título da seção */
 .section-title {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 40px;
-    font-weight: 500;
-    position: relative;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin-bottom: 2rem;
 }
 
-.section-title::after {
-    content: "●"; 
-    position: absolute;
-    top: -15px;
-    right: 50%;
-    transform: translateX(50%);
-    font-size: 1.5em;
-    color: var(--primary-color);
-}
-
+/* Container geral */
 .contact-container {
-    display: grid;
-    /* Duas colunas para formulário e informações */
-    grid-template-columns: 2fr 1fr; 
-    gap: 40px;
-    background-color: var(--light-bg);
-    border-radius: var(--border-radius);
-    padding: 30px;
-    box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
 }
 
-/* --- Formulário (Lado Esquerdo) --- */
+/* -------------------- FORMULÁRIO -------------------- */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
 }
 
+/* Agrupamento nome/sobrenome */
 .input-group {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
+/* Campo com label flutuante (formato pill) */
 .input-field {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  flex: 1;
 }
 
-.input-field label {
-    font-size: 0.8em;
-    color: #666;
-    margin-bottom: 5px;
+.input-field > label {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: #fff6b5;
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  z-index: 2;
+  pointer-events: none;
 }
 
+/* Input e textarea */
 .input-field input,
 .input-field textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+  width: 100%;
+  height: 50px;
+  background-color: #fff8d1;
+  border: 1px solid #f5e087;
+  border-radius: 28px;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  transition: all 0.2s ease;
 }
 
 .input-field textarea {
-    resize: vertical;
-    min-height: 120px;
+  resize: none;
+  min-height: 90px;
+  height: auto;
 }
 
+.input-field input::placeholder,
+.input-field textarea::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.input-field input:focus,
+.input-field textarea:focus {
+  outline: none;
+  background-color: #fffbe6;
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(255, 216, 77, 0.35);
+}
+
+/* -------------------- BOTÃO DE ENVIO -------------------- */
 .btn-submit {
-    width: fit-content;
-    align-self: flex-start;
-    background-color: var(--primary-color);
-    color: var(--white);
+  background-color: var(--color-secondary);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
+  margin-top: 1rem;
 }
 
 .btn-submit:hover {
-    background-color: #0097a7;
+  background-color: #f5cf3a;
+  transform: translateY(-2px);
 }
 
-/* --- Informações de Contato (Lado Direito) --- */
+/* -------------------- BLOCO DE INFORMAÇÕES -------------------- */
 .contact-info-block {
-    padding: 20px 0;
+  background: #fffdf2;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(255, 216, 77, 0.2);
+  padding: 2rem;
 }
 
 .contact-info-block h3 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: var(--text-color);
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--color-text-dark);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
 .contact-item .icon {
-    margin-right: 10px;
-    color: var(--primary-color);
-    font-size: 1.2em; 
+  font-size: 1.2rem;
 }
 
-/* --- Mapa --- */
+/* -------------------- MAPA -------------------- */
 .map-section {
-    width: 100%;
-    height: 350px; 
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    margin-top: 40px;
-}
-
-.map-section img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 25px;
+  margin-top: 3rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* -------------------- RESPONSIVIDADE -------------------- */
 @media (max-width: 900px) {
-    .header-content-wrapper {
-        flex-direction: column;
-        text-align: center;
-    }
-    .branding {
-        margin-bottom: 30px;
-    }
-    .image-banner {
-        max-width: 80%;
-    }
-    .tchau-text {
-        top: -10px;
-        right: 10px;
-        font-size: 2em;
-    }
-    .contact-container {
-        /* Muda de 2 colunas para 1 coluna em telas menores */
-        grid-template-columns: 1fr;
-    }
-    .input-group {
-        flex-direction: column;
-        gap: 15px;
-    }
-}
+  .header-content-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
 
-.map-section {
-    width: 100%;
-    height: 350px; /* Altura fixa para o mapa */
-    overflow: hidden;
-    border-radius: var(--border-radius);
-    margin-top: 40px;
+  .branding {
+    margin-bottom: 30px;
+  }
+
+  .image-banner {
+    max-width: 80%;
+  }
+
+  .tchau-text {
+    top: -10px;
+    right: 10px;
+    font-size: 2em;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .input-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .main-contact-section {
+    padding: 2rem;
+  }
 }

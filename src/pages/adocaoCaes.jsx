@@ -21,6 +21,22 @@ export default function AdocaoCaes({ onLoginClick }) {
   const [caoSelecionado, setCaoSelecionado] = useState(null);
   const [modalAdocaoAberto, setModalAdocaoAberto] = useState(false);
 
+  // Estados para o CRUD inline
+  const [editandoCaoId, setEditandoCaoId] = useState(null);
+  const [campoEditando, setCampoEditando] = useState(null);
+  const [formDataCao, setFormDataCao] = useState({
+    nome: "",
+    descricao: "",
+    especie: "",
+    raca: "",
+    tamanho: "",
+    personalidade: "",
+    dataNascimento: "",
+    status: "disponivel"
+  });
+  const [carregandoCRUD, setCarregandoCRUD] = useState(false);
+  const [mensagemCRUD, setMensagemCRUD] = useState("");
+
   // Estado dos filtros
   const [filtros, setFiltros] = useState({
     personalidade: [],
@@ -91,6 +107,69 @@ export default function AdocaoCaes({ onLoginClick }) {
   useEffect(() => {
     carregarCaes();
   }, [carregarCaes]);
+
+  // Funções do CRUD inline
+  const iniciarEdicaoInline = useCallback((cao, campo) => {
+    setEditandoCaoId(cao.id);
+    setCampoEditando(campo);
+    setFormDataCao(prev => ({
+      ...prev,
+      [campo]: cao[campo] || ""
+    }));
+  }, []);
+
+  const handleFormChangeCao = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormDataCao(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }, []);
+
+  const salvarEdicaoInline = useCallback(async (campo) => {
+    if (!editandoCaoId) return;
+
+    try {
+      setCarregandoCRUD(true);
+      setMensagemCRUD("");
+
+      const dadosAtualizar = { [campo]: formDataCao[campo] };
+
+      await axios.put(`${API_URL}/${editandoCaoId}`, dadosAtualizar);
+
+      setMensagemCRUD("✅ Campo atualizado com sucesso!");
+      setEditandoCaoId(null);
+      setCampoEditando(null);
+
+      // Recarregar a lista
+      carregarCaes();
+
+    } catch (error) {
+      console.error("Erro ao atualizar cão:", error);
+      setMensagemCRUD(
+        "❌ Erro ao atualizar: " +
+        (error.response?.data?.erro || error.message)
+      );
+    } finally {
+      setCarregandoCRUD(false);
+    }
+  }, [editandoCaoId, formDataCao, carregarCaes]);
+
+  const cancelarEdicaoInline = useCallback(() => {
+    setEditandoCaoId(null);
+    setCampoEditando(null);
+    setFormDataCao({
+      nome: "",
+      descricao: "",
+      especie: "",
+      raca: "",
+      tamanho: "",
+      personalidade: "",
+      dataNascimento: "",
+      status: "disponivel"
+    });
+    setMensagemCRUD("");
+  }, []);
 
   const handleAdotarClick = (cao) => {
     if (!usuario) {
@@ -196,12 +275,18 @@ export default function AdocaoCaes({ onLoginClick }) {
     }
   };
 
+  // Função para formatar data para input type="date"
+  const formatarDataParaInput = (dataString) => {
+    if (!dataString) return "";
+    const data = new Date(dataString);
+    return data.toISOString().split('T')[0];
+  };
+
   return (
     <div className="adocao-caes-page">
       {/* HERO SECTION */}
       <section className="hero-section">
         <div className="hero-content">
-          <span className="hero-badge">Cãezinhos</span>
           <h1>Adote um amigo leal e cheio de amor</h1>
           <p>
             Na PetConnect, cada rabo abanando é uma nova chance de felicidade.
@@ -228,6 +313,13 @@ export default function AdocaoCaes({ onLoginClick }) {
             {erro && (
               <div className="erro-mensagem">
                 {erro}
+              </div>
+            )}
+
+            {/* Mensagem do CRUD */}
+            {mensagemCRUD && (
+              <div className={`message ${mensagemCRUD.includes("✅") ? "success" : "error"}`}>
+                {mensagemCRUD}
               </div>
             )}
           </div>
@@ -337,7 +429,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                     <div key={cao.id} className="pet-card">
                       <div className="card-image">
                         <img src={cao.fotoUrl || dogDefault} alt={cao.nome} />
-                        {/* CORREÇÃO: Botão de favorito com estado de carregamento */}
+                        {/* Botão de favorito */}
                         <button
                           className={`btn-favorito ${ehFavorito(cao.id) ? 'favoritado' : ''} ${carregandoFavoritos ? 'carregando' : ''}`}
                           onClick={(e) => handleFavoritoClick(cao.id, e)}
@@ -351,13 +443,254 @@ export default function AdocaoCaes({ onLoginClick }) {
                         )}
                       </div>
                       <div className="card-content">
-                        <h3>{cao.nome}</h3>
-                        <p>{cao.descricao || "Um lindo cachorro à procura de um lar!"}</p>
-                        <div className="pet-info">
-                          <span>🐶 {calcularIdade(cao.dataNascimento)}</span>
-                          <span>📏 {cao.tamanho === 'pequeno' ? 'Pequeno' : cao.tamanho === 'medio' ? 'Médio' : 'Grande'}</span>
-                          <span>⚡ {cao.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
+                        {/* NOME - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Nome:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'nome' ? (
+                            <div className="inline-edit">
+                              <input
+                                type="text"
+                                name="nome"
+                                value={formDataCao.nome}
+                                onChange={handleFormChangeCao}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('nome')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{cao.nome}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'nome')}
+                                title="Editar nome"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
                         </div>
+
+                        {/* DESCRIÇÃO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Descrição:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'descricao' ? (
+                            <div className="inline-edit">
+                              <textarea
+                                name="descricao"
+                                value={formDataCao.descricao}
+                                onChange={handleFormChangeCao}
+                                className="inline-textarea"
+                                rows="3"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('descricao')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{cao.descricao || "Sem descrição"}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'descricao')}
+                                title="Editar descrição"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* RAÇA - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Raça:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'raca' ? (
+                            <div className="inline-edit">
+                              <input
+                                type="text"
+                                name="raca"
+                                value={formDataCao.raca}
+                                onChange={handleFormChangeCao}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('raca')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{cao.raca || "SRD"}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'raca')}
+                                title="Editar raça"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* TAMANHO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Tamanho:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'tamanho' ? (
+                            <div className="inline-edit">
+                              <select
+                                name="tamanho"
+                                value={formDataCao.tamanho}
+                                onChange={handleFormChangeCao}
+                                className="inline-select"
+                              >
+                                <option value="pequeno">Pequeno</option>
+                                <option value="medio">Médio</option>
+                                <option value="grande">Grande</option>
+                              </select>
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('tamanho')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>
+                                {cao.tamanho === 'pequeno' ? 'Pequeno' :
+                                 cao.tamanho === 'medio' ? 'Médio' : 'Grande'}
+                              </span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'tamanho')}
+                                title="Editar tamanho"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* PERSONALIDADE - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Personalidade:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'personalidade' ? (
+                            <div className="inline-edit">
+                              <select
+                                name="personalidade"
+                                value={formDataCao.personalidade}
+                                onChange={handleFormChangeCao}
+                                className="inline-select"
+                              >
+                                <option value="brincalhao">Brincalhão</option>
+                                <option value="calmo">Calmo</option>
+                              </select>
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('personalidade')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{cao.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'personalidade')}
+                                title="Editar personalidade"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* DATA DE NASCIMENTO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Nascimento:</strong>
+                          {editandoCaoId === cao.id && campoEditando === 'dataNascimento' ? (
+                            <div className="inline-edit">
+                              <input
+                                type="date"
+                                name="dataNascimento"
+                                value={formatarDataParaInput(formDataCao.dataNascimento)}
+                                onChange={handleFormChangeCao}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline('dataNascimento')}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{calcularIdade(cao.dataNascimento)}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() => iniciarEdicaoInline(cao, 'dataNascimento')}
+                                title="Editar data de nascimento"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
                         <div className="card-actions">
                           <button
                             className={`btn-adotar ${cao.status === 'adotado' ? 'btn-adotado' : ''}`}
