@@ -1,4 +1,4 @@
-/* Definição de Cores*/
+/* Definição de Cores */
 :root {
   --color-primary: #7B3FF2;
   --color-accent: #00BCD4;
@@ -6,28 +6,11 @@
   --color-text-dark: #222;
   --color-text-light: #666;
   --color-background: #F8F9FA;
+  --color-danger: #ff6b6b;
+  --color-success: #28a745;
 }
 
-.message {
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.message.success {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.message.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
+/* OVERLAY E CONTAINER BASE */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -40,10 +23,9 @@
   justify-content: center;
   backdrop-filter: blur(4px);
   transition: opacity 0.3s ease;
-  z-index: 3;
+  z-index: 1000;
 }
 
-/* CONTAINER PRINCIPAL */
 .modal-container {
   background-color: #fff;
   border-radius: 15px;
@@ -53,7 +35,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   box-sizing: border-box;
-    max-height: 95vh;
+  max-height: 95vh;
   overflow-y: auto;
 }
 
@@ -74,9 +56,234 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s ease;
 }
 
-/*  MODAL LOGIN  */
+.close-btn:hover {
+  color: var(--color-secondary);
+}
+
+/* Mensagens */
+.message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* ESTRUTURA COMUM DOS FORMULÁRIOS */
+.modal-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 1.6rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.modal-subtitle {
+  text-align: center;
+  color: var(--color-text-light);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.6rem;
+}
+
+.field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.4rem;
+}
+
+.field > label {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(0, 0, 0, 0.55);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.input-icon:hover {
+  color: var(--color-secondary);
+}
+
+.password-icon {
+  cursor: pointer;
+}
+
+/* BOTÕES PRINCIPAIS - PADRÃO LOGIN */
+.btn-primary {
+  background-color: var(--color-secondary);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
+  box-sizing: border-box;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #f5cf3a;
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* BOTÕES COM CORES ALTERNATIVAS */
+.btn-purple {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(123, 63, 242, 0.3);
+  box-sizing: border-box;
+}
+
+.btn-purple:hover:not(:disabled) {
+  background-color: #6a2de0;
+  transform: translateY(-2px);
+}
+
+.btn-purple:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-blue {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(0, 188, 212, 0.3);
+  box-sizing: border-box;
+}
+
+.btn-blue:hover:not(:disabled) {
+  background-color: #00acc1;
+  transform: translateY(-2px);
+}
+
+.btn-blue:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* BOTÕES SECUNDÁRIOS */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-cancelar {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.btn-cancelar:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.btn-cancelar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* MODAL LOGIN */
 .modal-login {
   width: 100%;
   max-width: 420px;
@@ -92,58 +299,15 @@
   position: relative;
 }
 
-/* Título centralizado */
 .modal-login .modal-title {
   color: var(--color-secondary);
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
 }
 
-/*  FORM  */
-.modal-login .modal-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 1.6rem;
-}
-
-/* Section do formulário */
-.modal-login .field {
-  position: relative;
-  width: 100%;
-  margin-bottom: 1.4rem;
-}
-
-/* Label flutuante em formato pill */
-.modal-login .field>label {
-  position: absolute;
-  top: -10px;
-  left: 16px;
+.modal-login .field > label {
   background: #fff6b5;
   color: var(--color-secondary);
-  font-weight: 700;
-  font-size: 0.75rem;
-  padding: 4px 12px;
-  border-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
 }
 
-/* Campo + ícone */
-.modal-login .input-with-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-/* Input em formato pill */
 .modal-login .yellow-input {
   width: 100%;
   height: 50px;
@@ -168,27 +332,6 @@
   box-shadow: 0 0 0 2px rgba(255, 216, 77, 0.35);
 }
 
-/* Ícones alinhados à direita */
-.modal-login .input-icon {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(0, 0, 0, 0.55);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.modal-login .input-icon:hover {
-  color: var(--color-secondary);
-}
-
-.modal-login .password-icon {
-  cursor: pointer;
-}
-
-/* Link "Esqueci a senha"  */
 .modal-login .forgot-password-link {
   font-size: 0.85rem;
   color: var(--color-text-dark);
@@ -198,12 +341,12 @@
   margin-top: 0.2rem;
   transition: color 0.2s ease;
 }
+
 .modal-login .forgot-password-link:hover {
   color: var(--color-secondary);
   text-decoration: underline;
 }
 
-/* Mensagem de erro centralizada */
 .modal-login .error-message {
   color: #ff4444;
   font-weight: 600;
@@ -213,38 +356,6 @@
   width: 100%;
 }
 
-/* Botão Entrar  */
-.modal-login .login-btn-yellow {
-  background-color: var(--color-secondary);
-  color: #000;
-  border: none;
-  border-radius: 30px;
-  padding: 0.9rem 2rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-top: 0.6rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
-}
-
-.modal-login .login-btn-yellow:hover {
-  background-color: #f5cf3a;
-  transform: translateY(-2px);
-}
-
-.modal-login .login-btn-yellow:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Link "Não tem conta?"  */
 .modal-login .modal-link {
   text-align: center;
   font-size: 0.9rem;
@@ -263,52 +374,209 @@
   text-decoration: underline;
 }
 
-/*  MODAL CADASTRO USUÁRIO  */
+/* MODAL ADOÇÃO */
+.modal-adocao {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 28px;
+  padding: 2.4rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  box-sizing: border-box;
+  position: relative;
+  border-top: 5px solid var(--color-secondary);
+}
+
+.modal-adocao .modal-title {
+  color: var(--color-secondary);
+}
+
+.modal-adocao .modal-header {
+  width: 100%;
+  text-align: center;
+}
+
+/* Cards de informação */
+.adocao-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.pet-info-card,
+.adotante-info-card {
+  background: #fff8d1;
+  border: 1px solid #f5e087;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.pet-info-card h4,
+.adotante-info-card h4 {
+  color: var(--color-secondary);
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pet-info-card p,
+.adotante-info-card p {
+  margin: 0.5rem 0;
+  color: var(--color-text-dark);
+  font-size: 0.9rem;
+}
+
+.pet-info-card strong,
+.adotante-info-card strong {
+  color: var(--color-text-dark);
+}
+
+/* Campos do formulário de adoção */
+.modal-adocao .field > label {
+  background: #fff6b5;
+  color: var(--color-secondary);
+}
+
+.modal-adocao .yellow-input {
+  width: 100%;
+  height: 50px;
+  background: #fff8d1;
+  border: 1px solid #f5e087;
+  border-radius: 28px;
+  padding: 16px 18px 12px 18px;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  transition: all 0.16s ease;
+  box-sizing: border-box;
+}
+
+.modal-adocao .yellow-input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.modal-adocao .yellow-input:focus {
+  outline: none;
+  border-color: rgba(255, 216, 77, 0.45);
+  background: #fffbe6;
+  box-shadow: 0 0 0 3px rgba(255, 216, 77, 0.3);
+}
+
+.modal-adocao textarea.yellow-input {
+  resize: none;
+  min-height: 90px;
+  border-radius: 20px;
+  height: auto;
+  padding: 16px 18px;
+}
+
+.modal-adocao select.yellow-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+}
+
+/* Botão de confirmação de adoção - mesmo estilo do login */
+.modal-adocao .btn-confirmar {
+  background-color: var(--color-secondary);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
+  box-sizing: border-box;
+}
+
+.modal-adocao .btn-confirmar:hover:not(:disabled) {
+  background-color: #f5cf3a;
+  transform: translateY(-2px);
+}
+
+.modal-adocao .btn-confirmar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Aviso de login necessário */
+.aviso-login {
+  width: 100%;
+  text-align: center;
+}
+
+.aviso-content {
+  background: #fff8d1;
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid #f5e087;
+}
+
+.aviso-content h3 {
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.aviso-content p {
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.btn-login {
+  background: var(--color-secondary);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  padding: 0.9rem 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 18px rgba(255, 216, 77, 0.3);
+}
+
+.btn-login:hover {
+  background: #f5cf3a;
+  transform: translateY(-2px);
+}
+
+/* MODAL CADASTRO USUÁRIO */
 .modal-cadastro-usuario {
   border-top: 5px solid var(--color-primary);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
-/* Title centralizado */
 .modal-cadastro-usuario .modal-title {
   color: var(--color-primary);
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 1.6rem 0;
 }
 
-/* Form layout */
-.modal-cadastro-usuario .modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  width: 100%;
-}
-
-/* Field wrapper para posicionar label */
-.modal-cadastro-usuario .field {
-  position: relative;
-  width: 100%;
-}
-
-/* Label como pill roxa */
-.modal-cadastro-usuario .field>label {
-  position: absolute;
-  top: -10px;
-  left: 14px;
+.modal-cadastro-usuario .field > label {
   background: #E6D7FF;
   color: var(--color-primary);
-  font-weight: 700;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
 }
 
-/* Inputs */
 .modal-cadastro-usuario .purple-input {
   width: 100%;
   height: 50px;
@@ -332,39 +600,7 @@
   background: #E6D7FF;
 }
 
-/* Botão centralizado */
-.modal-cadastro-usuario .btn-purple {
-  margin: 1.4rem auto 0;
-  width: 100%;
-  height: 50px;
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 8px 18px rgba(123, 63, 242, 0.18);
-  transition: transform .12s ease, background .12s ease;
-  box-sizing: border-box;
-}
-
-.modal-cadastro-usuario .btn-purple:hover {
-  transform: translateY(-2px);
-  background: #6a2de0;
-}
-
-.modal-cadastro-usuario .btn-purple:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/*  MODAL CADASTRO PET  */
+/* MODAL CADASTRO PET */
 .modal-cadastro-pet {
   border-top: 5px solid var(--color-accent);
   border-radius: 12px;
@@ -373,40 +609,13 @@
 
 .modal-cadastro-pet .modal-title {
   color: var(--color-accent);
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 1.6rem 0;
 }
 
-.modal-cadastro-pet .modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  width: 100%;
-}
-
-.modal-cadastro-pet .field {
-  position: relative;
-  width: 100%;
-}
-
-/* Label azul dentro dos campos */
-.modal-cadastro-pet .field>label {
-  position: absolute;
-  top: -10px;
-  left: 14px;
+.modal-cadastro-pet .field > label {
   background: #C8F4FA;
   color: var(--color-accent);
-  font-weight: 700;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
 }
 
-/* Inputs arredondados azuis */
 .modal-cadastro-pet .blue-input {
   width: 100%;
   height: 50px;
@@ -430,7 +639,6 @@
   box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.25);
 }
 
-/* Textarea */
 .modal-cadastro-pet textarea.blue-input {
   resize: none;
   min-height: 90px;
@@ -439,45 +647,12 @@
   height: auto;
 }
 
-/* Select estilizado */
 .modal-cadastro-pet select.blue-input {
   appearance: none;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 16px;
-}
-
-/* Botão centralizado */
-.modal-cadastro-pet .btn-blue {
-  margin: 1.4rem auto 0;
-  width: 100%;
-  height: 50px;
-  background: var(--color-accent);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 8px 18px rgba(0, 188, 212, 0.18);
-  transition: transform .12s ease, background .12s ease;
-  box-sizing: border-box;
-}
-
-.modal-cadastro-pet .btn-blue:hover {
-  transform: translateY(-2px);
-  background: #00acc1;
-}
-
-.modal-cadastro-pet .btn-blue:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
 }
 
 /* MODAL CRUD USUÁRIO */
@@ -489,36 +664,11 @@
 
 .modal-crud-usuario .modal-title {
   color: var(--color-primary);
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 1.6rem 0;
-}
-
-.modal-crud-usuario .modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  width: 100%;
-}
-
-.modal-crud-usuario .field {
-  position: relative;
-  width: 100%;
 }
 
 .modal-crud-usuario .field > label {
-  position: absolute;
-  top: -10px;
-  left: 14px;
   background: #E6D7FF;
   color: var(--color-primary);
-  font-weight: 700;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
 }
 
 .modal-crud-usuario .purple-input {
@@ -546,17 +696,13 @@
 
 /* MODAL DELETE USUÁRIO */
 .modal-danger {
-  border-top: 5px solid #ff6b6b;
+  border-top: 5px solid var(--color-danger);
   border-radius: 12px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
 .modal-danger .modal-title {
-  color: #ff6b6b;
-  font-size: 1.7rem;
-  font-weight: 700;
-  text-align: center;
-  margin: 0 0 1.6rem 0;
+  color: var(--color-danger);
 }
 
 .delete-warning {
@@ -582,91 +728,33 @@
   color: #721c24;
 }
 
-/* BOTÕES MODAIS */
-.modal-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.btn-purple {
-  margin: 0 auto;
-  width: 100%;
-  height: 50px;
-  background: var(--color-primary);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  box-shadow: 0 8px 18px rgba(123, 63, 242, 0.18);
-  transition: transform .12s ease, background .12s ease;
-  box-sizing: border-box;
-}
-
-.btn-purple:hover {
-  transform: translateY(-2px);
-  background: #6a2de0;
-}
-
-.btn-purple:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
 .btn-confirm-delete {
   background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
   color: white;
   border: none;
   padding: 1rem 1.5rem;
-  border-radius: 10px;
+  border-radius: 30px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  box-shadow: 0 8px 18px rgba(220, 53, 69, 0.3);
   width: 100%;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.btn-confirm-delete:hover {
+.btn-confirm-delete:hover:not(:disabled) {
   background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
 }
 
 .btn-confirm-delete:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-cancelar {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 0.9rem 1.8rem;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex: 1;
-  min-width: 120px;
-}
-
-.btn-cancelar:hover {
-  background: #5a6268;
-  transform: translateY(-2px);
-}
-
-.btn-cancelar:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -686,5 +774,30 @@
   .btn-cancelar {
     width: 100%;
     margin: 0;
+  }
+
+  .adocao-info {
+    gap: 1rem;
+  }
+
+  .pet-info-card,
+  .adotante-info-card {
+    padding: 1rem;
+  }
+}
+
+/* Animações suaves */
+.modal-container {
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }

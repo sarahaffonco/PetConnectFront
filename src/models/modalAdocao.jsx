@@ -28,13 +28,7 @@ export default function ModalAdocao({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDadosAdocao((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -150,15 +144,6 @@ export default function ModalAdocao({
 
             <form className="modal-form" onSubmit={handleSubmit}>
               <div className="campo">
-                <label>Observações (opcional)</label>
-                <textarea
-                  name="observacoes"
-                  value={dadosAdocao.observacoes}
-                  onChange={handleChange}
-                  placeholder="Alguma informação adicional sobre a adoção..."
-                  className="blue-input"
-                  rows="3"
-                ></textarea>
               </div>
 
               <div className="modal-actions">
