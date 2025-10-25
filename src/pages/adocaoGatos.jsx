@@ -29,9 +29,28 @@ export default function AdocaoGatos({ onLoginClick }) {
   const [petSelecionado, setPetSelecionado] = useState(null);
   const [modalAdocaoAberto, setModalAdocaoAberto] = useState(false);
 
+  // Estados para o CRUD inline
+  const [editandoGatoId, setEditandoGatoId] = useState(null);
+  const [campoEditando, setCampoEditando] = useState(null);
+  const [formDataGato, setFormDataGato] = useState({
+    nome: "",
+    descricao: "",
+    especie: "",
+    raca: "",
+    tamanho: "",
+    personalidade: "",
+    dataNascimento: "",
+    status: "disponivel",
+  });
+  const [carregandoCRUD, setCarregandoCRUD] = useState(false);
+  const [mensagemCRUD, setMensagemCRUD] = useState("");
 
-  // eslint-disable-next-line no-unused-vars
-  const { favoritos, alternarFavorito, ehFavorito, carregando: carregandoFavoritos } = useFavoritos();
+  const {
+    favoritos,
+    alternarFavorito,
+    ehFavorito,
+    carregando: carregandoFavoritos,
+  } = useFavoritos();
 
   const carregarGatos = useCallback(async () => {
     setLoading(true);
@@ -90,6 +109,71 @@ export default function AdocaoGatos({ onLoginClick }) {
   useEffect(() => {
     carregarGatos();
   }, [carregarGatos]);
+
+  // Funções do CRUD inline
+  const iniciarEdicaoInline = useCallback((gato, campo) => {
+    setEditandoGatoId(gato.id);
+    setCampoEditando(campo);
+    setFormDataGato((prev) => ({
+      ...prev,
+      [campo]: gato[campo] || "",
+    }));
+  }, []);
+
+  const handleFormChangeGato = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormDataGato((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }, []);
+
+  const salvarEdicaoInline = useCallback(
+    async (campo) => {
+      if (!editandoGatoId) return;
+
+      try {
+        setCarregandoCRUD(true);
+        setMensagemCRUD("");
+
+        const dadosAtualizar = { [campo]: formDataGato[campo] };
+
+        await axios.put(`${API_URL}/${editandoGatoId}`, dadosAtualizar);
+
+        setMensagemCRUD("✅ Campo atualizado com sucesso!");
+        setEditandoGatoId(null);
+        setCampoEditando(null);
+
+        // Recarregar a lista
+        carregarGatos();
+      } catch (error) {
+        console.error("Erro ao atualizar gato:", error);
+        setMensagemCRUD(
+          "❌ Erro ao atualizar: " +
+            (error.response?.data?.erro || error.message)
+        );
+      } finally {
+        setCarregandoCRUD(false);
+      }
+    },
+    [editandoGatoId, formDataGato, carregarGatos]
+  );
+
+  const cancelarEdicaoInline = useCallback(() => {
+    setEditandoGatoId(null);
+    setCampoEditando(null);
+    setFormDataGato({
+      nome: "",
+      descricao: "",
+      especie: "",
+      raca: "",
+      tamanho: "",
+      personalidade: "",
+      dataNascimento: "",
+      status: "disponivel",
+    });
+    setMensagemCRUD("");
+  }, []);
 
   const handleAdotarClick = (gato) => {
     if (!usuario) {
@@ -193,12 +277,18 @@ export default function AdocaoGatos({ onLoginClick }) {
     }
   };
 
+  // Função para formatar data para input type="date"
+  const formatarDataParaInput = (dataString) => {
+    if (!dataString) return "";
+    const data = new Date(dataString);
+    return data.toISOString().split("T")[0];
+  };
+
   return (
     <div className="adocao-gatos-page">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
-          <span className="hero-badge">Gatinhos</span>
           <h1>O seu amigo de patas e bigodes te espera</h1>
           <p>
             Na PetConnect, cada ronronar conta uma história de esperança.
@@ -222,6 +312,15 @@ export default function AdocaoGatos({ onLoginClick }) {
           <div className="header-content">
             <h2>Encontre seu novo companheiro</h2>
             {erro && <div className="erro-mensagem">{erro}</div>}
+
+            {/* Mensagem do CRUD */}
+            {mensagemCRUD && (
+              <div
+                className={`message ${mensagemCRUD.includes("✅") ? "success" : "error"}`}
+              >
+                {mensagemCRUD}
+              </div>
+            )}
           </div>
         </div>
 
@@ -336,37 +435,307 @@ export default function AdocaoGatos({ onLoginClick }) {
                           }
                           disabled={carregandoFavoritos}
                         >
-                          {carregandoFavoritos ? "⏳" : (ehFavorito(gato.id) ? "❤️" : "♡")}
+                          {carregandoFavoritos
+                            ? "⏳"
+                            : ehFavorito(gato.id)
+                              ? "❤️"
+                              : "♡"}
                         </button>
                         {gato.status === "adotado" && (
                           <div className="badge-adotado">Adotado ❤️</div>
                         )}
                       </div>
                       <div className="card-content">
-                        <h3>{gato.nome}</h3>
-                        <p>
-                          {gato.descricao ||
-                            "Um lindo gatinho à procura de um lar!"}
-                        </p>
-                        <div className="pet-info">
-                          <span>🐱 {calcularIdade(gato.dataNascimento)}</span>
-                          <span>📏 {gato.tamanho || "Não informado"}</span>
-                          <span>
-                            ⚡{" "}
-                            {gato.personalidade === "brincalhao"
-                              ? "Brincalhão"
-                              : "Calmo"}
-                          </span>
+                        {/* NOME - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Nome:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "nome" ? (
+                            <div className="inline-edit">
+                              <input
+                                type="text"
+                                name="nome"
+                                value={formDataGato.nome}
+                                onChange={handleFormChangeGato}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline("nome")}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{gato.nome}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "nome")
+                                }
+                                title="Editar nome"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
                         </div>
-                        <button
-                          className={`btn-adotar ${gato.status === "adotado" ? "btn-adotado" : ""}`}
-                          onClick={() => handleAdotarClick(gato)}
-                          disabled={gato.status === "adotado"}
-                        >
-                          {gato.status === "adotado"
-                            ? "Já foi adotado"
-                            : "Adotar 🐾"}
-                        </button>
+
+                        {/* DESCRIÇÃO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Descrição:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "descricao" ? (
+                            <div className="inline-edit">
+                              <textarea
+                                name="descricao"
+                                value={formDataGato.descricao}
+                                onChange={handleFormChangeGato}
+                                className="inline-textarea"
+                                rows="3"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline("descricao")}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{gato.descricao || "Sem descrição"}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "descricao")
+                                }
+                                title="Editar descrição"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* RAÇA - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Raça:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "raca" ? (
+                            <div className="inline-edit">
+                              <input
+                                type="text"
+                                name="raca"
+                                value={formDataGato.raca}
+                                onChange={handleFormChangeGato}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline("raca")}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{gato.raca || "SRD"}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "raca")
+                                }
+                                title="Editar raça"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* TAMANHO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Tamanho:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "tamanho" ? (
+                            <div className="inline-edit">
+                              <select
+                                name="tamanho"
+                                value={formDataGato.tamanho}
+                                onChange={handleFormChangeGato}
+                                className="inline-select"
+                              >
+                                <option value="pequeno">Pequeno</option>
+                                <option value="medio">Médio</option>
+                                <option value="grande">Grande</option>
+                              </select>
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() => salvarEdicaoInline("tamanho")}
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>
+                                {gato.tamanho === "pequeno"
+                                  ? "Pequeno"
+                                  : gato.tamanho === "medio"
+                                    ? "Médio"
+                                    : "Grande"}
+                              </span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "tamanho")
+                                }
+                                title="Editar tamanho"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* PERSONALIDADE - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Personalidade:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "personalidade" ? (
+                            <div className="inline-edit">
+                              <select
+                                name="personalidade"
+                                value={formDataGato.personalidade}
+                                onChange={handleFormChangeGato}
+                                className="inline-select"
+                              >
+                                <option value="brincalhao">Brincalhão</option>
+                                <option value="calmo">Calmo</option>
+                              </select>
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() =>
+                                  salvarEdicaoInline("personalidade")
+                                }
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>
+                                {gato.personalidade === "brincalhao"
+                                  ? "Brincalhão"
+                                  : "Calmo"}
+                              </span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "personalidade")
+                                }
+                                title="Editar personalidade"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* DATA DE NASCIMENTO - Edição Inline */}
+                        <div className="pet-field">
+                          <strong>Nascimento:</strong>
+                          {editandoGatoId === gato.id &&
+                          campoEditando === "dataNascimento" ? (
+                            <div className="inline-edit">
+                              <input
+                                type="date"
+                                name="dataNascimento"
+                                value={formatarDataParaInput(
+                                  formDataGato.dataNascimento
+                                )}
+                                onChange={handleFormChangeGato}
+                                className="inline-input"
+                              />
+                              <button
+                                className="btn-salvar-inline"
+                                onClick={() =>
+                                  salvarEdicaoInline("dataNascimento")
+                                }
+                                disabled={carregandoCRUD}
+                              >
+                                💾
+                              </button>
+                              <button
+                                className="btn-cancelar-inline"
+                                onClick={cancelarEdicaoInline}
+                              >
+                                ❌
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="inline-view">
+                              <span>{calcularIdade(gato.dataNascimento)}</span>
+                              <button
+                                className="btn-editar-inline"
+                                onClick={() =>
+                                  iniciarEdicaoInline(gato, "dataNascimento")
+                                }
+                                title="Editar data de nascimento"
+                              >
+                                ✏️
+                              </button>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="card-actions">
+                          <button
+                            className={`btn-adotar ${gato.status === "adotado" ? "btn-adotado" : ""}`}
+                            onClick={() => handleAdotarClick(gato)}
+                            disabled={gato.status === "adotado"}
+                          >
+                            {gato.status === "adotado"
+                              ? "Já foi adotado"
+                              : "Adotar 🐾"}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}

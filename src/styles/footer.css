@@ -19,7 +19,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    z-index: 1;
+    z-index: 0;
     position: relative;
     box-sizing: border-box;
 
@@ -139,7 +139,7 @@
     font-size: 0.85rem;
     color: var(--color-subtext);
     position: relative;
-    z-index: 1;
+    z-index: 0;
     box-sizing: border-box;
 }
 /* RESPONSIVIDADE */

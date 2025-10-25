@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useCallback, useEffect, useRef } from "react";
 import "../styles/usuario.css";
 import axios from "axios";
@@ -5,6 +6,8 @@ import ModalDeleteUsuario from "../models/modalDeleteUsuario";
 
 export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   const [usuarios, setUsuarios] = useState([]);
+  const [adocoes, setAdocoes] = useState([]);
+  const [loadingAdocoes, setLoadingAdocoes] = useState(false);
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -21,6 +24,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   const isLoadingRef = useRef(false);
   const isMountedRef = useRef(true);
   const API_URL = "http://localhost:3000/api/adotantes";
+  const API_ADOCAO_URL = "http://localhost:3000/api/adocoes";
 
   //  Limpeza ao desmontar
   useEffect(() => {
@@ -31,12 +35,45 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   }, []);
 
   //  Carregar lista (modo admin)
-useEffect(() => {
-  if (!usuario) {
-    fetchUsuarios();
-  }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [usuario]);
+  useEffect(() => {
+    if (!usuario) {
+      fetchUsuarios();
+    }
+  }, [usuario]);
+
+  //  Carregar adoções do usuário logado
+  useEffect(() => {
+    if (usuario && usuario.id) {
+      fetchAdocoesUsuario();
+    }
+  }, [usuario]);
+
+  //  Buscar adoções do usuário
+  const fetchAdocoesUsuario = useCallback(async () => {
+    if (!usuario?.id) return;
+
+    try {
+      setLoadingAdocoes(true);
+      const response = await axios.get(API_ADOCAO_URL);
+      const todasAdocoes = response.data.adocoes || [];
+
+      // Filtrar adoções do usuário logado
+      const adocoesUsuario = todasAdocoes.filter(
+        adocao => adocao.adotanteId === usuario.id
+      );
+
+      if (isMountedRef.current) setAdocoes(adocoesUsuario);
+    } catch (error) {
+      console.error("Erro ao carregar adoções:", error);
+      if (isMountedRef.current) {
+        setAdocoes([]);
+        setMessage("⚠️ Não foi possível carregar suas adoções");
+      }
+    } finally {
+      if (isMountedRef.current) setLoadingAdocoes(false);
+    }
+  }, [usuario]);
+
   //  Buscar lista de usuários
   const fetchUsuarios = useCallback(async () => {
     if (isLoadingRef.current) return;
@@ -57,6 +94,30 @@ useEffect(() => {
       if (isMountedRef.current) setLoading(false);
     }
   }, []);
+
+  //  Cancelar adoção
+  const handleCancelarAdocao = useCallback(async (adocaoId) => {
+    if (!window.confirm("Tem certeza que deseja cancelar esta adoção?")) return;
+
+    try {
+      setLoading(true);
+      await axios.delete(`${API_ADOCAO_URL}/${adocaoId}`);
+      if (isMountedRef.current) {
+        setMessage("✅ Adoção cancelada com sucesso!");
+        fetchAdocoesUsuario(); // Recarregar a lista
+      }
+    } catch (error) {
+      console.error("Erro ao cancelar adoção:", error);
+      if (isMountedRef.current) {
+        setMessage(
+          "❌ Erro ao cancelar adoção: " +
+            (error.response?.data?.erro || error.message)
+        );
+      }
+    } finally {
+      if (isMountedRef.current) setLoading(false);
+    }
+  }, [fetchAdocoesUsuario]);
 
   //  Manipular formulário
   const handleFormChange = useCallback((e) => {
@@ -177,14 +238,13 @@ useEffect(() => {
     }
   }, [usuario?.id, onLogout]);
 
-
   //  Edição inline
   const startInlineEdit = useCallback((campo) => {
     setInlineEditField(campo);
     setFormData((prev) => ({ ...prev, [campo]: usuario[campo] || "" }));
   }, [usuario]);
 
-const handleInlineSave = useCallback(
+  const handleInlineSave = useCallback(
     async (campo) => {
       try {
         setLoading(true);
@@ -216,7 +276,6 @@ const handleInlineSave = useCallback(
     [usuario, formData, onUsuarioUpdate]
   );
 
-
   //  Fechar modal
   const handleCloseModal = useCallback(() => {
     setShowEditModal(false);
@@ -226,6 +285,11 @@ const handleInlineSave = useCallback(
     setFormData({ nome: "", email: "", telefone: "", endereco: "" });
     setMessage("");
   }, []);
+
+  //  Formatar data
+  const formatarData = (dataString) => {
+    return new Date(dataString).toLocaleDateString('pt-BR');
+  };
 
   //  PERFIL DO USUÁRIO LOGADO
   if (usuario && usuario.id) {
@@ -288,10 +352,70 @@ const handleInlineSave = useCallback(
           </div>
         </div>
 
+        {/* Seção de Adoções do Usuário */}
+        <div className="adocoes-section">
+          <h3>🐾 Minhas Adoções</h3>
+
+          {loadingAdocoes ? (
+            <p className="loading">Carregando suas adoções...</p>
+          ) : adocoes.length === 0 ? (
+            <p className="no-adocoes">Você ainda não realizou nenhuma adoção.</p>
+          ) : (
+            <div className="adocoes-table-container">
+              <table className="adocoes-tabela">
+                <thead>
+                  <tr>
+                    <th>Pet</th>
+                    <th>Espécie</th>
+                    <th>Raça</th>
+                    <th>Idade</th>
+                    <th>Data da Adoção</th>
+                    <th>Observações</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {adocoes.map((adocao) => (
+                    <tr key={adocao.id}>
+                      <td>
+                        {adocao.pet?.nome || "N/A"}
+                      </td>
+                      <td>
+                        {adocao.pet?.especie || "N/A"}
+                      </td>
+                      <td>
+                        {adocao.pet?.raca || "Sem raça definida"}
+                      </td>
+                      <td>
+                        {adocao.pet?.idade || "N/A"}
+                      </td>
+                      <td>
+                        {formatarData(adocao.dataAdocao)}
+                      </td>
+                      <td>
+                        {adocao.observacoes || "Nenhuma"}
+                      </td>
+                      <td>
+                        <button
+                          className="btn-cancelar-adocao"
+                          onClick={() => handleCancelarAdocao(adocao.id)}
+                          disabled={loading}
+                          title="Cancelar Adoção"
+                        >
+                          ❌ Cancelar
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
         <div className="profile-actions">
           <h3>Minhas Ações</h3>
           <div className="action-buttons">
-
             <button
               className="btn-excluir-conta"
               onClick={() => setShowDeleteModal(true)}

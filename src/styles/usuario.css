@@ -243,6 +243,109 @@
       background-color: #fecaca;
     }
 
+    /* Estilos para a seção de adoções */
+.adocoes-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.adocoes-section h3 {
+  color: #6f42c1;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.adocoes-table-container {
+  overflow-x: auto;
+}
+
+.adocoes-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.adocoes-tabela th,
+.adocoes-tabela td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.adocoes-tabela th {
+  background-color: #6f42c1;
+  color: white;
+  font-weight: 600;
+}
+
+.adocoes-tabela tr:hover {
+  background-color: #f8f9fa;
+}
+
+.adocoes-tabela tr:last-child td {
+  border-bottom: none;
+}
+
+/* Botão de cancelar adoção */
+.btn-cancelar-adocao {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.btn-cancelar-adocao:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+.btn-cancelar-adocao:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Estados de loading e mensagens */
+.loading {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.no-adocoes {
+  text-align: center;
+  color: #6c757d;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .adocoes-tabela {
+    font-size: 0.85rem;
+  }
+
+  .adocoes-tabela th,
+  .adocoes-tabela td {
+    padding: 0.5rem;
+  }
+
+  .btn-cancelar-adocao {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
     /*
    RESPONSIVIDADE
     */
