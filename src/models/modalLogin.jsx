@@ -44,7 +44,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
 
     try {
       const response = await axios.post(
-        "https://petconnect-h8cb.onrender.com/api/auth/login",
+        "http://localhost:3000/api/auth/login",
         {
           email: formData.email,
           senha: formData.senha,

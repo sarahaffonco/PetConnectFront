@@ -48,14 +48,11 @@ export default function ModalAdocao({
     setMensagem("");
 
     try {
-      const response = await axios.post(
-        "https://petconnect-h8cb.onrender.com/api/adocoes",
-        {
-          petId: pet.id,
-          adotanteId: usuario.id,
-          observacoes: dadosAdocao.observacoes,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/api/adocoes", {
+        petId: pet.id,
+        adotanteId: usuario.id,
+        observacoes: dadosAdocao.observacoes,
+      });
 
       if (response.status === 201) {
         setMensagem("✅ Adoção realizada com sucesso!");

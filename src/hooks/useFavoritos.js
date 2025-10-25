@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 
-const API_URL = 'https://petconnect-h8cb.onrender.com/api/favoritos';
+const API_URL = 'http://localhost:3000/api/favoritos';
 
 export const useFavoritos = () => {
   const [favoritos, setFavoritos] = useState([]);

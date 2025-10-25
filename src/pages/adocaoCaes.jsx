@@ -8,7 +8,7 @@ import { useFavoritos } from "../hooks/useFavoritos";
 import { useAuth } from "../hooks/useAuth";
 import ModalAdocao from "../models/modalAdocao";
 
-const API_URL = "https://petconnect-h8cb.onrender.com/api/pets";
+const API_URL = "http://localhost:3000/api/pets";
 const LIMITE_POR_PAGINA = 8;
 
 export default function AdocaoCaes({ onLoginClick }) {

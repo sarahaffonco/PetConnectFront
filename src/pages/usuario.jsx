@@ -23,8 +23,8 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
 
   const isLoadingRef = useRef(false);
   const isMountedRef = useRef(true);
-  const API_URL = "https://petconnect-h8cb.onrender.com/api/adotantes";
-  const API_ADOCAO_URL = "https://petconnect-h8cb.onrender.com/api/adocoes";
+  const API_URL = "http://localhost:3000/api/adotantes";
+  const API_ADOCAO_URL = "http://localhost:3000/api/adocoes";
 
   //  Limpeza ao desmontar
   useEffect(() => {

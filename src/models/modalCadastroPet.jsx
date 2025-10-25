@@ -38,7 +38,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
 
     try {
       const response = await axios.post(
-        "https://petconnect-h8cb.onrender.com/api/pets",
+        "http://localhost:3000/api/pets",
         formData
       );
 
