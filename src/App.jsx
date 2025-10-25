@@ -8,7 +8,7 @@ import "./styles/app.css";
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isCadastroOpen, setIsCadastroOpen] = useState(false);
-  const { usuario, logout, atualizarUsuario } = useAuth(); 
+  const { usuario, logout, atualizarUsuario } = useAuth();
 
   const abrirLogin = () => {
     setIsLoginOpen(true);
