@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import ModalAdocao from "../models/modalAdocao";
 import { useFavoritos } from "../hooks/useFavoritos";
 
-const API_URL = "http://localhost:3000/api/pets";
+const API_URL = "https://petconnect-h8cb.onrender.com/api/pets";
 const LIMIT_PER_PAGE = 8;
 
 export default function AdocaoGatos({ onLoginClick }) {
@@ -420,7 +420,7 @@ export default function AdocaoGatos({ onLoginClick }) {
               </div>
             ) : (
               <>
-                <div className="cards-grid">                 
+                <div className="cards-grid">
                   {gatos.map((gato) => (
                     <div key={gato.id} className="gato-card">
                       <div className="card-image">

@@ -9,7 +9,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
     dataNascimento: "",
     descricao: "",
     tamanho: "",
-    personalidade: ""
+    personalidade: "",
   });
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState("");
@@ -25,9 +25,9 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -37,7 +37,10 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
     setMensagem("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/pets", formData);
+      const response = await axios.post(
+        "https://petconnect-h8cb.onrender.com/api/pets",
+        formData
+      );
 
       if (response.status === 201) {
         setMensagem("✅ Pet cadastrado com sucesso!");
@@ -47,7 +50,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
           dataNascimento: "",
           descricao: "",
           tamanho: "",
-          personalidade: ""
+          personalidade: "",
         });
 
         // Fechar modal após 2 segundos
@@ -72,11 +75,15 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
         className="modal-container modal-cadastro-pet"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="close-btn" onClick={onClose}>
+          ×
+        </button>
         <h2 className="modal-title">Cadastro de Pet</h2>
 
         {mensagem && (
-          <div className={`mensagem ${mensagem.includes('✅') ? 'sucesso' : 'erro'}`}>
+          <div
+            className={`mensagem ${mensagem.includes("✅") ? "sucesso" : "erro"}`}
+          >
             {mensagem}
           </div>
         )}
@@ -166,11 +173,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             </select>
           </div>
 
-          <button
-            type="submit"
-            className="btn-blue"
-            disabled={carregando}
-          >
+          <button type="submit" className="btn-blue" disabled={carregando}>
             {carregando ? "Cadastrando..." : "🐾 Salvar"}
           </button>
         </form>

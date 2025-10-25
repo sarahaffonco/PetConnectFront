@@ -16,7 +16,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
-    senha: ""
+    senha: "",
   });
 
   useEffect(() => {
@@ -30,9 +30,9 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     setShowError(false); // Limpar erro quando usuário digitar
   };
@@ -43,15 +43,18 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
     setShowError(false);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
-        email: formData.email,
-        senha: formData.senha
-      });
+      const response = await axios.post(
+        "https://petconnect-h8cb.onrender.com/api/auth/login",
+        {
+          email: formData.email,
+          senha: formData.senha,
+        }
+      );
 
       if (response.data.token) {
         // Salvar token e dados do usuário
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
 
         // Fechar modal e recarregar
         onClose();

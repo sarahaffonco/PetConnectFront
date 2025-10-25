@@ -4,7 +4,7 @@ import "../styles/usuario.css";
 import axios from "axios";
 import ModalDeleteUsuario from "../models/modalDeleteUsuario";
 
-export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
+export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
   const [usuarios, setUsuarios] = useState([]);
   const [adocoes, setAdocoes] = useState([]);
   const [loadingAdocoes, setLoadingAdocoes] = useState(false);
@@ -23,8 +23,8 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
 
   const isLoadingRef = useRef(false);
   const isMountedRef = useRef(true);
-  const API_URL = "http://localhost:3000/api/adotantes";
-  const API_ADOCAO_URL = "http://localhost:3000/api/adocoes";
+  const API_URL = "https://petconnect-h8cb.onrender.com/api/adotantes";
+  const API_ADOCAO_URL = "https://petconnect-h8cb.onrender.com/api/adocoes";
 
   //  Limpeza ao desmontar
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
 
       // Filtrar adoções do usuário logado
       const adocoesUsuario = todasAdocoes.filter(
-        adocao => adocao.adotanteId === usuario.id
+        (adocao) => adocao.adotanteId === usuario.id
       );
 
       if (isMountedRef.current) setAdocoes(adocoesUsuario);
@@ -96,28 +96,32 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   }, []);
 
   //  Cancelar adoção
-  const handleCancelarAdocao = useCallback(async (adocaoId) => {
-    if (!window.confirm("Tem certeza que deseja cancelar esta adoção?")) return;
+  const handleCancelarAdocao = useCallback(
+    async (adocaoId) => {
+      if (!window.confirm("Tem certeza que deseja cancelar esta adoção?"))
+        return;
 
-    try {
-      setLoading(true);
-      await axios.delete(`${API_ADOCAO_URL}/${adocaoId}`);
-      if (isMountedRef.current) {
-        setMessage("✅ Adoção cancelada com sucesso!");
-        fetchAdocoesUsuario(); // Recarregar a lista
+      try {
+        setLoading(true);
+        await axios.delete(`${API_ADOCAO_URL}/${adocaoId}`);
+        if (isMountedRef.current) {
+          setMessage("✅ Adoção cancelada com sucesso!");
+          fetchAdocoesUsuario(); // Recarregar a lista
+        }
+      } catch (error) {
+        console.error("Erro ao cancelar adoção:", error);
+        if (isMountedRef.current) {
+          setMessage(
+            "❌ Erro ao cancelar adoção: " +
+              (error.response?.data?.erro || error.message)
+          );
+        }
+      } finally {
+        if (isMountedRef.current) setLoading(false);
       }
-    } catch (error) {
-      console.error("Erro ao cancelar adoção:", error);
-      if (isMountedRef.current) {
-        setMessage(
-          "❌ Erro ao cancelar adoção: " +
-            (error.response?.data?.erro || error.message)
-        );
-      }
-    } finally {
-      if (isMountedRef.current) setLoading(false);
-    }
-  }, [fetchAdocoesUsuario]);
+    },
+    [fetchAdocoesUsuario]
+  );
 
   //  Manipular formulário
   const handleFormChange = useCallback((e) => {
@@ -144,7 +148,10 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
             setMessage("✅ Usuário atualizado com sucesso!");
             if (usuario && editingId === usuario.id) {
               const usuarioAtualizado = { ...usuario, ...formData };
-              localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+              localStorage.setItem(
+                "usuario",
+                JSON.stringify(usuarioAtualizado)
+              );
               setShowEditModal(false);
               setEditingId(null);
             } else {
@@ -191,7 +198,8 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   //  Excluir usuário (Admin)
   const handleDelete = useCallback(
     async (id) => {
-      if (!window.confirm("Tem certeza que deseja excluir este usuário?")) return;
+      if (!window.confirm("Tem certeza que deseja excluir este usuário?"))
+        return;
 
       try {
         setLoading(true);
@@ -239,16 +247,21 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
   }, [usuario?.id, onLogout]);
 
   //  Edição inline
-  const startInlineEdit = useCallback((campo) => {
-    setInlineEditField(campo);
-    setFormData((prev) => ({ ...prev, [campo]: usuario[campo] || "" }));
-  }, [usuario]);
+  const startInlineEdit = useCallback(
+    (campo) => {
+      setInlineEditField(campo);
+      setFormData((prev) => ({ ...prev, [campo]: usuario[campo] || "" }));
+    },
+    [usuario]
+  );
 
   const handleInlineSave = useCallback(
     async (campo) => {
       try {
         setLoading(true);
-        await axios.put(`${API_URL}/${usuario.id}`, { [campo]: formData[campo] });
+        await axios.put(`${API_URL}/${usuario.id}`, {
+          [campo]: formData[campo],
+        });
         if (isMountedRef.current) {
           setMessage("✅ Campo atualizado com sucesso!");
           setInlineEditField(null);
@@ -288,7 +301,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
 
   //  Formatar data
   const formatarData = (dataString) => {
-    return new Date(dataString).toLocaleDateString('pt-BR');
+    return new Date(dataString).toLocaleDateString("pt-BR");
   };
 
   //  PERFIL DO USUÁRIO LOGADO
@@ -298,7 +311,9 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
         <h2 className="usuario-title">👤 Meu Perfil</h2>
 
         {message && (
-          <div className={`message ${message.includes("✅") ? "success" : "error"}`}>
+          <div
+            className={`message ${message.includes("✅") ? "success" : "error"}`}
+          >
             {message}
           </div>
         )}
@@ -307,7 +322,9 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
           <div className="profile-info">
             {["nome", "email", "telefone", "endereco"].map((campo) => (
               <div className="info-item" key={campo}>
-                <strong>{campo.charAt(0).toUpperCase() + campo.slice(1)}:</strong>{" "}
+                <strong>
+                  {campo.charAt(0).toUpperCase() + campo.slice(1)}:
+                </strong>{" "}
                 {inlineEditField === campo ? (
                   <>
                     <input
@@ -359,7 +376,9 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
           {loadingAdocoes ? (
             <p className="loading">Carregando suas adoções...</p>
           ) : adocoes.length === 0 ? (
-            <p className="no-adocoes">Você ainda não realizou nenhuma adoção.</p>
+            <p className="no-adocoes">
+              Você ainda não realizou nenhuma adoção.
+            </p>
           ) : (
             <div className="adocoes-table-container">
               <table className="adocoes-tabela">
@@ -377,24 +396,12 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
                 <tbody>
                   {adocoes.map((adocao) => (
                     <tr key={adocao.id}>
-                      <td>
-                        {adocao.pet?.nome || "N/A"}
-                      </td>
-                      <td>
-                        {adocao.pet?.especie || "N/A"}
-                      </td>
-                      <td>
-                        {adocao.pet?.raca || "Sem raça definida"}
-                      </td>
-                      <td>
-                        {adocao.pet?.idade || "N/A"}
-                      </td>
-                      <td>
-                        {formatarData(adocao.dataAdocao)}
-                      </td>
-                      <td>
-                        {adocao.observacoes || "Nenhuma"}
-                      </td>
+                      <td>{adocao.pet?.nome || "N/A"}</td>
+                      <td>{adocao.pet?.especie || "N/A"}</td>
+                      <td>{adocao.pet?.raca || "Sem raça definida"}</td>
+                      <td>{adocao.pet?.idade || "N/A"}</td>
+                      <td>{formatarData(adocao.dataAdocao)}</td>
+                      <td>{adocao.observacoes || "Nenhuma"}</td>
                       <td>
                         <button
                           className="btn-cancelar-adocao"
@@ -444,7 +451,9 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
       <h2 className="usuario-title">👤 Gerenciamento de Usuários</h2>
 
       {message && (
-        <div className={`message ${message.includes("✅") ? "success" : "error"}`}>
+        <div
+          className={`message ${message.includes("✅") ? "success" : "error"}`}
+        >
           {message}
         </div>
       )}
@@ -494,7 +503,11 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate  }) {
         </div>
 
         <button type="submit" className="btn-roxo" disabled={loading}>
-          {loading ? "Salvando..." : editingId ? "Atualizar Usuário" : "Cadastrar Usuário"}
+          {loading
+            ? "Salvando..."
+            : editingId
+              ? "Atualizar Usuário"
+              : "Cadastrar Usuário"}
         </button>
 
         {editingId && (

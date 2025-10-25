@@ -3,12 +3,18 @@ import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/models.css";
 
-export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onLoginClick }) {
+export default function ModalAdocao({
+  isOpen,
+  onClose,
+  pet,
+  onAdocaoSucesso,
+  onLoginClick,
+}) {
   const { usuario, estaLogado } = useAuth();
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [dadosAdocao, setDadosAdocao] = useState({
-    observacoes: ""
+    observacoes: "",
   });
 
   useEffect(() => {
@@ -24,9 +30,9 @@ export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onL
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDadosAdocao(prev => ({
+    setDadosAdocao((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -42,11 +48,14 @@ export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onL
     setMensagem("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/adocoes", {
-        petId: pet.id,
-        adotanteId: usuario.id,
-        observacoes: dadosAdocao.observacoes
-      });
+      const response = await axios.post(
+        "https://petconnect-h8cb.onrender.com/api/adocoes",
+        {
+          petId: pet.id,
+          adotanteId: usuario.id,
+          observacoes: dadosAdocao.observacoes,
+        }
+      );
 
       if (response.status === 201) {
         setMensagem("✅ Adoção realizada com sucesso!");
@@ -85,15 +94,21 @@ export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onL
         className="modal-container modal-adocao"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="close-btn" onClick={onClose}>×</button>
+        <button className="close-btn" onClick={onClose}>
+          ×
+        </button>
 
         <div className="modal-header">
           <h2 className="modal-title">Adotar {pet?.nome}</h2>
-          <p className="modal-subtitle">Preencha os dados para finalizar a adoção</p>
+          <p className="modal-subtitle">
+            Preencha os dados para finalizar a adoção
+          </p>
         </div>
 
         {mensagem && (
-          <div className={`mensagem ${mensagem.includes('✅') ? 'sucesso' : 'erro'}`}>
+          <div
+            className={`mensagem ${mensagem.includes("✅") ? "sucesso" : "erro"}`}
+          >
             {mensagem}
           </div>
         )}
@@ -103,18 +118,36 @@ export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onL
             <div className="adocao-info">
               <div className="pet-info-card">
                 <h4>Informações do Pet</h4>
-                <p><strong>Nome:</strong> {pet?.nome}</p>
-                <p><strong>Espécie:</strong> {pet?.especie}</p>
-                <p><strong>Personalidade:</strong> {pet?.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</p>
-                <p><strong>Tamanho:</strong> {pet?.tamanho}</p>
+                <p>
+                  <strong>Nome:</strong> {pet?.nome}
+                </p>
+                <p>
+                  <strong>Espécie:</strong> {pet?.especie}
+                </p>
+                <p>
+                  <strong>Personalidade:</strong>{" "}
+                  {pet?.personalidade === "brincalhao" ? "Brincalhão" : "Calmo"}
+                </p>
+                <p>
+                  <strong>Tamanho:</strong> {pet?.tamanho}
+                </p>
               </div>
 
               <div className="adotante-info-card">
                 <h4>Seus Dados</h4>
-                <p><strong>Nome:</strong> {usuario?.nome}</p>
-                <p><strong>Email:</strong> {usuario?.email}</p>
-                <p><strong>Telefone:</strong> {usuario?.telefone}</p>
-                <p><strong>Endereço:</strong> {usuario?.endereco || 'Não informado'}</p>
+                <p>
+                  <strong>Nome:</strong> {usuario?.nome}
+                </p>
+                <p>
+                  <strong>Email:</strong> {usuario?.email}
+                </p>
+                <p>
+                  <strong>Telefone:</strong> {usuario?.telefone}
+                </p>
+                <p>
+                  <strong>Endereço:</strong>{" "}
+                  {usuario?.endereco || "Não informado"}
+                </p>
               </div>
             </div>
 
@@ -154,17 +187,13 @@ export default function ModalAdocao({ isOpen, onClose, pet, onAdocaoSucesso, onL
           <div className="aviso-login">
             <div className="aviso-content">
               <h3>💡 Login Necessário</h3>
-              <p>Para adotar {pet?.nome}, você precisa estar logado na sua conta.</p>
-              <button
-                className="btn-login"
-                onClick={handleFazerLogin}
-              >
+              <p>
+                Para adotar {pet?.nome}, você precisa estar logado na sua conta.
+              </p>
+              <button className="btn-login" onClick={handleFazerLogin}>
                 Fazer Login
               </button>
-              <button
-                className="btn-cancelar"
-                onClick={onClose}
-              >
+              <button className="btn-cancelar" onClick={onClose}>
                 Cancelar
               </button>
             </div>

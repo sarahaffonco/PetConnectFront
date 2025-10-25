@@ -8,7 +8,7 @@ import { useFavoritos } from "../hooks/useFavoritos";
 import { useAuth } from "../hooks/useAuth";
 import ModalAdocao from "../models/modalAdocao";
 
-const API_URL = "http://localhost:3000/api/pets";
+const API_URL = "https://petconnect-h8cb.onrender.com/api/pets";
 const LIMITE_POR_PAGINA = 8;
 
 export default function AdocaoCaes({ onLoginClick }) {
@@ -32,7 +32,7 @@ export default function AdocaoCaes({ onLoginClick }) {
     tamanho: "",
     personalidade: "",
     dataNascimento: "",
-    status: "disponivel"
+    status: "disponivel",
   });
   const [carregandoCRUD, setCarregandoCRUD] = useState(false);
   const [mensagemCRUD, setMensagemCRUD] = useState("");
@@ -40,13 +40,18 @@ export default function AdocaoCaes({ onLoginClick }) {
   // Estado dos filtros
   const [filtros, setFiltros] = useState({
     personalidade: [],
-    tamanho: '',
-    idadeMin: '',
-    idadeMax: '',
+    tamanho: "",
+    idadeMin: "",
+    idadeMax: "",
   });
 
   // eslint-disable-next-line no-unused-vars
-  const { favoritos, alternarFavorito, ehFavorito, carregando: carregandoFavoritos } = useFavoritos();
+  const {
+    favoritos,
+    alternarFavorito,
+    ehFavorito,
+    carregando: carregandoFavoritos,
+  } = useFavoritos();
   const { usuario } = useAuth();
 
   const carregarCaes = useCallback(async () => {
@@ -62,16 +67,16 @@ export default function AdocaoCaes({ onLoginClick }) {
 
       // Aplicar filtros
       if (filtros.personalidade.length > 0) {
-        params.personalidade = filtros.personalidade.join(',');
+        params.personalidade = filtros.personalidade.join(",");
       }
       if (filtros.tamanho) params.tamanho = filtros.tamanho;
       if (filtros.idadeMin) params.idadeMin = filtros.idadeMin;
       if (filtros.idadeMax) params.idadeMax = filtros.idadeMax;
 
-      console.log('Buscando cães com params:', params);
+      console.log("Buscando cães com params:", params);
 
       const response = await axios.get(API_URL, { params });
-      console.log('Resposta completa da API:', response.data);
+      console.log("Resposta completa da API:", response.data);
 
       const { pets, paginacao } = response.data;
 
@@ -86,16 +91,15 @@ export default function AdocaoCaes({ onLoginClick }) {
           setTotalResultados(pets.length);
         }
       } else {
-        console.error('Estrutura de resposta inesperada:', response.data);
+        console.error("Estrutura de resposta inesperada:", response.data);
         setCaes([]);
         setTotalPaginas(1);
         setTotalResultados(0);
-        setErro('Erro ao carregar dados dos cães');
+        setErro("Erro ao carregar dados dos cães");
       }
-
     } catch (error) {
       console.error("Erro ao carregar cães:", error);
-      setErro('Erro ao carregar lista de cães');
+      setErro("Erro ao carregar lista de cães");
       setCaes([]);
       setTotalPaginas(1);
       setTotalResultados(0);
@@ -112,48 +116,50 @@ export default function AdocaoCaes({ onLoginClick }) {
   const iniciarEdicaoInline = useCallback((cao, campo) => {
     setEditandoCaoId(cao.id);
     setCampoEditando(campo);
-    setFormDataCao(prev => ({
+    setFormDataCao((prev) => ({
       ...prev,
-      [campo]: cao[campo] || ""
+      [campo]: cao[campo] || "",
     }));
   }, []);
 
   const handleFormChangeCao = useCallback((e) => {
     const { name, value } = e.target;
-    setFormDataCao(prev => ({
+    setFormDataCao((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   }, []);
 
-  const salvarEdicaoInline = useCallback(async (campo) => {
-    if (!editandoCaoId) return;
+  const salvarEdicaoInline = useCallback(
+    async (campo) => {
+      if (!editandoCaoId) return;
 
-    try {
-      setCarregandoCRUD(true);
-      setMensagemCRUD("");
+      try {
+        setCarregandoCRUD(true);
+        setMensagemCRUD("");
 
-      const dadosAtualizar = { [campo]: formDataCao[campo] };
+        const dadosAtualizar = { [campo]: formDataCao[campo] };
 
-      await axios.put(`${API_URL}/${editandoCaoId}`, dadosAtualizar);
+        await axios.put(`${API_URL}/${editandoCaoId}`, dadosAtualizar);
 
-      setMensagemCRUD("✅ Campo atualizado com sucesso!");
-      setEditandoCaoId(null);
-      setCampoEditando(null);
+        setMensagemCRUD("✅ Campo atualizado com sucesso!");
+        setEditandoCaoId(null);
+        setCampoEditando(null);
 
-      // Recarregar a lista
-      carregarCaes();
-
-    } catch (error) {
-      console.error("Erro ao atualizar cão:", error);
-      setMensagemCRUD(
-        "❌ Erro ao atualizar: " +
-        (error.response?.data?.erro || error.message)
-      );
-    } finally {
-      setCarregandoCRUD(false);
-    }
-  }, [editandoCaoId, formDataCao, carregarCaes]);
+        // Recarregar a lista
+        carregarCaes();
+      } catch (error) {
+        console.error("Erro ao atualizar cão:", error);
+        setMensagemCRUD(
+          "❌ Erro ao atualizar: " +
+            (error.response?.data?.erro || error.message)
+        );
+      } finally {
+        setCarregandoCRUD(false);
+      }
+    },
+    [editandoCaoId, formDataCao, carregarCaes]
+  );
 
   const cancelarEdicaoInline = useCallback(() => {
     setEditandoCaoId(null);
@@ -166,22 +172,22 @@ export default function AdocaoCaes({ onLoginClick }) {
       tamanho: "",
       personalidade: "",
       dataNascimento: "",
-      status: "disponivel"
+      status: "disponivel",
     });
     setMensagemCRUD("");
   }, []);
 
   const handleAdotarClick = (cao) => {
     if (!usuario) {
-      alert('Você precisa fazer login para adotar um cão!');
+      alert("Você precisa fazer login para adotar um cão!");
       if (onLoginClick) {
         onLoginClick();
       }
       return;
     }
 
-    if (cao.status === 'adotado') {
-      alert('Este cãozinho já foi adotado! ❤️');
+    if (cao.status === "adotado") {
+      alert("Este cãozinho já foi adotado! ❤️");
       return;
     }
 
@@ -213,27 +219,27 @@ export default function AdocaoCaes({ onLoginClick }) {
   // Funções de filtro
   const toggleFiltroPersonalidade = (personalidade) => {
     setPaginaAtual(1);
-    setFiltros(prev => ({
+    setFiltros((prev) => ({
       ...prev,
       personalidade: prev.personalidade.includes(personalidade)
-        ? prev.personalidade.filter(p => p !== personalidade)
-        : [...prev.personalidade, personalidade]
+        ? prev.personalidade.filter((p) => p !== personalidade)
+        : [...prev.personalidade, personalidade],
     }));
   };
 
   const handleFiltroTamanho = (tamanho) => {
     setPaginaAtual(1);
-    setFiltros(prev => ({
+    setFiltros((prev) => ({
       ...prev,
-      tamanho: prev.tamanho === tamanho ? '' : tamanho
+      tamanho: prev.tamanho === tamanho ? "" : tamanho,
     }));
   };
 
   const handleFiltroIdade = (campo, valor) => {
     setPaginaAtual(1);
-    setFiltros(prev => ({
+    setFiltros((prev) => ({
       ...prev,
-      [campo]: valor
+      [campo]: valor,
     }));
   };
 
@@ -241,16 +247,16 @@ export default function AdocaoCaes({ onLoginClick }) {
     setPaginaAtual(1);
     setFiltros({
       personalidade: [],
-      tamanho: '',
-      idadeMin: '',
-      idadeMax: '',
+      tamanho: "",
+      idadeMin: "",
+      idadeMax: "",
     });
   };
 
   const handleMudancaPagina = (novaPagina) => {
     if (novaPagina >= 1 && novaPagina <= totalPaginas) {
       setPaginaAtual(novaPagina);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -261,17 +267,17 @@ export default function AdocaoCaes({ onLoginClick }) {
     const diffAnos = hoje.getFullYear() - nascimento.getFullYear();
     const diffMeses = hoje.getMonth() - nascimento.getMonth();
 
-    const mesesTotais = (diffAnos * 12) + diffMeses;
+    const mesesTotais = diffAnos * 12 + diffMeses;
 
     if (mesesTotais < 12) {
-      return `${mesesTotais} ${mesesTotais === 1 ? 'mês' : 'meses'}`;
+      return `${mesesTotais} ${mesesTotais === 1 ? "mês" : "meses"}`;
     } else {
       const anos = Math.floor(mesesTotais / 12);
       const meses = mesesTotais % 12;
       if (meses === 0) {
-        return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+        return `${anos} ${anos === 1 ? "ano" : "anos"}`;
       }
-      return `${anos} ${anos === 1 ? 'ano' : 'anos'} e ${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+      return `${anos} ${anos === 1 ? "ano" : "anos"} e ${meses} ${meses === 1 ? "mês" : "meses"}`;
     }
   };
 
@@ -279,7 +285,7 @@ export default function AdocaoCaes({ onLoginClick }) {
   const formatarDataParaInput = (dataString) => {
     if (!dataString) return "";
     const data = new Date(dataString);
-    return data.toISOString().split('T')[0];
+    return data.toISOString().split("T")[0];
   };
 
   return (
@@ -310,15 +316,13 @@ export default function AdocaoCaes({ onLoginClick }) {
           <div className="header-content">
             <h2>Encontre seu novo companheiro de quatro patas</h2>
 
-            {erro && (
-              <div className="erro-mensagem">
-                {erro}
-              </div>
-            )}
+            {erro && <div className="erro-mensagem">{erro}</div>}
 
             {/* Mensagem do CRUD */}
             {mensagemCRUD && (
-              <div className={`message ${mensagemCRUD.includes("✅") ? "success" : "error"}`}>
+              <div
+                className={`message ${mensagemCRUD.includes("✅") ? "success" : "error"}`}
+              >
                 {mensagemCRUD}
               </div>
             )}
@@ -333,10 +337,7 @@ export default function AdocaoCaes({ onLoginClick }) {
               <p className="resultados-count">
                 Mostrando {caes.length} de {totalResultados} resultados
               </p>
-              <button
-                className="btn-limpar-filtros"
-                onClick={limparFiltros}
-              >
+              <button className="btn-limpar-filtros" onClick={limparFiltros}>
                 Limpar Filtros
               </button>
             </div>
@@ -346,16 +347,16 @@ export default function AdocaoCaes({ onLoginClick }) {
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('brincalhao')}
-                  onChange={() => toggleFiltroPersonalidade('brincalhao')}
+                  checked={filtros.personalidade.includes("brincalhao")}
+                  onChange={() => toggleFiltroPersonalidade("brincalhao")}
                 />
                 Brincalhão
               </label>
               <label className="checkbox-label">
                 <input
                   type="checkbox"
-                  checked={filtros.personalidade.includes('calmo')}
-                  onChange={() => toggleFiltroPersonalidade('calmo')}
+                  checked={filtros.personalidade.includes("calmo")}
+                  onChange={() => toggleFiltroPersonalidade("calmo")}
                 />
                 Calmo
               </label>
@@ -363,7 +364,7 @@ export default function AdocaoCaes({ onLoginClick }) {
 
             <div className="filter-section">
               <h4>Tamanho</h4>
-              {['pequeno', 'medio', 'grande'].map(tamanho => (
+              {["pequeno", "medio", "grande"].map((tamanho) => (
                 <label key={tamanho} className="checkbox-label">
                   <input
                     type="radio"
@@ -386,7 +387,9 @@ export default function AdocaoCaes({ onLoginClick }) {
                     min="0"
                     max="30"
                     value={filtros.idadeMin}
-                    onChange={(e) => handleFiltroIdade('idadeMin', e.target.value)}
+                    onChange={(e) =>
+                      handleFiltroIdade("idadeMin", e.target.value)
+                    }
                     placeholder="0"
                   />
                 </div>
@@ -397,7 +400,9 @@ export default function AdocaoCaes({ onLoginClick }) {
                     min="0"
                     max="30"
                     value={filtros.idadeMax}
-                    onChange={(e) => handleFiltroIdade('idadeMax', e.target.value)}
+                    onChange={(e) =>
+                      handleFiltroIdade("idadeMax", e.target.value)
+                    }
                     placeholder="30"
                   />
                 </div>
@@ -412,13 +417,9 @@ export default function AdocaoCaes({ onLoginClick }) {
             ) : caes.length === 0 ? (
               <div className="no-results">
                 {totalResultados === 0
-                  ? 'Nenhum cachorro disponível para adoção no momento'
-                  : 'Nenhum cachorro encontrado com esses filtros'
-                }
-                <button
-                  className="btn-limpar-filtros"
-                  onClick={limparFiltros}
-                >
+                  ? "Nenhum cachorro disponível para adoção no momento"
+                  : "Nenhum cachorro encontrado com esses filtros"}
+                <button className="btn-limpar-filtros" onClick={limparFiltros}>
                   Limpar filtros
                 </button>
               </div>
@@ -431,14 +432,22 @@ export default function AdocaoCaes({ onLoginClick }) {
                         <img src={cao.fotoUrl || dogDefault} alt={cao.nome} />
                         {/* Botão de favorito */}
                         <button
-                          className={`btn-favorito ${ehFavorito(cao.id) ? 'favoritado' : ''} ${carregandoFavoritos ? 'carregando' : ''}`}
+                          className={`btn-favorito ${ehFavorito(cao.id) ? "favoritado" : ""} ${carregandoFavoritos ? "carregando" : ""}`}
                           onClick={(e) => handleFavoritoClick(cao.id, e)}
-                          title={ehFavorito(cao.id) ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                          title={
+                            ehFavorito(cao.id)
+                              ? "Remover dos favoritos"
+                              : "Adicionar aos favoritos"
+                          }
                           disabled={carregandoFavoritos}
                         >
-                          {carregandoFavoritos ? '⏳' : (ehFavorito(cao.id) ? '❤️' : '♡')}
+                          {carregandoFavoritos
+                            ? "⏳"
+                            : ehFavorito(cao.id)
+                              ? "❤️"
+                              : "♡"}
                         </button>
-                        {cao.status === 'adotado' && (
+                        {cao.status === "adotado" && (
                           <div className="badge-adotado">Adotado ❤️</div>
                         )}
                       </div>
@@ -446,7 +455,8 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* NOME - Edição Inline */}
                         <div className="pet-field">
                           <strong>Nome:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'nome' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "nome" ? (
                             <div className="inline-edit">
                               <input
                                 type="text"
@@ -457,7 +467,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               />
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('nome')}
+                                onClick={() => salvarEdicaoInline("nome")}
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -474,7 +484,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               <span>{cao.nome}</span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'nome')}
+                                onClick={() => iniciarEdicaoInline(cao, "nome")}
                                 title="Editar nome"
                               >
                                 ✏️
@@ -486,7 +496,8 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* DESCRIÇÃO - Edição Inline */}
                         <div className="pet-field">
                           <strong>Descrição:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'descricao' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "descricao" ? (
                             <div className="inline-edit">
                               <textarea
                                 name="descricao"
@@ -497,7 +508,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               />
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('descricao')}
+                                onClick={() => salvarEdicaoInline("descricao")}
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -514,7 +525,9 @@ export default function AdocaoCaes({ onLoginClick }) {
                               <span>{cao.descricao || "Sem descrição"}</span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'descricao')}
+                                onClick={() =>
+                                  iniciarEdicaoInline(cao, "descricao")
+                                }
                                 title="Editar descrição"
                               >
                                 ✏️
@@ -526,7 +539,8 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* RAÇA - Edição Inline */}
                         <div className="pet-field">
                           <strong>Raça:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'raca' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "raca" ? (
                             <div className="inline-edit">
                               <input
                                 type="text"
@@ -537,7 +551,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               />
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('raca')}
+                                onClick={() => salvarEdicaoInline("raca")}
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -554,7 +568,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               <span>{cao.raca || "SRD"}</span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'raca')}
+                                onClick={() => iniciarEdicaoInline(cao, "raca")}
                                 title="Editar raça"
                               >
                                 ✏️
@@ -566,7 +580,8 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* TAMANHO - Edição Inline */}
                         <div className="pet-field">
                           <strong>Tamanho:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'tamanho' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "tamanho" ? (
                             <div className="inline-edit">
                               <select
                                 name="tamanho"
@@ -580,7 +595,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                               </select>
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('tamanho')}
+                                onClick={() => salvarEdicaoInline("tamanho")}
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -595,12 +610,17 @@ export default function AdocaoCaes({ onLoginClick }) {
                           ) : (
                             <div className="inline-view">
                               <span>
-                                {cao.tamanho === 'pequeno' ? 'Pequeno' :
-                                 cao.tamanho === 'medio' ? 'Médio' : 'Grande'}
+                                {cao.tamanho === "pequeno"
+                                  ? "Pequeno"
+                                  : cao.tamanho === "medio"
+                                    ? "Médio"
+                                    : "Grande"}
                               </span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'tamanho')}
+                                onClick={() =>
+                                  iniciarEdicaoInline(cao, "tamanho")
+                                }
                                 title="Editar tamanho"
                               >
                                 ✏️
@@ -612,7 +632,8 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* PERSONALIDADE - Edição Inline */}
                         <div className="pet-field">
                           <strong>Personalidade:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'personalidade' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "personalidade" ? (
                             <div className="inline-edit">
                               <select
                                 name="personalidade"
@@ -625,7 +646,9 @@ export default function AdocaoCaes({ onLoginClick }) {
                               </select>
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('personalidade')}
+                                onClick={() =>
+                                  salvarEdicaoInline("personalidade")
+                                }
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -639,10 +662,16 @@ export default function AdocaoCaes({ onLoginClick }) {
                             </div>
                           ) : (
                             <div className="inline-view">
-                              <span>{cao.personalidade === 'brincalhao' ? 'Brincalhão' : 'Calmo'}</span>
+                              <span>
+                                {cao.personalidade === "brincalhao"
+                                  ? "Brincalhão"
+                                  : "Calmo"}
+                              </span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'personalidade')}
+                                onClick={() =>
+                                  iniciarEdicaoInline(cao, "personalidade")
+                                }
                                 title="Editar personalidade"
                               >
                                 ✏️
@@ -654,18 +683,23 @@ export default function AdocaoCaes({ onLoginClick }) {
                         {/* DATA DE NASCIMENTO - Edição Inline */}
                         <div className="pet-field">
                           <strong>Nascimento:</strong>
-                          {editandoCaoId === cao.id && campoEditando === 'dataNascimento' ? (
+                          {editandoCaoId === cao.id &&
+                          campoEditando === "dataNascimento" ? (
                             <div className="inline-edit">
                               <input
                                 type="date"
                                 name="dataNascimento"
-                                value={formatarDataParaInput(formDataCao.dataNascimento)}
+                                value={formatarDataParaInput(
+                                  formDataCao.dataNascimento
+                                )}
                                 onChange={handleFormChangeCao}
                                 className="inline-input"
                               />
                               <button
                                 className="btn-salvar-inline"
-                                onClick={() => salvarEdicaoInline('dataNascimento')}
+                                onClick={() =>
+                                  salvarEdicaoInline("dataNascimento")
+                                }
                                 disabled={carregandoCRUD}
                               >
                                 💾
@@ -682,7 +716,9 @@ export default function AdocaoCaes({ onLoginClick }) {
                               <span>{calcularIdade(cao.dataNascimento)}</span>
                               <button
                                 className="btn-editar-inline"
-                                onClick={() => iniciarEdicaoInline(cao, 'dataNascimento')}
+                                onClick={() =>
+                                  iniciarEdicaoInline(cao, "dataNascimento")
+                                }
                                 title="Editar data de nascimento"
                               >
                                 ✏️
@@ -693,11 +729,13 @@ export default function AdocaoCaes({ onLoginClick }) {
 
                         <div className="card-actions">
                           <button
-                            className={`btn-adotar ${cao.status === 'adotado' ? 'btn-adotado' : ''}`}
+                            className={`btn-adotar ${cao.status === "adotado" ? "btn-adotado" : ""}`}
                             onClick={() => handleAdotarClick(cao)}
-                            disabled={cao.status === 'adotado'}
+                            disabled={cao.status === "adotado"}
                           >
-                            {cao.status === 'adotado' ? 'Já foi adotado' : 'Adotar 🐾'}
+                            {cao.status === "adotado"
+                              ? "Já foi adotado"
+                              : "Adotar 🐾"}
                           </button>
                         </div>
                       </div>
@@ -709,7 +747,7 @@ export default function AdocaoCaes({ onLoginClick }) {
                 {totalPaginas > 1 && (
                   <div className="paginacao">
                     <button
-                      className={`btn-pagina ${paginaAtual === 1 ? 'disabled' : ''}`}
+                      className={`btn-pagina ${paginaAtual === 1 ? "disabled" : ""}`}
                       onClick={() => handleMudancaPagina(paginaAtual - 1)}
                       disabled={paginaAtual === 1}
                     >
@@ -717,11 +755,12 @@ export default function AdocaoCaes({ onLoginClick }) {
                     </button>
 
                     <div className="info-pagina">
-                      Página <span className="pagina-atual">{paginaAtual}</span> de {totalPaginas}
+                      Página <span className="pagina-atual">{paginaAtual}</span>{" "}
+                      de {totalPaginas}
                     </div>
 
                     <button
-                      className={`btn-pagina ${paginaAtual === totalPaginas ? 'disabled' : ''}`}
+                      className={`btn-pagina ${paginaAtual === totalPaginas ? "disabled" : ""}`}
                       onClick={() => handleMudancaPagina(paginaAtual + 1)}
                       disabled={paginaAtual === totalPaginas}
                     >

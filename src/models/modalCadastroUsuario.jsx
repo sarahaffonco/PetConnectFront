@@ -57,7 +57,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
       console.log("📤 Enviando dados para registro:", formData);
 
       const response = await axios.post(
-        "http://localhost:3000/api/auth/registrar",
+        "https://petconnect-h8cb.onrender.com/api/auth/registrar",
         {
           nome: formData.nome,
           email: formData.email,
