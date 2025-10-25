@@ -3,7 +3,7 @@ import AppRouter from "./router/router";
 import ModalLogin from "./models/modalLogin";
 import ModalCadastroUsuario from "./models/modalCadastroUsuario";
 import { useAuth } from "./hooks/useAuth";
-import "./styles/app.css";
+import "./styles/App.css";
 
 function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
