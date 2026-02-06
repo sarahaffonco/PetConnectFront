@@ -9,7 +9,7 @@ import { useAuth } from "../hooks/useAuth";
 import ModalAdocao from "../models/modalAdocao";
 import { useFavoritos } from "../hooks/useFavoritos";
 
-const API_URL = "http://localhost:3000/api/pets";
+const API_URL = import.meta.env.VITE_API_URL + \"/pets\";
 const LIMIT_PER_PAGE = 8;
 
 export default function AdocaoGatos({ onLoginClick }) {

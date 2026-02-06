@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 import "../styles/models.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ModalAdocao({
   isOpen,
   onClose,
@@ -42,7 +44,7 @@ export default function ModalAdocao({
     setMensagem("");
 
     try {
-      const response = await axios.post("http://localhost:3000/api/adocoes", {
+      const response = await axios.post(`${API_URL}/adocoes`, {
         petId: pet.id,
         adotanteId: usuario.id,
         observacoes: dadosAdocao.observacoes,

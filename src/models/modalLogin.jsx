@@ -10,6 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -44,7 +46,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${API_URL}/adotantes/login`,
         {
           email: formData.email,
           senha: formData.senha,
