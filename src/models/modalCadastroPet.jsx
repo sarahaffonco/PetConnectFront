@@ -41,7 +41,28 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
     setCarregando(true);
     setMensagem("");
 
+    // Validar campos obrigatórios
+    if (!formData.nome.trim()) {
+      setMensagem("❌ Nome do pet é obrigatório!");
+      setCarregando(false);
+      return;
+    }
+
+    if (!formData.especie) {
+      setMensagem("❌ Espécie é obrigatória!");
+      setCarregando(false);
+      return;
+    }
+
+    if (!formData.dataNascimento) {
+      setMensagem("❌ Data de nascimento é obrigatória!");
+      setCarregando(false);
+      return;
+    }
+
     try {
+      console.log("📤 Enviando dados:", formData);
+
       const response = await axios.post(
         `${API_URL}/pets`,
         formData
@@ -68,8 +89,15 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
         }, 2000);
       }
     } catch (error) {
-      console.error("Erro ao cadastrar pet:", error);
-      setMensagem("❌ Erro ao cadastrar pet. Tente novamente.");
+      console.error("💥 Erro completo:", error);
+      console.error("📋 Resposta do backend:", error.response?.data);
+
+      // Mostrar mensagem de erro do backend se disponível
+      const errorMsg =
+        error.response?.data?.erro ||
+        error.response?.data?.message ||
+        "Erro ao cadastrar pet. Tente novamente.";
+      setMensagem(`❌ ${errorMsg}`);
     } finally {
       setCarregando(false);
     }
