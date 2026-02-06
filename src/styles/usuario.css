@@ -350,17 +350,131 @@
    RESPONSIVIDADE
     */
 
+    @media (max-width: 1024px) {
+      .usuario-page {
+        padding: 1.5rem;
+        max-width: 900px;
+      }
+
+      .usuario-form {
+        padding: 1.2rem 1.5rem;
+      }
+
+      .adocoes-tabela {
+        font-size: 0.9rem;
+      }
+    }
+
     @media (max-width: 768px) {
+      .usuario-page {
+        padding: 1rem;
+      }
+
+      .usuario-title {
+        font-size: 1.6rem;
+      }
+
       .usuario-form {
         padding: 1rem;
+        gap: 0.8rem;
       }
 
       .usuario-tabela th,
       .usuario-tabela td {
         font-size: 0.9rem;
+        padding: 0.7rem 0.5rem;
       }
 
       .action-buttons {
         flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .btn-roxo,
+      .btn-cancelar,
+      .btn-excluir-conta {
+        width: 100%;
+      }
+
+      .adocoes-tabela {
+        font-size: 0.85rem;
+      }
+
+      .adocoes-tabela th,
+      .adocoes-tabela td {
+        padding: 0.5rem;
+      }
+
+      .btn-cancelar-adocao {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+      }
+
+      .profile-actions {
+        padding: 1rem;
+      }
+
+      .adocoes-section {
+        padding: 1rem;
+      }
+
+      .adocoes-section h3 {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .usuario-page {
+        padding: 0.5rem;
+      }
+
+      .usuario-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .usuario-form {
+        padding: 0.8rem;
+      }
+
+      .form-group label {
+        font-size: 0.9rem;
+      }
+
+      .form-group input {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.9rem;
+      }
+
+      .btn-roxo,
+      .btn-cancelar {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .usuario-tabela {
+        font-size: 0.8rem;
+      }
+
+      .usuario-tabela th,
+      .usuario-tabela td {
+        padding: 0.5rem 0.3rem;
+      }
+
+      .adocoes-table-container {
+        overflow-x: auto;
+      }
+
+      .adocoes-tabela {
+        min-width: 500px;
+      }
+
+      .btn-excluir-conta {
+        font-size: 0.9rem;
+      }
+
+      .message {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
       }
     }
