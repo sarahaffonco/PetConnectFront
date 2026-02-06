@@ -114,10 +114,17 @@ export default function AdocaoGatos({ onLoginClick }) {
   const iniciarEdicaoInline = useCallback((gato, campo) => {
     setEditandoGatoId(gato.id);
     setCampoEditando(campo);
-    setFormDataGato((prev) => ({
-      ...prev,
-      [campo]: gato[campo] || "",
-    }));
+    setFormDataGato({
+      nome: gato.nome || "",
+      descricao: gato.descricao || "",
+      especie: gato.especie || "",
+      raca: gato.raca || "",
+      tamanho: gato.tamanho || "",
+      personalidade: gato.personalidade || "",
+      dataNascimento: gato.dataNascimento || "",
+      status: gato.status || "disponivel",
+      fotoUrl: gato.fotoUrl || "",
+    });
   }, []);
 
   const handleFormChangeGato = useCallback((e) => {
@@ -136,9 +143,7 @@ export default function AdocaoGatos({ onLoginClick }) {
         setCarregandoCRUD(true);
         setMensagemCRUD("");
 
-        const dadosAtualizar = { [campo]: formDataGato[campo] };
-
-        await axios.put(`${API_URL}/${editandoGatoId}`, dadosAtualizar);
+        await axios.put(`${API_URL}/${editandoGatoId}`, formDataGato);
 
         setMensagemCRUD("✅ Campo atualizado com sucesso!");
         setEditandoGatoId(null);

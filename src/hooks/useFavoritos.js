@@ -18,7 +18,7 @@ export const useFavoritos = () => {
 
     try {
       setCarregando(true);
-      const response = await axios.get(`${API_URL}/${usuario.id}`);
+      const response = await axios.get(`${API_URL}/usuario/${usuario.id}`);
       setFavoritos(response.data);
     } catch (error) {
       console.error('Erro ao carregar favoritos:', error);
