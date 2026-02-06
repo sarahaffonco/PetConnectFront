@@ -6,10 +6,13 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     nome: "",
     especie: "",
+    raca: "",
     dataNascimento: "",
     descricao: "",
     tamanho: "",
     personalidade: "",
+    status: "disponivel",
+    fotoUrl: "",
   });
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState("");
@@ -38,7 +41,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/pets",
+        `${import.meta.env.VITE_API_URL}/api/pets`,
         formData
       );
 
@@ -47,10 +50,13 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
         setFormData({
           nome: "",
           especie: "",
+          raca: "",
           dataNascimento: "",
           descricao: "",
           tamanho: "",
           personalidade: "",
+          status: "disponivel",
+          fotoUrl: "",
         });
 
         // Fechar modal após 2 segundos
@@ -82,14 +88,14 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
 
         {mensagem && (
           <div
-            className={`mensagem ${mensagem.includes("✅") ? "sucesso" : "erro"}`}
+            className={`message ${mensagem.includes("✅") ? "success" : "error"}`}
           >
             {mensagem}
           </div>
         )}
 
         <form className="modal-form" onSubmit={handleSubmit}>
-          <div className="campo">
+          <div className="field">
             <label>Nome</label>
             <input
               type="text"
@@ -102,7 +108,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             />
           </div>
 
-          <div className="campo">
+          <div className="field">
             <label>Espécie</label>
             <select
               name="especie"
@@ -117,7 +123,19 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             </select>
           </div>
 
-          <div className="campo">
+          <div className="field">
+            <label>Raça</label>
+            <input
+              type="text"
+              name="raca"
+              value={formData.raca}
+              onChange={handleChange}
+              placeholder="Raça do pet (opcional)"
+              className="blue-input"
+            />
+          </div>
+
+          <div className="field">
             <label>Nascimento</label>
             <input
               type="date"
@@ -130,7 +148,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             />
           </div>
 
-          <div className="campo">
+          <div className="field">
             <label>Descrição</label>
             <textarea
               name="descricao"
@@ -142,7 +160,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             ></textarea>
           </div>
 
-          <div className="campo">
+          <div className="field">
             <label>Tamanho</label>
             <select
               name="tamanho"
@@ -158,7 +176,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
             </select>
           </div>
 
-          <div className="campo">
+          <div className="field">
             <label>Personalidade</label>
             <select
               name="personalidade"
@@ -170,6 +188,31 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
               <option value="">Selecione a personalidade</option>
               <option value="brincalhao">Brincalhão</option>
               <option value="calmo">Calmo</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label>URL da Foto</label>
+            <input
+              type="url"
+              name="fotoUrl"
+              value={formData.fotoUrl}
+              onChange={handleChange}
+              placeholder="URL da imagem do pet (opcional)"
+              className="blue-input"
+            />
+          </div>
+
+          <div className="field">
+            <label>Status</label>
+            <select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              className="blue-input"
+            >
+              <option value="disponivel">Disponível</option>
+              <option value="adotado">Adotado</option>
             </select>
           </div>
 

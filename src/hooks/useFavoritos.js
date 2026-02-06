@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 
-const API_URL = 'http://localhost:3000/api/favoritos';
+const API_URL = `${import.meta.env.VITE_API_URL}/api/favoritos`;
 
 export const useFavoritos = () => {
   const [favoritos, setFavoritos] = useState([]);
@@ -18,7 +18,7 @@ export const useFavoritos = () => {
 
     try {
       setCarregando(true);
-      const response = await axios.get(`${API_URL}/usuario/${usuario.id}`);
+      const response = await axios.get(`${API_URL}/${usuario.id}`);
       setFavoritos(response.data);
     } catch (error) {
       console.error('Erro ao carregar favoritos:', error);
@@ -27,6 +27,56 @@ export const useFavoritos = () => {
       setCarregando(false);
     }
   }, [usuario]);
+
+  // Adicionar favorito
+  const adicionarFavorito = async (petId) => {
+    if (!usuario) {
+      alert('Você precisa estar logado para favoritar pets!');
+      return false;
+    }
+
+    try {
+      const response = await axios.post(API_URL, {
+        usuarioId: usuario.id,
+        petId: parseInt(petId)
+      });
+
+      if (response.status === 201) {
+        setFavoritos(prev => [...prev, response.data]);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Erro ao adicionar favorito:', error);
+      if (error.response?.data?.erro) {
+        alert(error.response.data.erro);
+      } else {
+        alert('Erro ao favoritar pet. Tente novamente.');
+      }
+      return false;
+    }
+  };
+
+  // Remover favorito
+  const removerFavorito = async (petId) => {
+    if (!usuario) {
+      return false;
+    }
+
+    try {
+      await axios.delete(`${API_URL}/${usuario.id}/${petId}`);
+      setFavoritos(prev => prev.filter(fav => fav.petId !== parseInt(petId)));
+      return true;
+    } catch (error) {
+      console.error('Erro ao remover favorito:', error);
+      if (error.response?.data?.erro) {
+        alert(error.response.data.erro);
+      } else {
+        alert('Erro ao remover favorito. Tente novamente.');
+      }
+      return false;
+    }
+  };
 
   // Alternar favorito
   const alternarFavorito = async (petId) => {
@@ -37,21 +87,17 @@ export const useFavoritos = () => {
 
     setCarregando(true);
     try {
-      const response = await axios.post(`${API_URL}/alternar`, {
-        petId: parseInt(petId),
-        usuarioId: usuario.id
-      });
-
-      if (response.data.favoritado) {
-        setFavoritos(prev => [...prev, { id: petId }]);
+      const jaEhFavorito = ehFavorito(petId);
+      
+      if (jaEhFavorito) {
+        const sucesso = await removerFavorito(petId);
+        return !sucesso;
       } else {
-        setFavoritos(prev => prev.filter(pet => pet.id !== petId));
+        const sucesso = await adicionarFavorito(petId);
+        return sucesso;
       }
-
-      return response.data.favoritado;
     } catch (error) {
       console.error('Erro ao alternar favorito:', error);
-      alert('Erro ao favoritar pet. Tente novamente.');
       return false;
     } finally {
       setCarregando(false);
@@ -60,7 +106,7 @@ export const useFavoritos = () => {
 
   // Verificar se pet é favorito
   const ehFavorito = (petId) => {
-    return favoritos.some(pet => pet.id === petId);
+    return favoritos.some(fav => fav.petId === parseInt(petId));
   };
 
   useEffect(() => {

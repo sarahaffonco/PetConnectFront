@@ -23,8 +23,8 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
 
   const isLoadingRef = useRef(false);
   const isMountedRef = useRef(true);
-  const API_URL = "http://localhost:3000/api/adotantes";
-  const API_ADOCAO_URL = "http://localhost:3000/api/adocoes";
+  const API_URL = `${import.meta.env.VITE_API_URL}/api/adotantes`;
+  const API_ADOCAO_URL = `${import.meta.env.VITE_API_URL}/api/adocoes`;
 
   //  Limpeza ao desmontar
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
         if (isMountedRef.current) {
           setMessage(
             "❌ Erro ao salvar usuário: " +
-              (error.response?.data?.error || error.message)
+              (error.response?.data?.erro || error.response?.data?.error || error.message)
           );
         }
       } finally {
@@ -213,7 +213,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
         if (isMountedRef.current) {
           setMessage(
             "❌ Erro ao excluir usuário: " +
-              (error.response?.data?.error || error.message)
+              (error.response?.data?.erro || error.response?.data?.error || error.message)
           );
         }
       } finally {
@@ -238,7 +238,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
       if (isMountedRef.current) {
         setMessage(
           "❌ Erro ao excluir conta: " +
-            (error.response?.data?.error || error.message)
+            (error.response?.data?.erro || error.response?.data?.error || error.message)
         );
       }
     } finally {
@@ -279,7 +279,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
         if (isMountedRef.current) {
           setMessage(
             "❌ Erro ao atualizar campo: " +
-              (error.response?.data?.error || error.message)
+              (error.response?.data?.erro || error.response?.data?.error || error.message)
           );
         }
       } finally {
@@ -387,7 +387,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
                     <th>Pet</th>
                     <th>Espécie</th>
                     <th>Raça</th>
-                    <th>Idade</th>
+                    <th>Tamanho</th>
                     <th>Data da Adoção</th>
                     <th>Observações</th>
                     <th>Ações</th>
@@ -399,7 +399,7 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
                       <td>{adocao.pet?.nome || "N/A"}</td>
                       <td>{adocao.pet?.especie || "N/A"}</td>
                       <td>{adocao.pet?.raca || "Sem raça definida"}</td>
-                      <td>{adocao.pet?.idade || "N/A"}</td>
+                      <td>{adocao.pet?.tamanho || "N/A"}</td>
                       <td>{formatarData(adocao.dataAdocao)}</td>
                       <td>{adocao.observacoes || "Nenhuma"}</td>
                       <td>

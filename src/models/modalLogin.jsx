@@ -44,7 +44,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+        `${import.meta.env.VITE_API_URL}/api/adotantes/login`,
         {
           email: formData.email,
           senha: formData.senha,
@@ -54,7 +54,7 @@ export default function ModalLogin({ isOpen, onClose, onCadastrarClick }) {
       if (response.data.token) {
         // Salvar token e dados do usuário
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
+        localStorage.setItem("usuario", JSON.stringify(response.data.adotante));
 
         // Fechar modal e recarregar
         onClose();

@@ -57,7 +57,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
       console.log("📤 Enviando dados para registro:", formData);
 
       const response = await axios.post(
-        "http://localhost:3000/api/auth/registrar",
+        `${import.meta.env.VITE_API_URL}/api/adotantes`,
         {
           nome: formData.nome,
           email: formData.email,
@@ -74,7 +74,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
 
         // Salvar token no localStorage
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
+        localStorage.setItem("usuario", JSON.stringify(response.data.adotante));
 
         // Limpar formulário
         setFormData({
@@ -98,6 +98,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
       console.error("📋 Detalhes do erro:", error.response?.data);
 
       const errorMessage =
+        error.response?.data?.erro ||
         error.response?.data?.error ||
         error.response?.data?.details ||
         "❌ Erro ao cadastrar usuário. Tente novamente.";
@@ -146,7 +147,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
           </div>
 
           <div className="field">
-            <label>Telefone *</label>
+            <label>Telefone</label>
             <input
               type="tel"
               name="telefone"
@@ -154,7 +155,6 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
               onChange={handleChange}
               placeholder="(11) 99999-9999"
               className="purple-input"
-              required
             />
           </div>
 
