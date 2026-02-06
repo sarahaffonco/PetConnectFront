@@ -116,10 +116,17 @@ export default function AdocaoCaes({ onLoginClick }) {
   const iniciarEdicaoInline = useCallback((cao, campo) => {
     setEditandoCaoId(cao.id);
     setCampoEditando(campo);
-    setFormDataCao((prev) => ({
-      ...prev,
-      [campo]: cao[campo] || "",
-    }));
+    setFormDataCao({
+      nome: cao.nome || "",
+      descricao: cao.descricao || "",
+      especie: cao.especie || "",
+      raca: cao.raca || "",
+      tamanho: cao.tamanho || "",
+      personalidade: cao.personalidade || "",
+      dataNascimento: cao.dataNascimento || "",
+      status: cao.status || "disponivel",
+      fotoUrl: cao.fotoUrl || "",
+    });
   }, []);
 
   const handleFormChangeCao = useCallback((e) => {
@@ -138,9 +145,7 @@ export default function AdocaoCaes({ onLoginClick }) {
         setCarregandoCRUD(true);
         setMensagemCRUD("");
 
-        const dadosAtualizar = { [campo]: formDataCao[campo] };
-
-        await axios.put(`${API_URL}/${editandoCaoId}`, dadosAtualizar);
+        await axios.put(`${API_URL}/${editandoCaoId}`, formDataCao);
 
         setMensagemCRUD("✅ Campo atualizado com sucesso!");
         setEditandoCaoId(null);

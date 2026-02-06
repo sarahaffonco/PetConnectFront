@@ -100,7 +100,7 @@ export default function ModalAdocao({
 
         {mensagem && (
           <div
-            className={`mensagem ${mensagem.includes("✅") ? "sucesso" : "erro"}`}
+            className={`message ${mensagem.includes("✅") ? "success" : "error"}`}
           >
             {mensagem}
           </div>
@@ -145,7 +145,16 @@ export default function ModalAdocao({
             </div>
 
             <form className="modal-form" onSubmit={handleSubmit}>
-              <div className="campo">
+              <div className="field">
+                <label>Observações</label>
+                <textarea
+                  name="observacoes"
+                  value={dadosAdocao.observacoes}
+                  onChange={(e) => setDadosAdocao({ ...dadosAdocao, observacoes: e.target.value })}
+                  placeholder="Alguma observação sobre a adoção? (opcional)"
+                  className="yellow-input"
+                  rows="3"
+                />
               </div>
 
               <div className="modal-actions">
