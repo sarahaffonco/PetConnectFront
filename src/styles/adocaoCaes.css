@@ -735,6 +735,10 @@
   .adocao-caes-page .main-content {
     padding: 40px 80px;
   }
+
+  .adocao-caes-page .filters-sidebar {
+    width: 240px;
+  }
 }
 
 @media (max-width: 968px) {
@@ -748,10 +752,15 @@
   .adocao-caes-page .hero-content {
     text-align: center;
     margin-bottom: 30px;
+    max-width: 100%;
   }
 
   .adocao-caes-page .hero-badge {
     text-align: center;
+  }
+
+  .adocao-caes-page .hero-section h1 {
+    font-size: 40px;
   }
 
   .adocao-caes-page .main-content {
@@ -777,10 +786,17 @@
 
   .adocao-caes-page .filters-sidebar {
     position: static;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .adocao-caes-page .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .adocao-caes-page .filter-section {
+    margin-bottom: 20px;
   }
 }
 
@@ -791,6 +807,10 @@
 
   .adocao-caes-page .hero-section h1 {
     font-size: 32px;
+  }
+
+  .adocao-caes-page .hero-section p {
+    font-size: 14px;
   }
 
   .adocao-caes-page .hero-image {
@@ -824,6 +844,20 @@
   .adocao-caes-page .paginacao {
     flex-direction: column;
     gap: 15px;
+    align-items: center;
+  }
+
+  .adocao-caes-page .paginacao-info {
+    order: -1;
+  }
+
+  .adocao-caes-page .filters-sidebar {
+    padding: 20px;
+  }
+
+  .adocao-caes-page .btn-pagina {
+    padding: 8px 12px;
+    font-size: 13px;
   }
 }
 
@@ -836,6 +870,10 @@
     font-size: 28px;
   }
 
+  .adocao-caes-page .hero-badge {
+    font-size: 12px;
+  }
+
   .adocao-caes-page .main-content {
     padding: 20px 15px;
   }
@@ -846,6 +884,7 @@
 
   .adocao-caes-page .cards-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .adocao-caes-page .card-image {
@@ -853,6 +892,33 @@
   }
 
   .adocao-caes-page .filters-sidebar {
-    padding: 20px;
+    padding: 15px;
+  }
+
+  .adocao-caes-page .filter-section h3 {
+    font-size: 18px;
+  }
+
+  .adocao-caes-page .checkbox-label {
+    font-size: 0.9rem;
+  }
+
+  .adocao-caes-page .btn-limpar-filtros {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .adocao-caes-page .hero-image {
+    height: 250px;
+  }
+
+  .adocao-caes-page .hero-image::before,
+  .adocao-caes-page .hero-image::after {
+    width: 250px;
+    height: 200px;
+  }
+
+  .adocao-caes-page .hero-image img {
+    max-width: 250px;
   }
 }

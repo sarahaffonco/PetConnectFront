@@ -761,14 +761,51 @@
 }
 
 /* Ajustes para mobile */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .modal-container {
-    width: 95%;
-    padding: 1.5rem;
+    width: 90%;
+    padding: 1.8rem;
+    max-height: 90vh;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .modal-form {
+    gap: 1.2rem;
+  }
+
+  .field {
+    margin-bottom: 1rem;
+  }
+
+  .field > label {
+    font-size: 0.7rem;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .btn-primary,
+  .btn-purple,
+  .btn-cyan {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
   }
 
   .modal-actions {
     flex-direction: column;
+    gap: 0.8rem;
   }
 
   .btn-cancelar {
@@ -783,6 +820,124 @@
   .pet-info-card,
   .adotante-info-card {
     padding: 1rem;
+  }
+
+  .info-item {
+    font-size: 0.9rem;
+  }
+
+  .delete-warning {
+    padding: 1.2rem;
+  }
+
+  .btn-confirm-delete {
+    padding: 0.9rem 1.3rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-container {
+    width: 95%;
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+
+  .modal-title {
+    font-size: 1.3rem;
+    gap: 0.4rem;
+  }
+
+  .close-btn {
+    font-size: 1.5rem;
+    top: 10px;
+    right: 15px;
+  }
+
+  .modal-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-form {
+    gap: 1rem;
+  }
+
+  .field {
+    margin-bottom: 0.8rem;
+  }
+
+  .field > label {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    left: 12px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    font-size: 0.85rem;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .btn-primary,
+  .btn-purple,
+  .btn-cyan {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .message {
+    padding: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .adocao-info {
+    gap: 0.8rem;
+  }
+
+  .pet-info-card,
+  .adotante-info-card {
+    padding: 0.8rem;
+  }
+
+  .pet-info-card h3,
+  .adotante-info-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .info-item {
+    font-size: 0.85rem;
+    gap: 0.4rem;
+  }
+
+  .info-label {
+    font-size: 0.8rem;
+  }
+
+  .delete-warning {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .delete-warning p {
+    font-size: 0.9rem;
+  }
+
+  .delete-warning ul {
+    font-size: 0.85rem;
+  }
+
+  .btn-confirm-delete {
+    padding: 0.85rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .input-icon {
+    font-size: 0.9rem;
+    right: 12px;
   }
 }
 
