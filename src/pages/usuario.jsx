@@ -23,8 +23,8 @@ export default function Usuario({ usuario, onLogout, onUsuarioUpdate }) {
 
   const isLoadingRef = useRef(false);
   const isMountedRef = useRef(true);
-  const API_URL = `${import.meta.env.VITE_API_URL}/api/adotantes`;
-  const API_ADOCAO_URL = `${import.meta.env.VITE_API_URL}/api/adocoes`;
+  const API_URL = import.meta.env.VITE_API_URL + "/adotantes";
+  const API_ADOCAO_URL = import.meta.env.VITE_API_URL + "/adocoes";
 
   //  Limpeza ao desmontar
   useEffect(() => {

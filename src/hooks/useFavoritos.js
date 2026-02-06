@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useAuth } from './useAuth';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/favoritos`;
+const API_URL = import.meta.env.VITE_API_URL + '/favoritos';
 
 export const useFavoritos = () => {
   const [favoritos, setFavoritos] = useState([]);

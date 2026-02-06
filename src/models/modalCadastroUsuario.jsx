@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ModalCadastroUsuario({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     nome: "",
@@ -57,7 +59,7 @@ export default function ModalCadastroUsuario({ isOpen, onClose }) {
       console.log("📤 Enviando dados para registro:", formData);
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/adotantes`,
+        `${API_URL}/adotantes`,
         {
           nome: formData.nome,
           email: formData.email,

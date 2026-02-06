@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/models.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function ModalCadastroPet({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     nome: "",
@@ -41,7 +43,7 @@ export default function ModalCadastroPet({ isOpen, onClose }) {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/pets`,
+        `${API_URL}/pets`,
         formData
       );
 
