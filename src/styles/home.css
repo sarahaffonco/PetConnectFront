@@ -79,6 +79,13 @@
     margin-bottom: 2rem;
 }
 
+.welcome-user {
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+}
+
 .blue-btn {
     background-color: var(--color-accent);
     color: white;

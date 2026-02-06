@@ -5,7 +5,7 @@ import dogIcon from "../assets/dogs.png";
 import { useState } from "react";
 import ModalCadastroPet from "../models/modalCadastroPet.jsx";
 import { Link } from "react-router-dom";
-export default function Home() {
+export default function Home({ usuario }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -18,6 +18,11 @@ export default function Home() {
         <div className="hero-text">
           <h1>Connect Pet</h1>
           <p>Conectamos animais e pessoas em um só clique</p>
+          {usuario?.nome && (
+            <p className="welcome-user">
+              Bem-vindo(a), <strong>{usuario.nome}</strong>
+            </p>
+          )}
           {/* Botão para abrir a modal */}
           <button onClick={() => setIsModalOpen(true)} className="blue-btn">
             Cadastrar Pet

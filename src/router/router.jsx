@@ -16,7 +16,7 @@ export default function AppRouter({ onLoginClick, usuario, onLogout, onUsuarioUp
         onLogout={onLogout}
       />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home usuario={usuario} />} />
         <Route path="/adocao/cachorros" element={<AdocaoCaes />} />
         <Route path="/adocao/gatos" element={<AdocaoGatos />} />
         <Route
